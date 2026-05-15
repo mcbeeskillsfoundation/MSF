@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grievance Redressal Policy — MCBEE Skills Foundation</title>
+  <meta name="description" content="How to raise a grievance with MCBEE Skills Foundation. Grievance Officer contact, process, and escalation. Published under DPDP Act 2023." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <script src="content.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #050505; --paper: #FCFCFC; --white: #FFFFFF; --purple: #9741F4; --orange: #FF820D; --muted: #B1B6C1; --line: #E8E8E8; --max-w: 800px; --pad-x: clamp(1.25rem, 5vw, 2.5rem); }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: 1rem; line-height: 1.7; background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+    #nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--ink); display: flex; align-items: center; justify-content: space-between; padding: 1rem var(--pad-x); box-shadow: 0 2px 16px rgba(0,0,0,0.3); }
+    .nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+    .logo-mark { width: 32px; height: 32px; border-radius: 4px; background: linear-gradient(135deg,#9741F4,#FF820D); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .nav-logo-text { font-size: 0.9rem; font-weight: 300; color: var(--paper); }
+    .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: var(--orange); }
+    .legal-hero { background: var(--ink); padding: 7rem var(--pad-x) 3.5rem; text-align: center; }
+    .legal-hero .eyebrow { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.75rem; }
+    .legal-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 300; color: var(--paper); letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .legal-hero .meta { font-size: 0.825rem; color: var(--muted); }
+    .quick-contact { background: rgba(151,65,244,0.12); border: 1px solid rgba(151,65,244,0.3); border-radius: 8px; padding: 1.25rem 1.5rem; max-width: var(--max-w); margin: 2rem auto 0; text-align: center; }
+    .quick-contact p { font-size: 0.9rem; color: var(--paper); margin-bottom: 0.25rem; }
+    .quick-contact a { color: var(--orange); font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .legal-content { max-width: var(--max-w); margin: 0 auto; padding: 3.5rem var(--pad-x) 5rem; }
+    .toc { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 1.5rem 1.75rem; margin-bottom: 3rem; }
+    .toc h3 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.9rem; }
+    .toc ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.3rem; }
+    .toc li a { font-size: 0.875rem; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+    .toc li a:hover { color: var(--purple); }
+    .legal-section { margin-bottom: 2.75rem; scroll-margin-top: 5rem; }
+    .legal-section h2 { font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 0.6rem; }
+    .sec-num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; }
+    .legal-section p { color: #333; margin-bottom: 0.85rem; font-size: 0.95rem; }
+    .legal-section p:last-child { margin-bottom: 0; }
+    .legal-section ul, .legal-section ol { padding-left: 1.4rem; margin-bottom: 0.85rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .legal-section li { font-size: 0.95rem; color: #333; }
+    .legal-section strong { color: var(--ink); font-weight: 700; }
+    .officer-card { background: var(--ink); border-radius: 8px; padding: 1.75rem; border-top: 4px solid var(--purple); margin: 1rem 0; }
+    .officer-card h3 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); margin-bottom: 1rem; }
+    .officer-field { display: flex; gap: 1rem; margin-bottom: 0.6rem; font-size: 0.9rem; }
+    .officer-label { color: var(--muted); font-weight: 500; min-width: 100px; flex-shrink: 0; }
+    .officer-value { color: var(--paper); }
+    .officer-value a { color: var(--orange); text-decoration: none; }
+    .process-steps { display: flex; flex-direction: column; gap: 0; margin: 1rem 0; }
+    .process-step { display: flex; gap: 1.25rem; align-items: flex-start; position: relative; padding-bottom: 1.75rem; }
+    .process-step:last-child { padding-bottom: 0; }
+    .process-step:not(:last-child)::before { content: ''; position: absolute; left: 16px; top: 36px; bottom: 0; width: 2px; background: var(--line); }
+    .step-circle { width: 34px; height: 34px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; z-index: 1; }
+    .step-content h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--ink); }
+    .step-content p { font-size: 0.875rem; color: #555; margin: 0; line-height: 1.55; }
+    .step-sla { display: inline-block; font-size: 0.72rem; font-weight: 700; color: var(--purple); background: rgba(151,65,244,0.08); border: 1px solid rgba(151,65,244,0.2); border-radius: 100px; padding: 0.15rem 0.6rem; margin-top: 0.3rem; }
+    .escalation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+    .escalation-card { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 1.25rem; }
+    .escalation-card h4 { font-size: 0.82rem; font-weight: 700; color: var(--purple); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .escalation-card p { font-size: 0.875rem; color: #444; line-height: 1.55; }
+    .scope-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; }
+    .scope-tag { font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 100px; background: #f0ebff; color: var(--purple); border: 1px solid rgba(151,65,244,0.2); }
+    .checklist-box { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 1.25rem 1.5rem; margin: 0.75rem 0; }
+    .checklist-box p { font-size: 0.875rem; color: #555; margin-bottom: 0.3rem; display: flex; gap: 0.5rem; align-items: flex-start; }
+    .checklist-box p::before { content: '→'; color: var(--purple); font-weight: 700; flex-shrink: 0; }
+    .contact-box { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 0.75rem; }
+    .contact-box p { font-size: 0.875rem; color: #444; margin-bottom: 0.2rem; }
+    .contact-box a { color: var(--purple); text-decoration: none; }
+    footer { background: var(--ink); border-top: 4px solid var(--purple); padding: 2.5rem var(--pad-x); text-align: center; }
+    .foot-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 1.25rem; }
+    .foot-links a { font-size: 0.825rem; color: rgba(252,252,252,0.5); text-decoration: none; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--orange); }
+    .foot-copy { font-size: 0.775rem; color: rgba(177,182,193,0.45); }
+    @media (max-width: 600px) { .escalation-grid { grid-template-columns: 1fr; } .officer-field { flex-direction: column; gap: 0.15rem; } }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-mark">M</div>
+    <span class="nav-logo-text">MCBEE Skills Foundation</span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+
+<div class="legal-hero">
+  <span class="eyebrow">Legal</span>
+  <h1>Grievance Redressal Policy</h1>
+  <p class="meta">Last updated: <span data-cms="date-grievance">[Date]</span> &nbsp;·&nbsp; Published under DPDP Act 2023</p>
+  <div class="quick-contact">
+    <p style="color:rgba(252,252,252,0.65);font-size:0.82rem;">To raise a grievance immediately, email us at</p>
+    <a href="mailto:mcbeeskillsfoundation@gmail.com">mcbeeskillsfoundation@gmail.com</a>
+  </div>
+</div>
+
+<div class="legal-content">
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#s1">What is a grievance</a></li>
+      <li><a href="#s2">How to raise a grievance</a></li>
+      <li><a href="#s3">Our Grievance Officer</a></li>
+      <li><a href="#s4">Our process</a></li>
+      <li><a href="#s5">Escalation</a></li>
+      <li><a href="#s6">Confidentiality</a></li>
+      <li><a href="#s7">Records</a></li>
+      <li><a href="#s8">Changes to this policy</a></li>
+    </ol>
+  </div>
+
+  <p style="font-size:0.95rem;color:#444;margin-bottom:2rem;">MCBEE Skills Foundation is committed to addressing concerns promptly and fairly from any stakeholder — programme applicants, students, industry partners, donors, and members of the public. This policy is published in compliance with the Digital Personal Data Protection Act, 2023 (DPDP Act), the Information Technology Rules, 2011, and the Companies Act, 2013.</p>
+
+  <div class="legal-section" id="s1">
+    <h2><span class="sec-num">1</span> What is a grievance</h2>
+    <p>A grievance is any complaint, concern, or dissatisfaction relating to:</p>
+    <div class="scope-tags">
+      <span class="scope-tag">Personal data handling</span>
+      <span class="scope-tag">Programme operations</span>
+      <span class="scope-tag">Selection processes</span>
+      <span class="scope-tag">Staff or volunteer conduct</span>
+      <span class="scope-tag">Financial handling</span>
+      <span class="scope-tag">Donations</span>
+      <span class="scope-tag">Communications or content</span>
+      <span class="scope-tag">Any Foundation activity</span>
+    </div>
+    <p>This includes — but is not limited to — concerns about how we collect, use, or store your personal data under the DPDP Act 2023.</p>
+  </div>
+
+  <div class="legal-section" id="s2">
+    <h2><span class="sec-num">2</span> How to raise a grievance</h2>
+    <p>You may raise a grievance through any of the following channels:</p>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:mcbeeskillsfoundation@gmail.com" style="color:var(--purple);">mcbeeskillsfoundation@gmail.com</a></li>
+      <li><strong>Postal:</strong> Grievance Officer, MCBEE Skills Foundation, <span data-cms="org-address">[Registered office address — to be added]</span></li>
+      <li><strong>Phone:</strong> <span data-cms="org-grievance-phone">[to be added]</span></li>
+    </ul>
+    <p>To help us investigate and resolve your grievance efficiently, please include:</p>
+    <div class="checklist-box">
+      <p>Your full name and contact details</p>
+      <p>A clear description of the issue and the circumstances</p>
+      <p>Any relevant dates, reference numbers, or supporting documents</p>
+      <p>The outcome you are seeking</p>
+    </div>
+    <p>If you wish to remain anonymous, you may do so. Please note that anonymous submissions limit our ability to update you on the resolution or seek clarification.</p>
+  </div>
+
+  <div class="legal-section" id="s3">
+    <h2><span class="sec-num">3</span> Our Grievance Officer</h2>
+    <p>As required under the DPDP Act 2023, we have designated a Grievance Officer who is responsible for receiving and resolving complaints about personal data handling, as well as broader Foundation concerns.</p>
+    <div class="officer-card">
+      <h3>Grievance Officer — MCBEE Skills Foundation</h3>
+      <div class="officer-field"><span class="officer-label">Name</span><span class="officer-value" data-cms="org-grievance-name">[To be appointed]</span></div>
+      <div class="officer-field"><span class="officer-label">Designation</span><span class="officer-value">Grievance Officer</span></div>
+      <div class="officer-field"><span class="officer-label">Email</span><span class="officer-value"><a href="mailto:mcbeeskillsfoundation@gmail.com">mcbeeskillsfoundation@gmail.com</a></span></div>
+      <div class="officer-field"><span class="officer-label">Phone</span><span class="officer-value" data-cms="org-grievance-phone">[to be added]</span></div>
+      <div class="officer-field"><span class="officer-label">Office hours</span><span class="officer-value">Monday to Friday, 10:00 – 18:00 IST</span></div>
+    </div>
+    <p>The Grievance Officer is empowered to investigate complaints, consult relevant parties, and recommend or implement remedies.</p>
+  </div>
+
+  <div class="legal-section" id="s4">
+    <h2><span class="sec-num">4</span> Our process</h2>
+    <p>Once we receive your grievance, we follow a structured four-step process:</p>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-circle">1</div>
+        <div class="step-content">
+          <h4>Acknowledgement</h4>
+          <p>We will acknowledge receipt of your grievance in writing and provide a unique reference number for tracking.</p>
+          <span class="step-sla">Within 7 working days</span>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">2</div>
+        <div class="step-content">
+          <h4>Investigation</h4>
+          <p>The Grievance Officer, with any additional reviewers required, will investigate the matter — including speaking with relevant staff, volunteers, or third parties as needed.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">3</div>
+        <div class="step-content">
+          <h4>Resolution</h4>
+          <p>We will provide a substantive written response addressing the grievance. If the matter is complex and requires additional time, we will inform you of the delay and provide an expected resolution date.</p>
+          <span class="step-sla">Within 30 days of receipt</span>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">4</div>
+        <div class="step-content">
+          <h4>Outcome</h4>
+          <p>We will communicate the outcome of the investigation and any actions we have taken or intend to take, in writing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legal-section" id="s5">
+    <h2><span class="sec-num">5</span> Escalation</h2>
+    <p>If you are not satisfied with our response or resolution, you may escalate as follows:</p>
+    <div class="escalation-grid">
+      <div class="escalation-card">
+        <h4>Data protection grievances</h4>
+        <p>Concerns about how we handle personal data (under the DPDP Act, 2023) may be escalated to the <strong>Data Protection Board of India</strong>, once constituted under the Act. The Board's contact details will be published on the MeitY website once available.</p>
+      </div>
+      <div class="escalation-card">
+        <h4>Other grievances</h4>
+        <p>Other concerns relating to the Foundation's activities may be escalated to the <strong>Registrar of Companies</strong> (Haryana or Delhi, depending on our registered office) for matters falling under the Companies Act, 2013.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="legal-section" id="s6">
+    <h2><span class="sec-num">6</span> Confidentiality</h2>
+    <p>We treat all grievances with full confidentiality. Information about your grievance is shared only with those staff, volunteers, or advisors who need it to investigate and resolve the matter.</p>
+    <p>No information about your grievance will be shared publicly, or used against you in any way, unless we are required to do so by law.</p>
+  </div>
+
+  <div class="legal-section" id="s7">
+    <h2><span class="sec-num">7</span> Records</h2>
+    <p>We maintain a formal grievance register that records:</p>
+    <ul>
+      <li>Date the grievance was received</li>
+      <li>Nature and category of the grievance</li>
+      <li>Actions taken during investigation</li>
+      <li>Date and nature of resolution</li>
+    </ul>
+    <p>This register is available for inspection by our board of directors and statutory auditors. Aggregated, anonymised grievance data may be included in our annual reports as part of our transparency commitment.</p>
+  </div>
+
+  <div class="legal-section" id="s8">
+    <h2><span class="sec-num">8</span> Changes to this policy</h2>
+    <p>This Grievance Redressal Policy may be updated from time to time to reflect changes in law, regulation, or our internal practices. Material changes will be reflected on this page with an updated "Last updated" date at the top.</p>
+    <p>We recommend checking this page periodically. For significant changes, we will provide notice via email to registered users where applicable.</p>
+  </div>
+
+  <div style="background:var(--white);border:1px solid var(--line);border-radius:8px;padding:1.75rem;margin-top:1.5rem;text-align:center;">
+    <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.5rem;">To raise a grievance, contact us at</p>
+    <a href="mailto:mcbeeskillsfoundation@gmail.com" style="font-size:1.1rem;font-weight:700;color:var(--purple);text-decoration:none;">mcbeeskillsfoundation@gmail.com</a>
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:0.5rem;">We acknowledge within 7 working days and respond substantively within 30 days.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Use</a>
+    <a href="donor-policy.html">Donor Policy</a>
+    <a href="grievance.html">Grievance</a>
+  </div>
+  <p class="foot-copy">© <span data-cms="footer-year">2026</span> MCBEE Skills Foundation · A Section 8 (Not-for-profit) Company · Delhi NCR · CIN: <span data-cms="org-cin">[to be added]</span></p>
+</footer>
+
+<script>if (typeof CMS !== 'undefined') CMS.hydrate();</script>
+</body>
+</html>

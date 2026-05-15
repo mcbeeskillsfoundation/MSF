@@ -1,0 +1,21 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/privacy",   "destination": "/privacy.html" },
+    { "source": "/terms",     "destination": "/terms.html" },
+    { "source": "/donor",     "destination": "/donor-policy.html" },
+    { "source": "/grievance", "destination": "/grievance.html" },
+    { "source": "/partner",   "destination": "/partner.html" },
+    { "source": "/tracks",    "destination": "/tracks.html" },
+    { "source": "/admin",     "destination": "/msf-admin-23.html" }
+  ]
+}

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donor Policy &amp; Refund Policy — MCBEE Skills Foundation</title>
+  <meta name="description" content="How MCBEE Skills Foundation handles donor information, 80G tax exemptions, and our refund and cancellation policy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <script src="content.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ink: #050505; --paper: #FCFCFC; --white: #FFFFFF; --purple: #9741F4; --orange: #FF820D; --muted: #B1B6C1; --line: #E8E8E8; --success: #22bb66; --max-w: 800px; --pad-x: clamp(1.25rem, 5vw, 2.5rem); }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: 1rem; line-height: 1.7; background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+    #nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--ink); display: flex; align-items: center; justify-content: space-between; padding: 1rem var(--pad-x); box-shadow: 0 2px 16px rgba(0,0,0,0.3); }
+    .nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+    .logo-mark { width: 32px; height: 32px; border-radius: 4px; background: linear-gradient(135deg,#9741F4,#FF820D); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .nav-logo-text { font-size: 0.9rem; font-weight: 300; color: var(--paper); }
+    .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: var(--orange); }
+    .legal-hero { background: var(--ink); padding: 7rem var(--pad-x) 3.5rem; text-align: center; }
+    .legal-hero .eyebrow { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.75rem; }
+    .legal-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 300; color: var(--paper); letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .legal-hero .meta { font-size: 0.825rem; color: var(--muted); }
+    .legal-hero .sub { font-size: 0.9rem; color: rgba(252,252,252,0.6); margin-top: 0.5rem; }
+    .legal-content { max-width: var(--max-w); margin: 0 auto; padding: 3.5rem var(--pad-x) 5rem; }
+    .toc { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 1.5rem 1.75rem; margin-bottom: 3rem; }
+    .toc h3 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.9rem; }
+    .toc ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.3rem; }
+    .toc li a { font-size: 0.875rem; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+    .toc li a:hover { color: var(--purple); }
+    .legal-section { margin-bottom: 2.75rem; scroll-margin-top: 5rem; }
+    .legal-section h2 { font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 0.6rem; }
+    .sec-num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; }
+    .legal-section p { color: #333; margin-bottom: 0.85rem; font-size: 0.95rem; }
+    .legal-section p:last-child { margin-bottom: 0; }
+    .legal-section ul, .legal-section ol { padding-left: 1.4rem; margin-bottom: 0.85rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .legal-section li { font-size: 0.95rem; color: #333; }
+    .legal-section strong { color: var(--ink); font-weight: 700; }
+    .legal-section h3 { font-size: 0.95rem; font-weight: 700; margin: 1.5rem 0 0.6rem; color: var(--ink); padding-left: 0.75rem; border-left: 3px solid var(--purple); }
+    .refund-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+    .refund-card { border-radius: 8px; padding: 1.25rem; border: 1px solid var(--line); }
+    .refund-card.yes { border-left: 4px solid var(--success); background: #f0fdf5; }
+    .refund-card.no  { border-left: 4px solid #e03030; background: #fff5f5; }
+    .refund-card strong { display: block; font-size: 0.82rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .refund-card.yes strong { color: var(--success); }
+    .refund-card.no  strong { color: #e03030; }
+    .refund-card ul { margin: 0; padding-left: 1.1rem; }
+    .refund-card li { font-size: 0.85rem; color: #444; }
+    .tax-box { background: linear-gradient(135deg, #f0ebff, #fff5eb); border: 1px solid rgba(151,65,244,0.2); border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
+    .tax-box h3 { font-size: 0.9rem; font-weight: 700; color: var(--purple); margin-bottom: 0.75rem; border: none; padding: 0; }
+    .tax-box ul { padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tax-box li { font-size: 0.875rem; color: #444; }
+    .rights-list { display: flex; flex-direction: column; gap: 0.5rem; margin: 0.75rem 0; }
+    .rights-list li { display: flex; gap: 0.6rem; font-size: 0.9rem; color: #333; list-style: none; padding-left: 0; }
+    .rights-list li::before { content: '✓'; color: var(--purple); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .contact-box { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 0.75rem; }
+    .contact-box p { font-size: 0.875rem; color: #444; margin-bottom: 0.2rem; }
+    .contact-box a { color: var(--purple); text-decoration: none; }
+    .steps { display: flex; flex-direction: column; gap: 0.65rem; margin: 0.75rem 0; }
+    .step-item { display: flex; gap: 0.85rem; align-items: flex-start; }
+    .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--orange); color: #fff; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .step-item p { font-size: 0.9rem; color: #333; margin: 0; }
+    footer { background: var(--ink); border-top: 4px solid var(--purple); padding: 2.5rem var(--pad-x); text-align: center; }
+    .foot-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 1.25rem; }
+    .foot-links a { font-size: 0.825rem; color: rgba(252,252,252,0.5); text-decoration: none; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--orange); }
+    .foot-copy { font-size: 0.775rem; color: rgba(177,182,193,0.45); }
+    @media (max-width: 600px) { .refund-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-mark">M</div>
+    <span class="nav-logo-text">MCBEE Skills Foundation</span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+
+<div class="legal-hero">
+  <span class="eyebrow">Legal</span>
+  <h1>Donor Policy &amp; Refund Policy</h1>
+  <p class="meta">Last updated: <span data-cms="date-donor">[Date]</span></p>
+  <p class="sub">This policy supplements our <a href="privacy.html" style="color:var(--orange);">Privacy Policy</a> — it does not replace it.</p>
+</div>
+
+<div class="legal-content">
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#s1">Information we collect from donors</a></li>
+      <li><a href="#s2">How we use donor information</a></li>
+      <li><a href="#s3">Confidentiality</a></li>
+      <li><a href="#s4">Public acknowledgement</a></li>
+      <li><a href="#s5">Tax exemption — 80G</a></li>
+      <li><a href="#s6">Refund and cancellation policy</a></li>
+      <li><a href="#s7">Donation receipts</a></li>
+      <li><a href="#s8">Foreign donations</a></li>
+      <li><a href="#s9">Your rights as a donor</a></li>
+      <li><a href="#s10">Contact</a></li>
+    </ol>
+  </div>
+
+  <p style="font-size:0.95rem;color:#444;margin-bottom:2rem;">MCBEE Skills Foundation deeply values every contribution that supports our mission of training India's next generation of AV, IT, automation, and building-systems professionals. This policy explains how we handle donor information, issue tax receipts, and process refunds.</p>
+
+  <div class="legal-section" id="s1">
+    <h2><span class="sec-num">1</span> Information we collect from donors</h2>
+    <p>When you make a donation or express an intention to donate, we may collect:</p>
+    <ul>
+      <li>Your name, address, phone number, and email address</li>
+      <li>Your PAN number — required for issuing 80G tax deduction certificates where applicable</li>
+      <li>The amount donated and your payment method (payment is processed by our payment gateway — we do not store full card or bank account details)</li>
+      <li>Any messages, dedications, or special instructions you provide</li>
+      <li>Your preference regarding public acknowledgement (whether you wish to be credited or remain anonymous)</li>
+    </ul>
+  </div>
+
+  <div class="legal-section" id="s2">
+    <h2><span class="sec-num">2</span> How we use donor information</h2>
+    <p>We use donor information solely to:</p>
+    <ul>
+      <li>Process and acknowledge your donation</li>
+      <li>Issue a formal receipt and, where applicable, an 80G tax deduction certificate</li>
+      <li>Send you periodic updates on the impact of your contribution — only if you have consented</li>
+      <li>Comply with our statutory obligations, including audit, taxation, and government reporting requirements</li>
+    </ul>
+  </div>
+
+  <div class="legal-section" id="s3">
+    <h2><span class="sec-num">3</span> Confidentiality</h2>
+    <ul>
+      <li>We <strong>do not</strong> sell, trade, rent, or lease donor information to any third party</li>
+      <li>We <strong>do not</strong> publicly disclose donor names, amounts, or other identifying information unless you have explicitly consented in writing</li>
+      <li>We share donor information with our statutory auditors, tax authorities, and regulators only where required by law</li>
+      <li>All staff and volunteers with access to donor data are bound by confidentiality obligations</li>
+    </ul>
+  </div>
+
+  <div class="legal-section" id="s4">
+    <h2><span class="sec-num">4</span> Public acknowledgement</h2>
+    <p>Some donors choose to be publicly acknowledged — in our annual reports, on this website, or at Foundation events. Public acknowledgement is entirely optional and requires your explicit written consent at the time of donation.</p>
+    <p>You may withdraw this consent at any time by writing to <a href="mailto:mcbeeskillsfoundation@gmail.com" style="color:var(--purple);">mcbeeskillsfoundation@gmail.com</a>. We will remove the acknowledgement from future publications, though we may not be able to retract materials already in print.</p>
+  </div>
+
+  <div class="legal-section" id="s5">
+    <h2><span class="sec-num">5</span> Tax exemption — Section 80G</h2>
+    <div class="tax-box">
+      <h3>📋 What qualifies for 80G</h3>
+      <ul>
+        <li><strong>Donations to the Foundation</strong> — once our 80G registration is granted, eligible donations receive a tax deduction certificate under Section 80G of the Income Tax Act, 1961</li>
+        <li><strong>Paid course fees (Track Two) are NOT 80G eligible</strong> — these are fee-for-service payments, not charitable donations</li>
+        <li>PAN is mandatory for issuing an 80G certificate. We can still accept your donation without PAN, but cannot issue the certificate.</li>
+      </ul>
+    </div>
+    <p>Once our 80G registration is granted, we commit to:</p>
+    <ul>
+      <li>Issue the 80G certificate within <strong>30 days</strong> of the donation being credited</li>
+      <li>File the required statement (Form 10BD) with the Income Tax Department as mandated</li>
+      <li>Maintain records of all donations for the period required by applicable law</li>
+    </ul>
+    <p style="font-size:0.875rem;color:var(--muted);margin-top:0.5rem;">Note: 80G registrations are subject to renewal. Eligibility is valid for the period during which our registration is active.</p>
+  </div>
+
+  <div class="legal-section" id="s6">
+    <h2><span class="sec-num">6</span> Refund and cancellation policy</h2>
+    <p>We understand that donations may sometimes need to be reversed. Our policy is as follows:</p>
+
+    <h3>Duplicate or accidental donations</h3>
+    <p>If you believe you have donated by mistake or your payment method was charged twice, please contact us at <a href="mailto:mcbeeskillsfoundation@gmail.com" style="color:var(--purple);">mcbeeskillsfoundation@gmail.com</a> within <strong>30 days</strong> of the transaction, providing:</p>
+    <div class="steps">
+      <div class="step-item"><div class="step-num">1</div><p>Your name and the transaction reference number</p></div>
+      <div class="step-item"><div class="step-num">2</div><p>Proof of the donation (a screenshot or bank statement is sufficient)</p></div>
+      <div class="step-item"><div class="step-num">3</div><p>A brief reason for the refund request</p></div>
+    </div>
+    <p>We will review and respond within <strong>7 working days</strong>. If the refund is approved, we will process it within <strong>10 working days</strong> to the original payment method.</p>
+
+    <h3>Cancellation before payment</h3>
+    <p>If you have expressed an intention to donate but have not yet made payment, no action is required on your part. You are under no obligation.</p>
+
+    <h3>After an 80G certificate is issued</h3>
+    <p>Once an 80G certificate has been issued for a donation, we generally cannot process a refund, as it creates a tax compliance complication. In exceptional circumstances, we will handle refund requests on a case-by-case basis with guidance from our Chartered Accountant. If approved, the 80G certificate must be returned to us before the refund is processed.</p>
+
+    <div class="refund-grid">
+      <div class="refund-card yes">
+        <strong>✓ We will refund</strong>
+        <ul>
+          <li>Duplicate / accidental charges</li>
+          <li>Requests within 30 days with proof</li>
+          <li>Processing errors on our side</li>
+        </ul>
+      </div>
+      <div class="refund-card no">
+        <strong>✗ We will not refund</strong>
+        <ul>
+          <li>Requests more than 30 days after transaction</li>
+          <li>After public acknowledgement has been published</li>
+          <li>Donations made in bad faith or with fraudulent intent</li>
+          <li>After 80G certificate issued (except exceptional cases)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="legal-section" id="s7">
+    <h2><span class="sec-num">7</span> Donation receipts</h2>
+    <p>Every donor receives:</p>
+    <ul>
+      <li><strong>Confirmation email</strong> — immediately on successful donation (system-generated)</li>
+      <li><strong>Formal donation receipt</strong> — within 7 working days</li>
+      <li><strong>80G certificate</strong> — within 30 days (where applicable and eligible)</li>
+    </ul>
+    <p>Receipts are sent to the email address provided at the time of donation. You may request a duplicate receipt at any time by emailing <a href="mailto:mcbeeskillsfoundation@gmail.com" style="color:var(--purple);">mcbeeskillsfoundation@gmail.com</a>.</p>
+  </div>
+
+  <div class="legal-section" id="s8">
+    <h2><span class="sec-num">8</span> Foreign donations</h2>
+    <p>We are not currently authorised to receive donations from foreign sources under the Foreign Contribution (Regulation) Act, 2010 (FCRA). We can only accept donations from Indian residents and Indian-registered entities.</p>
+    <p style="font-size:0.875rem;color:var(--muted);">This clause will be updated if and when FCRA registration is obtained.</p>
+  </div>
+
+  <div class="legal-section" id="s9">
+    <h2><span class="sec-num">9</span> Your rights as a donor</h2>
+    <p>As a donor, you have the right:</p>
+    <ul class="rights-list">
+      <li>To be informed of the Foundation's mission, governance structure, and how your contribution will be used</li>
+      <li>To know the identity of those serving on the Foundation's board of directors</li>
+      <li>To access our most recent audited financial statements by writing to <a href="mailto:mcbeeskillsfoundation@gmail.com" style="color:var(--purple);">mcbeeskillsfoundation@gmail.com</a></li>
+      <li>To receive appropriate acknowledgement for your contribution</li>
+      <li>To be assured that your donation information is handled with full confidentiality and respect</li>
+      <li>To ask questions about our programmes and receive prompt, honest, and forthright answers</li>
+      <li>To opt out of future communications from us at any time</li>
+      <li>To receive a receipt and, where applicable, an 80G certificate promptly</li>
+      <li>To request a refund under the terms stated in §6 above</li>
+    </ul>
+  </div>
+
+  <div class="legal-section" id="s10">
+    <h2><span class="sec-num">10</span> Contact</h2>
+    <p>For any questions about your donation, a receipt, a refund, or this policy:</p>
+    <div class="contact-box">
+      <p><strong>Donor Care</strong></p>
+      <p>Email: <a href="mailto:mcbeeskillsfoundation@gmail.com">mcbeeskillsfoundation@gmail.com</a></p>
+      <p>Phone: <span data-cms="org-phone">[to be added]</span></p>
+      <p>Postal: <span data-cms="org-address">[Registered office address — to be added]</span></p>
+    </div>
+    <p style="margin-top:1rem;font-size:0.875rem;color:var(--muted);">We respond to all donor queries within 5 working days.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Use</a>
+    <a href="donor-policy.html">Donor Policy</a>
+    <a href="grievance.html">Grievance</a>
+  </div>
+  <p class="foot-copy">© <span data-cms="footer-year">2026</span> MCBEE Skills Foundation · A Section 8 (Not-for-profit) Company · Delhi NCR · CIN: <span data-cms="org-cin">[to be added]</span></p>
+</footer>
+
+<script>if (typeof CMS !== 'undefined') CMS.hydrate();</script>
+</body>
+</html>

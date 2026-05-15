@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — MCBEE Skills Foundation</title>
+  <meta name="description" content="How MCBEE Skills Foundation collects, uses, and protects your personal data. Published in compliance with the DPDP Act 2023." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <script src="content.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #050505; --paper: #FCFCFC; --white: #FFFFFF;
+      --purple: #9741F4; --orange: #FF820D; --muted: #B1B6C1; --line: #E8E8E8;
+      --max-w: 800px; --pad-x: clamp(1.25rem, 5vw, 2.5rem);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: 1rem; line-height: 1.7; background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    #nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--ink); display: flex; align-items: center; justify-content: space-between; padding: 1rem var(--pad-x); box-shadow: 0 2px 16px rgba(0,0,0,0.3); }
+    .nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+    .logo-mark { width: 32px; height: 32px; border-radius: 4px; background: linear-gradient(135deg,#9741F4,#FF820D); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .nav-logo-text { font-size: 0.9rem; font-weight: 300; color: var(--paper); }
+    .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: var(--orange); }
+
+    /* HERO */
+    .legal-hero { background: var(--ink); padding: 7rem var(--pad-x) 3.5rem; text-align: center; }
+    .legal-hero .eyebrow { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.75rem; }
+    .legal-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 300; color: var(--paper); letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .legal-hero .meta { font-size: 0.825rem; color: var(--muted); }
+    .notice-bar { background: rgba(151,65,244,0.12); border: 1px solid rgba(151,65,244,0.25); border-radius: 6px; padding: 0.85rem 1.25rem; max-width: var(--max-w); margin: 2rem auto 0; font-size: 0.825rem; color: var(--muted); text-align: left; line-height: 1.5; }
+    .notice-bar strong { color: var(--orange); }
+
+    /* CONTENT */
+    .legal-content { max-width: var(--max-w); margin: 0 auto; padding: 3.5rem var(--pad-x) 5rem; }
+    .toc { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 1.5rem 1.75rem; margin-bottom: 3rem; }
+    .toc h3 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.9rem; }
+    .toc ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.3rem; }
+    .toc li a { font-size: 0.875rem; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+    .toc li a:hover { color: var(--purple); }
+
+    .legal-section { margin-bottom: 2.75rem; scroll-margin-top: 5rem; }
+    .legal-section h2 { font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 0.6rem; }
+    .sec-num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; }
+    .legal-section p { color: #333; margin-bottom: 0.85rem; font-size: 0.95rem; }
+    .legal-section p:last-child { margin-bottom: 0; }
+    .legal-section ul, .legal-section ol { padding-left: 1.4rem; margin-bottom: 0.85rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .legal-section li { font-size: 0.95rem; color: #333; }
+    .legal-section strong { color: var(--ink); font-weight: 700; }
+    .legal-section h3 { font-size: 0.95rem; font-weight: 700; margin: 1.25rem 0 0.5rem; color: var(--ink); }
+
+    .data-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.875rem; }
+    .data-table th { background: var(--purple); color: #fff; padding: 0.6rem 0.9rem; text-align: left; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.04em; }
+    .data-table td { padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); color: #333; vertical-align: top; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:nth-child(even) td { background: #fafafa; }
+
+    .rights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1rem 0; }
+    .right-card { background: var(--white); border: 1px solid var(--line); border-radius: 6px; padding: 0.85rem 1rem; border-left: 3px solid var(--purple); }
+    .right-card strong { display: block; font-size: 0.85rem; margin-bottom: 0.2rem; color: var(--ink); }
+    .right-card span { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    .contact-box { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 1.5rem; margin-top: 1rem; }
+    .contact-box h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .contact-box p { font-size: 0.875rem; color: #444; margin-bottom: 0.25rem; }
+    .contact-box a { color: var(--purple); text-decoration: none; }
+    .contact-box a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer { background: var(--ink); border-top: 4px solid var(--purple); padding: 2.5rem var(--pad-x); text-align: center; }
+    .foot-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 1.25rem; }
+    .foot-links a { font-size: 0.825rem; color: rgba(252,252,252,0.5); text-decoration: none; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--orange); }
+    .foot-copy { font-size: 0.775rem; color: rgba(177,182,193,0.45); }
+
+    @media (max-width: 600px) {
+      .rights-grid { grid-template-columns: 1fr; }
+      .data-table { font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-mark">M</div>
+    <span class="nav-logo-text">MCBEE Skills Foundation</span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+
+<div class="legal-hero">
+  <span class="eyebrow">Legal</span>
+  <h1>Privacy Policy</h1>
+  <p class="meta">Last updated: <span data-cms="date-privacy">[Date]</span></p>
+  <div class="notice-bar">
+    <strong>Important:</strong> This policy has been drafted in compliance with the Digital Personal Data Protection Act, 2023 (DPDP Act) and IT Rules 2011. It must be reviewed by qualified legal counsel before the site goes live. It is not legal advice.
+  </div>
+</div>
+
+<div class="legal-content">
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#s1">Who we are</a></li>
+      <li><a href="#s2">What personal data we collect</a></li>
+      <li><a href="#s3">Why we collect it</a></li>
+      <li><a href="#s4">Legal basis for processing</a></li>
+      <li><a href="#s5">Who we share your data with</a></li>
+      <li><a href="#s6">Cookies and tracking</a></li>
+      <li><a href="#s7">How long we keep your data</a></li>
+      <li><a href="#s8">Your rights as a Data Principal</a></li>
+      <li><a href="#s9">Security</a></li>
+      <li><a href="#s10">Children's data</a></li>
+      <li><a href="#s11">Changes to this policy</a></li>
+      <li><a href="#s12">Contact</a></li>
+    </ol>
+  </div>
+
+  <p style="font-size:0.95rem;color:#444;margin-bottom:2rem;">MCBEE Skills Foundation ("we", "us", "the Foundation") is a Section 8 not-for-profit company registered under the Companies Act, 2013. This Privacy Policy is published in compliance with the Digital Personal Data Protection Act, 2023 ("DPDP Act") and the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011.</p>
+
+  <div class="legal-section" id="s1">
+    <h2><span class="sec-num">1</span> Who we are (Data Fiduciary)</h2>
+    <p>For the purposes of the DPDP Act, we are the <strong>Data Fiduciary</strong> for personal data collected through this website.</p>
+    <div class="contact-box">
+      <h3>MCBEE Skills Foundation</h3>
+      <p>Registered office: <span data-cms="org-address">[Registered office address — to be added]</span></p>
+      <p>CIN: <span data-cms="org-cin">[to be added]</span> &nbsp;·&nbsp; PAN: <span data-cms="org-pan">[to be added]</span></p>
+      <p>Email: <a href="mailto:mcbeeskillsfoundation@gmail.com">mcbeeskillsfoundation@gmail.com</a></p>
+      <p>Phone: <span data-cms="org-phone">[to be added]</span></p>
+    </div>
+  </div>
+
+  <div class="legal-section" id="s2">
+    <h2><span class="sec-num">2</span> What personal data we collect</h2>
+    <h3>When you apply for our Track One youth programme:</h3>
+    <ul>
+      <li>Full name, date of birth, gender</li>
+      <li>Phone number, WhatsApp number, email address</li>
+      <li>City and postal address</li>
+      <li>Education details and year of completion</li>
+      <li>Family monthly income range (used solely for need-based selection)</li>
+      <li>Your written application content</li>
+      <li>IP address and device information at the time of submission</li>
+    </ul>
+    <h3>When you submit a partner enquiry:</h3>
+    <ul>
+      <li>Name, company name, and designation</li>
+      <li>Phone number and email address</li>
+      <li>Information you choose to share in your message</li>
+    </ul>
+    <h3>When you subscribe to our updates:</h3>
+    <ul>
+      <li>Email address, and name (optional)</li>
+    </ul>
+    <h3>Automatically collected when you visit our website:</h3>
+    <ul>
+      <li>IP address, browser type, device type, operating system</li>
+      <li>Pages visited, time spent, referring URL</li>
+      <li>Cookies and similar tracking technologies (see §6)</li>
+    </ul>
+    <p><strong>We do not knowingly collect</strong> sensitive personal data such as financial account numbers, biometric data, or health information through this website.</p>
+  </div>
+
+  <div class="legal-section" id="s3">
+    <h2><span class="sec-num">3</span> Why we collect it (purposes of processing)</h2>
+    <p>We process your personal data only for the following specified purposes:</p>
+    <ul>
+      <li>To evaluate, process, and respond to your programme application</li>
+      <li>To evaluate, process, and respond to your partnership enquiry</li>
+      <li>To communicate with you about your application, enquiry, or our work — only with your consent</li>
+      <li>To send you updates about the Foundation, if you have specifically subscribed</li>
+      <li>To comply with our legal, regulatory, and audit obligations</li>
+      <li>To improve our website and our communications</li>
+      <li>To prevent fraud, abuse, and security incidents</li>
+    </ul>
+    <p>We do not process your personal data for any purpose other than those explicitly listed above.</p>
+  </div>
+
+  <div class="legal-section" id="s4">
+    <h2><span class="sec-num">4</span> Legal basis for processing</h2>
+    <p>We process personal data on the basis of:</p>
+    <ul>
+      <li><strong>Your consent</strong>, given through the consent checkbox on our forms, for all primary processing purposes</li>
+      <li><strong>Legitimate uses</strong> as permitted under Section 7 of the DPDP Act, in limited cases — such as complying with a court order or legal obligation</li>
+    </ul>
+    <p>You may withdraw your consent at any time (see §8 below). Withdrawal does not affect the lawfulness of processing that occurred before withdrawal.</p>
+  </div>
+
+  <div class="legal-section" id="s5">
+    <h2><span class="sec-num">5</span> Who we share your data with</h2>
+    <p>We do not sell, rent, or trade your personal data with any third party.</p>
+    <p>We share your personal data only with:</p>
+    <ul>
+      <li>Our authorised staff, board members, and volunteers, on a need-to-know basis, for the purposes stated in §3</li>
+      <li>Our service providers who help us operate (hosting, email service, database, form processing) — each bound by data processing agreements</li>
+      <li>Our auditors, lawyers, and regulators where legally required</li>
+      <li>Government authorities where required by law — e.g., a court order, statutory notice, or law enforcement request</li>
+    </ul>
+    <p>If we ever transfer personal data outside India, we will do so in compliance with Section 16 of the DPDP Act.</p>
+  </div>
+
+  <div class="legal-section" id="s6">
+    <h2><span class="sec-num">6</span> Cookies and tracking technologies</h2>
+    <p>Our website uses minimal cookies and similar technologies:</p>
+    <ul>
+      <li><strong>Essential cookies</strong> — required for the site to function (e.g., remembering your form progress)</li>
+      <li><strong>Analytics</strong> — we use <span data-cms="org-analytics">Plausible Analytics</span>, a privacy-friendly analytics tool that does not use cookies, does not collect personal data, and does not require a consent banner</li>
+    </ul>
+    <p>You can disable non-essential cookies through your browser settings without affecting your ability to use the site.</p>
+  </div>
+
+  <div class="legal-section" id="s7">
+    <h2><span class="sec-num">7</span> How long we keep your data</h2>
+    <table class="data-table">
+      <thead><tr><th>Data type</th><th>Retention period</th></tr></thead>
+      <tbody>
+        <tr><td>Programme applications</td><td>3 years from submission; or programme duration + 5 years if you become a student</td></tr>
+        <tr><td>Partner enquiries</td><td>5 years from last interaction</td></tr>
+        <tr><td>Newsletter subscribers</td><td>Until you unsubscribe; deleted within 30 days of unsubscribe</td></tr>
+        <tr><td>Website analytics</td><td>Anonymised after 13 months</td></tr>
+        <tr><td>Payment records (if applicable)</td><td>7 years (statutory — Income Tax Act)</td></tr>
+      </tbody>
+    </table>
+    <p>After these periods, your personal data is permanently deleted, unless we are required by law to retain it for longer.</p>
+  </div>
+
+  <div class="legal-section" id="s8">
+    <h2><span class="sec-num">8</span> Your rights as a Data Principal</h2>
+    <p>Under the DPDP Act, 2023, you have the following rights:</p>
+    <div class="rights-grid">
+      <div class="right-card"><strong>Right to information</strong><span>Know what personal data we hold and how it is being processed.</span></div>
+      <div class="right-card"><strong>Right to correction &amp; erasure</strong><span>Ask us to correct inaccurate data or delete data we no longer need.</span></div>
+      <div class="right-card"><strong>Right of grievance redressal</strong><span>Raise a complaint about how we process your data. See our <a href="grievance.html" style="color:var(--purple);">Grievance Policy</a>.</span></div>
+      <div class="right-card"><strong>Right to nominate</strong><span>Nominate someone to exercise these rights on your behalf in the event of death or incapacity.</span></div>
+      <div class="right-card"><strong>Right to withdraw consent</strong><span>Withdraw your consent for processing at any time. Withdrawal is prospective only.</span></div>
+    </div>
+    <p>To exercise any of these rights, write to <a href="mailto:mcbeeskillsfoundation@gmail.com" style="color:var(--purple);">mcbeeskillsfoundation@gmail.com</a>. We will respond within <strong>30 days</strong>.</p>
+    <p>If you are not satisfied with our response, you may approach the <strong>Data Protection Board of India</strong> once it is constituted under the DPDP Act.</p>
+  </div>
+
+  <div class="legal-section" id="s9">
+    <h2><span class="sec-num">9</span> Security</h2>
+    <p>We take reasonable security measures to protect your personal data, including:</p>
+    <ul>
+      <li>Encrypted transmission (SSL/TLS) on the website</li>
+      <li>Access controls on our internal systems</li>
+      <li>Secure database hosting with reputable providers</li>
+      <li>Periodic security reviews</li>
+    </ul>
+    <p>However, no system is 100% secure. If a personal data breach occurs that is likely to result in harm to data principals, we will notify the Data Protection Board and affected individuals as required under the DPDP Act.</p>
+  </div>
+
+  <div class="legal-section" id="s10">
+    <h2><span class="sec-num">10</span> Children's data</h2>
+    <p>Our website is not directed at children under 18. Our Track One programme is open only to applicants aged 18 and above. We do not knowingly collect personal data from anyone under 18. If we become aware that a child under 18 has submitted data, we will delete it promptly.</p>
+  </div>
+
+  <div class="legal-section" id="s11">
+    <h2><span class="sec-num">11</span> Changes to this policy</h2>
+    <p>We may update this Privacy Policy from time to time. The "Last updated" date at the top of this page will reflect any changes. We will notify registered users of material changes via email.</p>
+  </div>
+
+  <div class="legal-section" id="s12">
+    <h2><span class="sec-num">12</span> Contact</h2>
+    <p>For any questions about this Privacy Policy, or to exercise any of your rights:</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:0.75rem;">
+      <div class="contact-box">
+        <h3>Privacy Contact</h3>
+        <p>Email: <a href="mailto:mcbeeskillsfoundation@gmail.com">mcbeeskillsfoundation@gmail.com</a></p>
+        <p>Postal: <span data-cms="org-address">[Registered office address — to be added]</span></p>
+      </div>
+      <div class="contact-box">
+        <h3>Grievance Officer</h3>
+        <p>Name: <span data-cms="org-grievance-name">[to be appointed]</span></p>
+        <p>Email: <a href="mailto:mcbeeskillsfoundation@gmail.com">mcbeeskillsfoundation@gmail.com</a></p>
+        <p>Phone: <span data-cms="org-grievance-phone">[to be added]</span></p>
+      </div>
+    </div>
+    <p style="margin-top:1rem;font-size:0.875rem;color:var(--muted);">We will acknowledge your communication within 7 working days and substantively respond within 30 days.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-links">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Use</a>
+    <a href="donor-policy.html">Donor Policy</a>
+    <a href="grievance.html">Grievance</a>
+  </div>
+  <p class="foot-copy">© <span data-cms="footer-year">2026</span> MCBEE Skills Foundation · A Section 8 (Not-for-profit) Company · Delhi NCR · CIN: <span data-cms="org-cin">[to be added]</span></p>
+</footer>
+
+<script>if (typeof CMS !== 'undefined') CMS.hydrate();</script>
+</body>
+</html>

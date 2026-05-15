@@ -1,0 +1,22 @@
+# Admin page — keep URL secret
+msf-admin-23.html
+
+# Supabase credentials — never commit
+config.js
+
+# Playwright logs and screenshots
+.playwright-mcp/
+screenshots/
+
+# Design/spec files — not needed in repo
+*.pdf
+*.pptx
+*.md
+CUsers*
+
+# Claude Code settings
+.claude/
+
+# OS files
+.DS_Store
+Thumbs.db

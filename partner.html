@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partner With Us — MCBEE Skills Foundation</title>
+  <meta name="description" content="Hire a graduate, volunteer your expertise, or support us through CSR. Join the industry effort to train India's next generation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #050505; --paper: #FCFCFC; --white: #FFFFFF;
+      --purple: #9741F4; --orange: #FF820D; --muted: #B1B6C1; --line: #E8E8E8;
+      --max-w: 1200px; --pad-x: clamp(1.25rem, 5vw, 2.5rem);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: 1rem; line-height: 1.65; background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); }
+    h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.025em; }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; }
+    h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 300; line-height: 1.2; }
+    p { line-height: 1.7; }
+    .eyebrow { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.9rem; }
+    .divider { display: block; width: 48px; height: 1.5px; background: var(--purple); }
+    .divider--left { margin: 1.25rem 0; }
+
+    /* NAV */
+    #nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem var(--pad-x); background: var(--ink); box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .nav-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+    .logo-mark { width: 34px; height: 34px; border-radius: 4px; flex-shrink: 0; background: linear-gradient(135deg, var(--purple), var(--orange)); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #fff; }
+    .nav-logo-text { font-size: 0.9rem; font-weight: 300; color: var(--paper); }
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; color: rgba(252,252,252,0.7); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--paper); }
+    .nav-logomark-img { height: 36px; width: auto; display: block; object-fit: contain; }
+    .nav-contact { position: relative; }
+    .nav-contact-btn { background: none; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px; padding: 0.4rem 0.85rem; font-size: 0.85rem; font-weight: 500; color: rgba(252,252,252,0.7); cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 0.35rem; transition: color 0.2s, border-color 0.2s; }
+    .nav-contact-btn:hover { color: var(--paper); border-color: rgba(252,252,252,0.5); }
+    .nav-contact-btn::after { content: '▾'; font-size: 0.7rem; }
+    .nav-dropdown { position: absolute; top: 100%; right: 0; padding-top: 8px; background: var(--ink); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; min-width: 200px; overflow: hidden; opacity: 0; pointer-events: none; transform: translateY(-6px); transition: opacity 0.2s ease, transform 0.2s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .nav-contact:hover .nav-dropdown, .nav-contact:focus-within .nav-dropdown { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .nav-dropdown a { display: block; padding: 0.75rem 1rem; font-size: 0.82rem; color: rgba(252,252,252,0.75); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.07); transition: background 0.15s, color 0.15s; }
+    .nav-dropdown a:last-child { border-bottom: none; }
+    .nav-dropdown a:hover { background: rgba(151,65,244,0.12); color: var(--paper); }
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0.4rem; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: var(--paper); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .drawer { display: none; position: fixed; inset: 0; background: var(--ink); z-index: 999; padding: 5rem 2rem 2rem; flex-direction: column; gap: 1.5rem; }
+    .drawer.open { display: flex; }
+    .drawer a { font-size: 1.4rem; font-weight: 300; color: var(--paper); text-decoration: none; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s; }
+    .drawer a:hover { color: var(--orange); }
+
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.8rem 1.75rem; border-radius: 4px; font-family: 'Manrope', sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; text-decoration: none; cursor: pointer; border: 2px solid transparent; position: relative; overflow: hidden; transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out), border-color 0.2s var(--ease-out), transform 0.15s var(--ease-spring), box-shadow 0.2s var(--ease-out); }
+    .btn:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--purple); color: #fff; border-color: var(--purple); box-shadow: 0 2px 8px rgba(151,65,244,0.3); }
+    .btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.18) 50%, transparent 65%); transform: translateX(-100%); transition: transform 0.55s ease; }
+    .btn-primary:hover { background: var(--orange); border-color: var(--orange); transform: translateY(-1px); }
+    .btn-primary:hover::after { transform: translateX(120%); }
+    .btn-outline { background: transparent; color: var(--paper); border-color: rgba(252,252,252,0.4); }
+    .btn-outline:hover { background: rgba(252,252,252,0.07); border-color: var(--paper); transform: translateY(-1px); }
+
+    /* HERO STRIP */
+    #hero {
+      background: var(--ink); padding: 9rem var(--pad-x) 5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(151,65,244,0.09) 0%, transparent 65%), radial-gradient(ellipse 30% 40% at 10% 80%, rgba(255,130,13,0.05) 0%, transparent 55%); }
+    .hero-inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; text-align: center; }
+    .hero-h1 { color: var(--paper); margin-bottom: 0.75rem; }
+    .hero-sub { color: rgba(252,252,252,0.65); font-size: 1.05rem; max-width: 560px; margin: 1rem auto 0; }
+    .hero-right { display: flex; flex-direction: row; justify-content: center; gap: 3rem; margin-top: 2.5rem; flex-wrap: wrap; }
+    .hero-stat { border-left: 3px solid var(--purple); padding-left: 1.1rem; text-align: left; }
+    .hero-stat-num { font-size: 1.8rem; font-weight: 300; color: var(--orange); letter-spacing: -0.02em; line-height: 1; }
+    .hero-stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.15rem; }
+
+    /* TYPE SELECTOR CARDS */
+    #type-select { padding: 4rem var(--pad-x); background: var(--white); }
+    .type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .type-card {
+      border: 2px solid var(--line); border-radius: 8px; padding: 1.75rem;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s, transform 0.2s var(--ease-out), box-shadow 0.2s;
+      position: relative; background: var(--white);
+    }
+    .type-card:hover { border-color: var(--purple); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(151,65,244,0.1); }
+    .type-card.selected { border-color: var(--purple); background: #f9f5ff; box-shadow: 0 4px 20px rgba(151,65,244,0.12); }
+    .type-card.selected::after { content: '✓'; position: absolute; top: 1rem; right: 1rem; width: 24px; height: 24px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .type-icon { color: var(--purple); margin-bottom: 1rem; }
+    .type-icon svg { width: 28px; height: 28px; }
+    .type-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; color: var(--orange); text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+    .type-card h3 { font-size: 1.5rem; margin-bottom: 0.35rem; }
+    .type-sub { font-size: 0.85rem; color: var(--muted); font-weight: 300; margin-bottom: 0.75rem; }
+    .type-card p { font-size: 0.875rem; color: #555; line-height: 1.6; }
+
+    /* FORM SECTION */
+    #form-section { padding: 4rem var(--pad-x); }
+    .form-center { max-width: 740px; margin: 0 auto; }
+
+    /* FORM */
+    .partner-form-wrap { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 2.25rem; box-shadow: 0 2px 8px rgba(5,5,5,0.04), 0 12px 40px rgba(151,65,244,0.06); }
+    .form-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 1.75rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+    .partner-form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .fg { display: flex; flex-direction: column; gap: 0.35rem; }
+    .fr { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; color: var(--ink); text-transform: uppercase; }
+    input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+      font-family: 'Manrope', sans-serif; font-size: 0.875rem; padding: 0.7rem 0.9rem;
+      border: 1px solid var(--line); border-radius: 4px; background: var(--paper);
+      color: var(--ink); width: 100%; transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(151,65,244,0.1); }
+    textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+
+    /* type radio pills */
+    .type-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .type-pill { display: flex; align-items: center; }
+    .type-pill input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+    .type-pill label {
+      padding: 0.5rem 1rem; border: 1.5px solid var(--line); border-radius: 100px;
+      font-size: 0.8rem; font-weight: 600; color: #555; cursor: pointer; text-transform: none; letter-spacing: 0;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+    .type-pill input:checked + label { border-color: var(--purple); background: #f0ebff; color: var(--purple); }
+
+    .consent-label { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.8rem; font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--muted); line-height: 1.5; cursor: pointer; }
+    input[type="checkbox"] { width: auto; accent-color: var(--purple); flex-shrink: 0; margin-top: 2px; }
+    .form-note { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 0.5rem; }
+
+    /* DARK BAND */
+    #why-partner { background: var(--ink); padding: 4rem var(--pad-x); }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    .why-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1.75rem; border-top: 4px solid transparent; transition: border-top-color 0.2s; }
+    .why-card:hover { border-top-color: var(--orange); }
+    .why-num { font-size: 2.5rem; font-weight: 300; color: var(--orange); letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.75rem; }
+
+    /* FOOTER */
+    footer { background: var(--ink); border-top: 4px solid var(--purple); padding: 3rem var(--pad-x) 2rem; }
+    .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; max-width: var(--max-w); margin: 0 auto; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .foot-wm { font-size: 0.95rem; font-weight: 300; color: var(--paper); margin-bottom: 0.4rem; }
+    .foot-tl { font-size: 0.78rem; color: var(--muted); }
+    .foot-col h5 { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.1rem; }
+    .foot-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .foot-links a { font-size: 0.85rem; color: rgba(252,252,252,0.5); text-decoration: none; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--orange); }
+    .foot-bot { max-width: var(--max-w); margin: 1.75rem auto 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .foot-copy { font-size: 0.77rem; color: rgba(177,182,193,0.45); }
+    .socials { display: flex; gap: 0.75rem; }
+    .socials a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+    .socials a:hover { border-color: var(--orange); color: var(--orange); }
+    .socials svg { width: 15px; height: 15px; }
+
+    /* ANIMATIONS */
+    .a-up { opacity: 0; transform: translateY(24px); transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out); }
+    .a-up.vis { opacity: 1; transform: none; }
+    .a-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+    .a-left.vis { opacity: 1; transform: none; }
+    .a-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+    .a-right.vis { opacity: 1; transform: none; }
+    .a-scale { opacity: 0; transform: scale(0.92); transition: opacity 0.55s ease, transform 0.65s var(--ease-spring); }
+    .a-scale.vis { opacity: 1; transform: scale(1); }
+    .d1 { transition-delay: 0.07s !important; }
+    .d2 { transition-delay: 0.14s !important; }
+    .d3 { transition-delay: 0.21s !important; }
+
+    /* SUCCESS STATE */
+    .success-state { display: none; text-align: center; padding: 3rem 2rem; }
+    .success-state.show { display: block; }
+    .success-icon { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--orange)); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.5rem; }
+    .success-state h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .success-state p { color: var(--muted); max-width: 420px; margin: 0 auto; }
+
+    @media (max-width: 900px) {
+      .hero-right { gap: 2rem; }
+      .foot-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav-links, .nav-apply { display: none; }
+      .nav-burger { display: flex; }
+      .fr { grid-template-columns: 1fr; }
+      .foot-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="MSF logomark.png" alt="MCBEE Skills Foundation" class="nav-logomark-img" />
+  </a>
+  <ul class="nav-links" style="margin-left:auto;">
+    <li><a href="index.html#programme">About the Programme</a></li>
+    <li><a href="index.html#credibility">Our Vision</a></li>
+    <li><a href="index.html#partner">Stand With Us</a></li>
+    <li class="nav-contact">
+      <button class="nav-contact-btn">Contact Us</button>
+      <div class="nav-dropdown">
+        <a href="index.html#apply">Apply for the Programme</a>
+        <a href="partner.html">Partner With Us</a>
+      </div>
+    </li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="drawer" id="drawer">
+  <a href="index.html#programme">About the Programme</a>
+  <a href="index.html#credibility">Our Vision</a>
+  <a href="index.html#partner">Stand With Us</a>
+  <a href="index.html#apply">Apply for the Programme</a>
+</div>
+
+<!-- ══ HERO ═══════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow">PARTNER WITH US</span>
+      <h1 class="hero-h1">This cannot be done<br>by one company alone.</h1>
+      <span class="divider" style="margin:1.25rem auto;"></span>
+      <p class="hero-sub">Three concrete ways to join us — hire a graduate, share your expertise, or support the mission. Pick whichever fits, or all three.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat">
+        <div class="hero-stat-num">15–20</div>
+        <div class="hero-stat-label">First cohort — 2026</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">12</div>
+        <div class="hero-stat-label">Disciplines covered</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">₹0</div>
+        <div class="hero-stat-label">Cost to Track One students</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FORM ════════════════════════════════════ -->
+<section id="form-section">
+  <div class="container">
+    <div class="form-center a-up">
+      <div class="partner-form-wrap">
+        <p class="form-title" id="form-title">Partner Enquiry</p>
+
+        <form class="partner-form" id="partnerForm" novalidate>
+          <div class="fr">
+            <div class="fg"><label for="pname">Name *</label><input type="text" id="pname" name="name" required placeholder="Your full name" /></div>
+            <div class="fg"><label for="company">Company / Organisation *</label><input type="text" id="company" name="company" required placeholder="Company name" /></div>
+          </div>
+          <div class="fr">
+            <div class="fg"><label for="designation">Designation *</label><input type="text" id="designation" name="designation" required placeholder="Your role" /></div>
+            <div class="fg"><label for="pemail">Email *</label><input type="email" id="pemail" name="email" required placeholder="you@company.com" /></div>
+          </div>
+          <div class="fr">
+            <div class="fg"><label for="pphone">Phone *</label><input type="tel" id="pphone" name="phone" required placeholder="+91 98765 43210" /></div>
+            <div class="fg">
+              <label for="company-type">Type of Company *</label>
+              <select id="company-type" name="companyType" required>
+                <option value="">Select…</option>
+                <option>Integrator / Systems Integrator</option>
+                <option>AV / Technology Company</option>
+                <option>IT / Networking Company</option>
+                <option>OEM / Manufacturer</option>
+                <option>Distributor</option>
+                <option>Architect / Consultant</option>
+                <option>Foundation / NGO</option>
+                <option>Corporate CSR</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label>Type of Involvement *</label>
+            <div class="type-pills">
+              <div class="type-pill"><input type="radio" name="involvement" id="inv-hire" value="Hire" required /><label for="inv-hire">Hire a Graduate</label></div>
+              <div class="type-pill"><input type="radio" name="involvement" id="inv-vol" value="Volunteer" /><label for="inv-vol">Volunteer</label></div>
+              <div class="type-pill"><input type="radio" name="involvement" id="inv-sup" value="Support" /><label for="inv-sup">Support / CSR</label></div>
+              <div class="type-pill"><input type="radio" name="involvement" id="inv-ns" value="Not sure yet" /><label for="inv-ns">Not sure yet</label></div>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label for="message">Tell us more *</label>
+            <textarea id="message" name="message" required minlength="50" placeholder="How you'd like to be involved, what your company does, any questions — min 50 characters"></textarea>
+          </div>
+
+          <div class="fg">
+            <label class="consent-label">
+              <input type="checkbox" name="consent" required />
+              I agree to the <a href="privacy.html" style="color:var(--purple);">Privacy Policy</a> and consent to MCBEE Skills Foundation storing and using my information to respond to this enquiry. *
+            </label>
+          </div>
+          <div class="fg">
+            <label class="consent-label">
+              <input type="checkbox" name="updates" />
+              I'd like to receive occasional updates about MCBEE Skills Foundation's work.
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:1rem;">Send Enquiry</button>
+          <p class="form-note">We respond within 5 working days · <a href="mailto:mcbeeskillsfoundation@gmail.com" style="color:var(--purple);">mcbeeskillsfoundation@gmail.com</a></p>
+        </form>
+
+        <div class="success-state" id="success">
+          <div class="success-icon">✓</div>
+          <h3>Thank you — we'll be in touch.</h3>
+          <p style="color:var(--muted);margin-top:0.5rem;">Expect to hear from us within 5 working days at the email you provided.</p>
+          <a href="index.html" class="btn btn-primary" style="margin-top:2rem;">Back to home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:0.65rem;margin-bottom:0.9rem;">
+        <div class="logo-mark" style="width:30px;height:30px;font-size:0.72rem;">M</div>
+        <span class="foot-wm">MCBEE Skills Foundation</span>
+      </div>
+      <p class="foot-tl">A Section 8 (Not-for-profit) Company · Delhi NCR</p>
+      <p class="foot-tl" style="margin-top:0.2rem;font-size:0.72rem;color:rgba(177,182,193,0.5);">Powered by MCBEE</p>
+    </div>
+    <div class="foot-col"><h5>Programme</h5><ul class="foot-links"><li><a href="index.html#curriculum">The Curriculum</a></li><li><a href="index.html#apply">Apply</a></li><li><a href="index.html#track2">Track Two</a></li><li><a href="index.html#outcomes">One Year After</a></li></ul></div>
+    <div class="foot-col"><h5>Get Involved</h5><ul class="foot-links"><li><a href="partner.html">Partner With Us</a></li><li><a href="mailto:mcbeeskillsfoundation@gmail.com">Email Partnerships</a></li><li><a href="mailto:mcbeeskillsfoundation@gmail.com">Press / Media</a></li></ul></div>
+    <div class="foot-col"><h5>Legal</h5><ul class="foot-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="donor-policy.html">Donor Policy</a></li><li><a href="grievance.html">Grievance</a></li></ul></div>
+  </div>
+  <div class="foot-bot">
+    <p class="foot-copy">© 2026 MCBEE Skills Foundation. All rights reserved. · CIN: [to be added] · Delhi NCR</p>
+    <div class="socials">
+      <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ─── Nav hamburger ────────────────────── */
+  const burger = document.getElementById('burger');
+  const drawer = document.getElementById('drawer');
+  burger.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    drawer.classList.remove('open'); burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
+  }));
+
+  /* ─── Read ?type= param on load ─────────── */
+  const urlType = new URLSearchParams(location.search).get('type');
+
+  /* ─── Type card selection ────────────────
+     Clicking a card selects it visually AND
+     checks the matching radio in the form.
+  ─────────────────────────────────────── */
+  const typeCards = document.querySelectorAll('.type-card');
+  const formTitle = document.getElementById('form-title');
+
+  function selectType(type) {
+    typeCards.forEach(c => {
+      const active = c.dataset.type === type;
+      c.classList.toggle('selected', active);
+      c.setAttribute('aria-pressed', active);
+    });
+
+    // Check matching radio pill
+    document.querySelectorAll('[name="involvement"]').forEach(r => {
+      r.checked = (r.value === type);
+    });
+
+    // Update form title
+    const labels = { Hire: 'Hire a Graduate', Volunteer: 'Volunteer Your Expertise', Support: 'Support / CSR Enquiry' };
+    formTitle.textContent = labels[type] || 'Partner Enquiry';
+
+    // Smooth scroll to form
+    document.getElementById('form-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  typeCards.forEach(card => {
+    card.addEventListener('click', () => selectType(card.dataset.type));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectType(card.dataset.type); } });
+  });
+
+  // Also: clicking a radio pill syncs card selection
+  document.querySelectorAll('[name="involvement"]').forEach(r => {
+    r.addEventListener('change', () => {
+      typeCards.forEach(c => {
+        const active = c.dataset.type === r.value;
+        c.classList.toggle('selected', active);
+        c.setAttribute('aria-pressed', active);
+      });
+    });
+  });
+
+  // Pre-select from URL param
+  if (urlType) {
+    const match = ['Hire', 'Volunteer', 'Support'].find(t => t.toLowerCase() === urlType.toLowerCase());
+    if (match) setTimeout(() => selectType(match), 300);
+  }
+
+  /* ─── Entrance animations ────────────────── */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.a-up, .a-left, .a-right, .a-scale').forEach(el => io.observe(el));
+
+  // Hero fires on load
+  setTimeout(() => {
+    document.querySelectorAll('#hero .a-up, #hero .a-left, #hero .a-right').forEach(el => el.classList.add('vis'));
+  }, 150);
+
+  /* ─── Form submission ────────────────────── */
+  const form = document.getElementById('partnerForm');
+  const success = document.getElementById('success');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    form.style.opacity = '0.5';
+    form.style.pointerEvents = 'none';
+
+    // Save submission to localStorage
+    const els = form.elements;
+    const submission = {
+      id: Date.now(),
+      submittedAt: new Date().toISOString(),
+      status: 'New',
+      name:        els['name'].value,
+      company:     els['company'].value,
+      designation: els['designation'].value,
+      email:       els['email'].value,
+      phone:       els['phone'].value,
+      involvement: form.querySelector('[name="involvement"]:checked')?.value || '',
+      companyType: els['company-type'].value,
+      message:     els['message'].value,
+    };
+    const existing = JSON.parse(localStorage.getItem('msf_partner_enquiries') || '[]');
+    existing.unshift(submission);
+    localStorage.setItem('msf_partner_enquiries', JSON.stringify(existing));
+
+    setTimeout(() => {
+      form.style.display = 'none';
+      success.classList.add('show');
+    }, 900);
+  });
+</script>
+</body>
+</html>

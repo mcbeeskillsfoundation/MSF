@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Two Tracks — MCBEE Skills Foundation</title>
+  <meta name="description" content="Track One: free training for underprivileged youth. Track Two: certification for working installers. Two tracks, one mission." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #050505; --paper: #FCFCFC; --white: #FFFFFF;
+      --purple: #9741F4; --orange: #FF820D; --muted: #B1B6C1; --line: #E8E8E8;
+      --max-w: 1200px; --pad-x: clamp(1.25rem, 5vw, 2.5rem);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: 1rem; line-height: 1.65; background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); }
+    section { padding: clamp(4rem, 8vw, 6rem) 0; }
+    .dark { background: var(--ink); }
+    .white { background: var(--white); }
+
+    h1 { font-size: clamp(2.6rem, 6vw, 4.5rem); font-weight: 300; line-height: 1.06; letter-spacing: -0.025em; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; }
+    h3 { font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 400; line-height: 1.25; }
+    h4 { font-size: 0.95rem; font-weight: 700; }
+    p { line-height: 1.75; }
+
+    .eyebrow { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.9rem; }
+    .divider { display: block; width: 48px; height: 1.5px; background: var(--purple); }
+    .divider--left { margin: 1.25rem 0; }
+    .divider--center { margin: 1.25rem auto; }
+
+    /* NAV */
+    #nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem var(--pad-x); background: var(--ink); box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .nav-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+    .logo-mark { width: 34px; height: 34px; border-radius: 4px; flex-shrink: 0; background: linear-gradient(135deg, var(--purple), var(--orange)); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #fff; }
+    .nav-logo-text { font-size: 0.9rem; font-weight: 300; color: var(--paper); }
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; color: rgba(252,252,252,0.7); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--paper); }
+    .nav-logomark-img { height: 36px; width: auto; display: block; object-fit: contain; }
+    .nav-contact { position: relative; }
+    .nav-contact-btn { background: none; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px; padding: 0.4rem 0.85rem; font-size: 0.85rem; font-weight: 500; color: rgba(252,252,252,0.7); cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 0.35rem; transition: color 0.2s, border-color 0.2s; }
+    .nav-contact-btn:hover { color: var(--paper); border-color: rgba(252,252,252,0.5); }
+    .nav-contact-btn::after { content: '▾'; font-size: 0.7rem; }
+    .nav-dropdown { position: absolute; top: 100%; right: 0; padding-top: 8px; background: var(--ink); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; min-width: 200px; overflow: hidden; opacity: 0; pointer-events: none; transform: translateY(-6px); transition: opacity 0.2s ease, transform 0.2s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .nav-contact:hover .nav-dropdown, .nav-contact:focus-within .nav-dropdown { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .nav-dropdown a { display: block; padding: 0.75rem 1rem; font-size: 0.82rem; color: rgba(252,252,252,0.75); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.07); transition: background 0.15s, color 0.15s; }
+    .nav-dropdown a:last-child { border-bottom: none; }
+    .nav-dropdown a:hover { background: rgba(151,65,244,0.12); color: var(--paper); }
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0.4rem; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: var(--paper); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .drawer { display: none; position: fixed; inset: 0; background: var(--ink); z-index: 999; padding: 5rem 2rem 2rem; flex-direction: column; gap: 1.5rem; }
+    .drawer.open { display: flex; }
+    .drawer a { font-size: 1.4rem; font-weight: 300; color: var(--paper); text-decoration: none; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s; }
+    .drawer a:hover { color: var(--orange); }
+
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.8rem 1.75rem; border-radius: 4px; font-family: 'Manrope', sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; text-decoration: none; cursor: pointer; border: 2px solid transparent; position: relative; overflow: hidden; transition: background 0.2s var(--ease-out), color 0.2s, border-color 0.2s, transform 0.15s var(--ease-spring), box-shadow 0.2s; }
+    .btn:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--purple); color: #fff; border-color: var(--purple); box-shadow: 0 2px 8px rgba(151,65,244,0.3); }
+    .btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.18) 50%, transparent 65%); transform: translateX(-100%); transition: transform 0.55s ease; }
+    .btn-primary:hover { background: var(--orange); border-color: var(--orange); transform: translateY(-1px); }
+    .btn-primary:hover::after { transform: translateX(120%); }
+    .btn-outline-dark { background: transparent; color: var(--ink); border-color: var(--ink); }
+    .btn-outline-dark:hover { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
+    .btn-outline-light { background: transparent; color: var(--paper); border-color: rgba(252,252,252,0.4); }
+    .btn-outline-light:hover { background: rgba(252,252,252,0.08); border-color: var(--paper); transform: translateY(-1px); }
+
+    /* HERO */
+    #hero { background: var(--ink); padding: 9rem var(--pad-x) 5rem; position: relative; overflow: hidden; text-align: center; }
+    .hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 60% at 50% 60%, rgba(151,65,244,0.1) 0%, transparent 65%); }
+    .hero-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-track-pills { display: flex; justify-content: center; gap: 0.75rem; margin-top: 2rem; flex-wrap: wrap; }
+    .track-pill { padding: 0.55rem 1.25rem; border-radius: 100px; font-size: 0.8rem; font-weight: 700; text-decoration: none; border: 1.5px solid; transition: background 0.2s, color 0.2s, transform 0.15s var(--ease-spring); }
+    .track-pill:hover { transform: translateY(-1px); }
+    .track-pill-one { border-color: var(--purple); color: var(--purple); }
+    .track-pill-one:hover { background: var(--purple); color: #fff; }
+    .track-pill-two { border-color: var(--orange); color: var(--orange); }
+    .track-pill-two:hover { background: var(--orange); color: #fff; }
+
+    /* TRACK SWITCHER */
+    #switcher { background: var(--white); position: sticky; top: 56px; z-index: 99; border-bottom: 1px solid var(--line); }
+    .switcher-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); display: flex; }
+    .sw-tab { padding: 1rem 1.5rem; font-size: 0.875rem; font-weight: 700; color: var(--muted); text-decoration: none; border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s; white-space: nowrap; }
+    .sw-tab:hover { color: var(--ink); }
+    .sw-tab.active { color: var(--purple); border-bottom-color: var(--purple); }
+
+    /* TRACK ONE */
+    #track-one { scroll-margin-top: 110px; }
+
+    .t1-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .t1-badge { display: inline-block; background: rgba(151,65,244,0.1); border: 1px solid rgba(151,65,244,0.25); color: var(--purple); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.85rem; border-radius: 100px; margin-bottom: 1.25rem; }
+    .t1-img { border-radius: 8px; overflow: hidden; aspect-ratio: 4/3; }
+    .t1-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2.5rem; }
+    .who-card { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 1.5rem; border-top: 3px solid var(--purple); }
+    .who-card h4 { margin-bottom: 0.5rem; }
+    .who-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    .timeline { display: flex; flex-direction: column; gap: 0; margin-top: 2.5rem; }
+    .tl-item { display: grid; grid-template-columns: 48px 1fr; gap: 1.25rem; position: relative; padding-bottom: 2rem; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-item:not(:last-child) .tl-dot::after { content: ''; position: absolute; top: 28px; left: 24px; width: 1.5px; height: calc(100% - 8px); background: var(--line); transform: translateX(-50%); }
+    .tl-dot { position: relative; display: flex; align-items: flex-start; justify-content: center; padding-top: 4px; }
+    .tl-pip { width: 16px; height: 16px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
+    .tl-body h4 { margin-bottom: 0.3rem; }
+    .tl-body p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+    .tl-month { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: var(--purple); text-transform: uppercase; margin-bottom: 0.2rem; }
+
+    .outcomes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+    .outcome-card { background: var(--ink); border-radius: 8px; padding: 1.75rem; }
+    .outcome-num { font-size: 1.75rem; font-weight: 300; color: var(--orange); letter-spacing: -0.02em; margin-bottom: 0.5rem; line-height: 1; }
+    .outcome-label { font-size: 0.8rem; font-weight: 700; color: var(--paper); margin-bottom: 0.35rem; }
+    .outcome-desc { font-size: 0.825rem; color: rgba(252,252,252,0.55); line-height: 1.55; }
+
+    .eligibility-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1.5rem; }
+    .eligibility-list li { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.9rem; }
+    .eligibility-list li::before { content: '✓'; color: var(--purple); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* BRIDGE SECTION */
+    #bridge { padding: 3rem var(--pad-x); text-align: center; }
+    .bridge-inner { max-width: 700px; margin: 0 auto; background: var(--ink); border-radius: 12px; padding: 3rem 2.5rem; border-top: 4px solid var(--purple); }
+
+    /* TRACK TWO */
+    #track-two { scroll-margin-top: 110px; }
+
+    .t2-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .t2-badge { display: inline-block; background: rgba(255,130,13,0.1); border: 1px solid rgba(255,130,13,0.25); color: var(--orange); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.85rem; border-radius: 100px; margin-bottom: 1.25rem; }
+    .t2-img { border-radius: 8px; overflow: hidden; aspect-ratio: 4/3; }
+    .t2-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.5rem; }
+    .mod-card { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 1.25rem; border-left: 3px solid var(--line); transition: border-left-color 0.2s, transform 0.2s var(--ease-out); }
+    .mod-card:hover { border-left-color: var(--orange); transform: translateX(3px); }
+    .mod-card h4 { margin-bottom: 0.3rem; font-size: 0.9rem; }
+    .mod-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    .format-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+    .format-card { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 1.75rem; }
+    .format-icon { color: var(--orange); margin-bottom: 1rem; }
+    .format-icon svg { width: 24px; height: 24px; }
+    .format-card h4 { color: var(--paper); margin-bottom: 0.5rem; }
+    .format-card p { color: rgba(252,252,252,0.55); font-size: 0.875rem; line-height: 1.6; }
+
+    .cert-path { display: flex; align-items: center; gap: 0; margin-top: 2.5rem; flex-wrap: wrap; }
+    .cert-step { flex: 1; min-width: 140px; text-align: center; padding: 1.5rem 1rem; background: var(--white); border: 1px solid var(--line); border-radius: 8px; position: relative; }
+    .cert-step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--orange); color: #fff; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; }
+    .cert-step h4 { font-size: 0.85rem; margin-bottom: 0.3rem; }
+    .cert-step p { font-size: 0.775rem; color: var(--muted); line-height: 1.5; }
+    .cert-arrow { color: var(--muted); font-size: 1.25rem; padding: 0 0.5rem; flex-shrink: 0; }
+
+    /* FUNDING EXPLAINER */
+    #funding { padding: clamp(4rem, 8vw, 6rem) var(--pad-x); }
+    .funding-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .funding-flow { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+    .flow-box { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 1.25rem 1.5rem; text-align: center; min-width: 160px; }
+    .flow-box.highlight { background: var(--purple); border-color: var(--purple); }
+    .flow-box.highlight h4, .flow-box.highlight p { color: #fff; }
+    .flow-box h4 { font-size: 0.85rem; margin-bottom: 0.25rem; }
+    .flow-box p { font-size: 0.775rem; color: var(--muted); line-height: 1.5; }
+    .flow-arrow { font-size: 1.5rem; color: var(--purple); flex-shrink: 0; }
+
+    /* CTA FOOTER */
+    #cta-band { padding: clamp(4rem, 8vw, 5rem) var(--pad-x); text-align: center; }
+    .cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 800px; margin: 2rem auto 0; }
+    .cta-card { border-radius: 8px; padding: 2.25rem; }
+    .cta-card-one { background: var(--purple); }
+    .cta-card-two { background: var(--ink); border: 1px solid rgba(255,255,255,0.08); }
+    .cta-card h3 { font-weight: 300; font-size: 1.3rem; margin-bottom: 0.5rem; color: #fff; }
+    .cta-card p { font-size: 0.875rem; color: rgba(255,255,255,0.7); margin-bottom: 1.5rem; line-height: 1.6; }
+
+    /* FOOTER */
+    footer { background: var(--ink); border-top: 4px solid var(--purple); padding: 3rem var(--pad-x) 2rem; }
+    .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; max-width: var(--max-w); margin: 0 auto; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .foot-wm { font-size: 0.95rem; font-weight: 300; color: var(--paper); margin-bottom: 0.4rem; }
+    .foot-tl { font-size: 0.78rem; color: var(--muted); }
+    .foot-col h5 { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.1rem; }
+    .foot-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .foot-links a { font-size: 0.85rem; color: rgba(252,252,252,0.5); text-decoration: none; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--orange); }
+    .foot-bot { max-width: var(--max-w); margin: 1.75rem auto 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .foot-copy { font-size: 0.77rem; color: rgba(177,182,193,0.45); }
+
+    /* ANIMATIONS */
+    .a-up { opacity: 0; transform: translateY(24px); transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out); }
+    .a-up.vis { opacity: 1; transform: none; }
+    .a-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+    .a-left.vis { opacity: 1; transform: none; }
+    .a-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+    .a-right.vis { opacity: 1; transform: none; }
+    .a-scale { opacity: 0; transform: scale(0.94); transition: opacity 0.55s ease, transform 0.65s var(--ease-spring); }
+    .a-scale.vis { opacity: 1; transform: scale(1); }
+    .d1 { transition-delay: 0.07s !important; }
+    .d2 { transition-delay: 0.14s !important; }
+    .d3 { transition-delay: 0.21s !important; }
+    .d4 { transition-delay: 0.28s !important; }
+
+    @media (max-width: 900px) {
+      .t1-hero, .t2-hero { grid-template-columns: 1fr; }
+      .t1-img, .t2-img { aspect-ratio: 16/7; }
+      .who-grid, .outcomes-grid, .format-grid, .cta-grid { grid-template-columns: 1fr; }
+      .modules-grid { grid-template-columns: repeat(2, 1fr); }
+      .foot-grid { grid-template-columns: 1fr 1fr; }
+      .cert-path { flex-direction: column; }
+      .cert-arrow { transform: rotate(90deg); }
+      .funding-flow { flex-direction: column; }
+      .flow-arrow { transform: rotate(90deg); }
+    }
+    @media (max-width: 640px) {
+      .nav-links, .nav-apply { display: none; }
+      .nav-burger { display: flex; }
+      .modules-grid { grid-template-columns: 1fr; }
+      .foot-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="MSF logomark.png" alt="MCBEE Skills Foundation" class="nav-logomark-img" />
+  </a>
+  <ul class="nav-links" style="margin-left:auto;">
+    <li><a href="index.html#programme">About the Programme</a></li>
+    <li><a href="index.html#credibility">Our Vision</a></li>
+    <li><a href="index.html#partner">Stand With Us</a></li>
+    <li class="nav-contact">
+      <button class="nav-contact-btn">Contact Us</button>
+      <div class="nav-dropdown">
+        <a href="index.html#apply">Apply for the Programme</a>
+        <a href="partner.html">Partner With Us</a>
+      </div>
+    </li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="drawer" id="drawer">
+  <a href="index.html#programme">About the Programme</a>
+  <a href="index.html#credibility">Our Vision</a>
+  <a href="index.html#partner">Stand With Us</a>
+  <a href="index.html#apply">Apply for the Programme</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">THE PROGRAMME</span>
+    <h1 style="color:var(--paper);">Two tracks.<br>One mission.</h1>
+    <span class="divider divider--center" style="margin:1.25rem auto;"></span>
+    <p style="color:rgba(252,252,252,0.65);font-size:1.05rem;max-width:560px;margin:0.75rem auto 0;line-height:1.7;">A model designed to become self-sustaining — where the industry funds the training of its own future workforce.</p>
+    <div class="hero-track-pills">
+      <a href="#track-one" class="track-pill track-pill-one">Track One — Free Youth Training</a>
+      <a href="#track-two" class="track-pill track-pill-two">Track Two — Installer Certification</a>
+    </div>
+  </div>
+</section>
+
+<!-- STICKY SWITCHER -->
+<div id="switcher">
+  <div class="switcher-inner">
+    <a href="#track-one" class="sw-tab active" id="tab-one">Track One — Youth Programme</a>
+    <a href="#track-two" class="sw-tab" id="tab-two">Track Two — Installer Certification</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TRACK ONE
+══════════════════════════════════════════════ -->
+<section id="track-one">
+  <div class="container">
+
+    <!-- INTRO -->
+    <div class="t1-hero">
+      <div class="a-left">
+        <span class="t1-badge">Track One</span>
+        <h2>Free training for ambitious young people who deserve a way in.</h2>
+        <span class="divider divider--left"></span>
+        <p style="color:var(--muted);font-size:0.95rem;">Underprivileged young people, 18 and over, given a fully sponsored pathway into the AV, IT, automation, security, and building-systems trade. No fees. No compromises. A real career at the end of it.</p>
+        <div style="margin-top:1.75rem;display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="index.html#apply" class="btn btn-primary">Apply for the Programme</a>
+          <a href="#track-two" class="btn btn-outline-dark">See Track Two →</a>
+        </div>
+      </div>
+      <div class="t1-img a-right">
+        <img src="https://placehold.co/600x450/f0ebff/9741F4?text=Track+One+—+Youth+Training" alt="Track One youth training placeholder" />
+      </div>
+    </div>
+
+    <!-- WHO WE TRAIN -->
+    <div style="margin-top:5rem;">
+      <div class="a-up">
+        <span class="eyebrow">WHO WE TRAIN</span>
+        <h2>Selected on aptitude and need.</h2>
+      </div>
+      <div class="who-grid">
+        <div class="who-card a-scale d1">
+          <h4>Age &amp; background</h4>
+          <p>18 years or older. From families that couldn't have afforded private technical education. Not failed by their potential — only by the absence of a pathway.</p>
+        </div>
+        <div class="who-card a-scale d2">
+          <h4>Education</h4>
+          <p>Class XII (or equivalent) completed. Basic English comprehension. Willing to commit to a 6-month full-time programme.</p>
+        </div>
+        <div class="who-card a-scale d3">
+          <h4>Selection</h4>
+          <p>Applications reviewed for aptitude and need. Shortlisted candidates interview with the Foundation team. Final cohort selected before the programme start date.</p>
+        </div>
+        <div class="who-card a-scale d4">
+          <h4>Cost to the student</h4>
+          <p>Absolutely nothing. No tuition, no registration fee, no deposit. The programme is fully funded through CSR, donations, and the surplus from Track Two.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRAMME JOURNEY -->
+    <div style="margin-top:5rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
+      <div class="a-left">
+        <span class="eyebrow">THE JOURNEY</span>
+        <h2>Six months. A career that lasts.</h2>
+        <p style="color:var(--muted);font-size:0.925rem;margin-top:0.75rem;">The programme is structured in three phases — foundations, specialisation, and placement. Every student goes through all three.</p>
+      </div>
+      <div class="timeline a-right">
+        <div class="tl-item">
+          <div class="tl-dot"><div class="tl-pip"></div></div>
+          <div class="tl-body">
+            <div class="tl-month">Months 1–2</div>
+            <h4>Foundations</h4>
+            <p>Design principles, installation craft, rack building, cabling, health &amp; safety on site. The fundamentals every technician needs regardless of specialism.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><div class="tl-pip"></div></div>
+          <div class="tl-body">
+            <div class="tl-month">Months 3–4</div>
+            <h4>Specialisation</h4>
+            <p>AV, IT &amp; Networking, Security, Automation, BMS, Programming, AI Integration. Students go deep on two or three disciplines suited to their aptitude and the market.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><div class="tl-pip"></div></div>
+          <div class="tl-body">
+            <div class="tl-month">Month 5</div>
+            <h4>Live project work</h4>
+            <p>Hands-on lab sessions and, where possible, supervised work on a real MCBEE installation site. Assessment happens here — real systems, not mock exams.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><div class="tl-pip"></div></div>
+          <div class="tl-body">
+            <div class="tl-month">Month 6</div>
+            <h4>Placement support</h4>
+            <p>Interview preparation, CV, site conduct. Introductions to partner integrators and employers who have committed to interviewing our graduates.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTCOMES -->
+    <div style="margin-top:5rem;">
+      <div class="a-up">
+        <span class="eyebrow">ONE YEAR AFTER GRADUATION</span>
+        <h2>What we are building toward.</h2>
+        <p style="color:var(--muted);font-size:0.925rem;margin-top:0.75rem;max-width:580px;">Not abstract. Not aspirational. Specific and measurable outcomes for every graduate.</p>
+      </div>
+      <div class="outcomes-grid">
+        <div class="outcome-card a-scale d1">
+          <div class="outcome-num">₹18k–30k</div>
+          <div class="outcome-label">Year-one monthly income</div>
+          <div class="outcome-desc">Typical range for entry-level AV, IT, and automation technicians in Delhi NCR and other major cities.</div>
+        </div>
+        <div class="outcome-card a-scale d2">
+          <div class="outcome-num">₹45k–80k+</div>
+          <div class="outcome-label">Within 3–5 years</div>
+          <div class="outcome-desc">With specialisation and experience. Senior technicians and programmers command significantly more.</div>
+        </div>
+        <div class="outcome-card a-scale d3">
+          <div class="outcome-num">100%</div>
+          <div class="outcome-label">Placement support</div>
+          <div class="outcome-desc">Every graduate gets introductions to partner employers. We track placement rates and publish them annually.</div>
+        </div>
+        <div class="outcome-card a-scale d4">
+          <div class="outcome-num">NSQF</div>
+          <div class="outcome-label">Government-aligned certification</div>
+          <div class="outcome-desc">Courses designed against the National Skills Qualifications Framework from day one. Formal recognition is the 2028 target.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ELIGIBILITY + CTA -->
+    <div style="margin-top:5rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+      <div class="a-left">
+        <span class="eyebrow">ELIGIBILITY</span>
+        <h2>Is this for you?</h2>
+        <ul class="eligibility-list">
+          <li>18 years of age or older</li>
+          <li>Class XII (or equivalent) completed</li>
+          <li>Basic English comprehension</li>
+          <li>Willing to commit to a 6-month full-time programme</li>
+          <li>From a family that couldn't have afforded private technical education</li>
+          <li>Ready to work hard, follow instruction, and take the trade seriously</li>
+        </ul>
+        <p style="font-size:0.85rem;color:var(--muted);margin-top:1.25rem;">We particularly encourage applications from young people from underserved communities across Delhi NCR and beyond.</p>
+      </div>
+      <div class="a-right" style="background:var(--white);border:1px solid var(--line);border-radius:8px;padding:2rem;border-top:4px solid var(--purple);">
+        <span class="eyebrow" style="color:var(--purple);">APPLY NOW</span>
+        <h3 style="margin-bottom:0.75rem;">The first cohort opens in 2026.</h3>
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">Submit your application early. Places are limited and selection is competitive. No fees at any stage.</p>
+        <a href="index.html#apply" class="btn btn-primary" style="width:100%;justify-content:center;">Apply for Track One →</a>
+        <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-top:0.75rem;">Questions? <a href="mailto:mcbeeskillsfoundation@gmail.com" style="color:var(--purple);">mcbeeskillsfoundation@gmail.com</a></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section id="bridge" class="white" style="padding:3rem var(--pad-x);">
+  <div class="container">
+    <div class="bridge-inner a-up">
+      <span class="eyebrow">HOW THE TWO TRACKS CONNECT</span>
+      <h2 style="color:var(--paper);margin-bottom:0.75rem;">Track Two funds Track One.</h2>
+      <p style="color:rgba(252,252,252,0.6);font-size:0.95rem;max-width:540px;margin:0 auto 1.5rem;">The paid installer certification programme generates a surplus. That surplus is what underwrites the free youth programme. The industry pays for the training of its next generation — indirectly, but deliberately.</p>
+      <a href="#track-two" class="btn btn-outline-light">See how Track Two works →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TRACK TWO
+══════════════════════════════════════════════ -->
+<section id="track-two">
+  <div class="container">
+
+    <!-- INTRO -->
+    <div class="t2-hero">
+      <div class="a-left">
+        <span class="t2-badge">Track Two</span>
+        <h2>Certification for the installers who keep our industry running.</h2>
+        <span class="divider divider--left"></span>
+        <p style="color:var(--muted);font-size:0.95rem;">Working professionals across AV, IT, security, automation, and BMS have spent years mastering their craft — without anything to show for it on paper. Track Two changes that. Formal, recognised certification. Modular. Built for people already in the trade.</p>
+        <div style="margin-top:1.75rem;">
+          <a href="partner.html" class="btn btn-primary">Register your interest</a>
+        </div>
+      </div>
+      <div class="t2-img a-right">
+        <img src="https://placehold.co/600x450/0d0d1a/FF820D?text=Track+Two+—+Installer+Certification" alt="Track Two installer certification placeholder" />
+      </div>
+    </div>
+
+    <!-- DISCIPLINES -->
+    <div style="margin-top:5rem;">
+      <div class="a-up">
+        <span class="eyebrow">WHAT YOU CAN GET CERTIFIED IN</span>
+        <h2>Choose the discipline that matches your work.</h2>
+        <p style="color:var(--muted);font-size:0.925rem;margin-top:0.75rem;">Modules are independent — take one or several. Stack them over time.</p>
+      </div>
+      <div class="modules-grid">
+        <div class="mod-card a-up d1"><h4>Audio-Visual</h4><p>Signal flow, displays, processors, control systems, commissioning.</p></div>
+        <div class="mod-card a-up d2"><h4>IT &amp; Networking</h4><p>Switching, VLANs, Wi-Fi architecture, structured cabling, the IT backbone.</p></div>
+        <div class="mod-card a-up d3"><h4>Security Systems</h4><p>CCTV, access control, intrusion detection, monitoring integration.</p></div>
+        <div class="mod-card a-up d1"><h4>Automation</h4><p>Lighting, shading, scene control, residential and light commercial systems.</p></div>
+        <div class="mod-card a-up d2"><h4>Building Management (BMS)</h4><p>HVAC integration, energy management, fault monitoring, cross-system logic.</p></div>
+        <div class="mod-card a-up d3"><h4>Programming &amp; Control</h4><p>Control system programming, GUI design, scene logic, troubleshooting.</p></div>
+      </div>
+    </div>
+
+    <!-- FORMAT -->
+    <div style="margin-top:5rem;">
+      <div class="a-up">
+        <span class="eyebrow">HOW IT WORKS</span>
+        <h2>Designed around real working lives.</h2>
+      </div>
+      <div class="format-grid">
+        <div class="format-card a-scale d1">
+          <div class="format-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <h4>Weekend &amp; evening formats</h4>
+          <p>Structured so working installers don't have to stop working. Typically 2–3 weekends plus some weekday evenings per module.</p>
+        </div>
+        <div class="format-card a-scale d2">
+          <div class="format-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/></svg></div>
+          <h4>Practical assessment</h4>
+          <p>No exam halls. You're assessed on a real system — design it, build it, commission it. The certificate proves you can do the work, not just describe it.</p>
+        </div>
+        <div class="format-card a-scale d3">
+          <div class="format-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <h4>Modular — take what you need</h4>
+          <p>Each discipline is a standalone module. Start with one. Add more as your work evolves. Stack them into a full certification over time.</p>
+        </div>
+        <div class="format-card a-scale d4">
+          <div class="format-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <h4>Certification that travels</h4>
+          <p>A recognised qualification for your CV, business card, and LinkedIn. One that the integrators and OEMs in this industry actually recognise and value.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATION PATH -->
+    <div style="margin-top:5rem;">
+      <div class="a-up">
+        <span class="eyebrow">YOUR PATH</span>
+        <h2>From enrolment to certificate.</h2>
+      </div>
+      <div class="cert-path a-up" style="gap:0.5rem;margin-top:2rem;">
+        <div class="cert-step">
+          <div class="cert-step-num">1</div>
+          <h4>Choose module</h4>
+          <p>Pick the discipline most relevant to your current work</p>
+        </div>
+        <div class="cert-arrow">→</div>
+        <div class="cert-step">
+          <div class="cert-step-num">2</div>
+          <h4>Attend sessions</h4>
+          <p>Weekends &amp; evenings — structured around your schedule</p>
+        </div>
+        <div class="cert-arrow">→</div>
+        <div class="cert-step">
+          <div class="cert-step-num">3</div>
+          <h4>Practical assessment</h4>
+          <p>Demonstrate your skills on a real system</p>
+        </div>
+        <div class="cert-arrow">→</div>
+        <div class="cert-step">
+          <div class="cert-step-num">4</div>
+          <h4>Certified</h4>
+          <p>Receive your certificate and add it to your professional profile</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FUNDING MODEL -->
+<section id="funding" class="white">
+  <div class="container">
+    <div class="funding-inner a-up">
+      <span class="eyebrow">THE FUNDING MODEL</span>
+      <h2>Why Track Two fees matter.</h2>
+      <p style="color:var(--muted);font-size:0.925rem;margin-top:0.75rem;max-width:560px;margin-left:auto;margin-right:auto;">Track Two is a paid programme. But the surplus doesn't leave the Foundation — it funds Track One.</p>
+      <div class="funding-flow">
+        <div class="flow-box">
+          <h4>Your programme fees</h4>
+          <p>Fair, transparent cost for Track Two certification</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box highlight">
+          <h4>Foundation surplus</h4>
+          <p>Section 8 status — surplus cannot be distributed</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">
+          <h4>Track One funding</h4>
+          <p>Free training for underprivileged youth</p>
+        </div>
+      </div>
+      <p style="font-size:0.825rem;color:var(--muted);margin-top:1.5rem;">When you get certified, you're also helping someone else get their first chance in this industry. That's the model.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section id="cta-band">
+  <div class="container">
+    <div class="a-up">
+      <span class="eyebrow">GET STARTED</span>
+      <h2>Which track is right for you?</h2>
+    </div>
+    <div class="cta-grid">
+      <div class="cta-card cta-card-one a-scale d1">
+        <h3>Track One</h3>
+        <p>18+, ready to work hard, and want a real career in technology — at no cost to you.</p>
+        <a href="index.html#apply" class="btn btn-outline-light" style="border-color:rgba(255,255,255,0.5);">Apply for Track One →</a>
+      </div>
+      <div class="cta-card cta-card-two a-scale d2">
+        <h3>Track Two</h3>
+        <p>Already working in the trade and ready to get your skills formally recognised.</p>
+        <a href="partner.html" class="btn btn-outline-light" style="border-color:rgba(255,255,255,0.3);">Register interest →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:0.65rem;margin-bottom:0.9rem;">
+        <div class="logo-mark" style="width:30px;height:30px;font-size:0.72rem;">M</div>
+        <span class="foot-wm">MCBEE Skills Foundation</span>
+      </div>
+      <p class="foot-tl">A Section 8 (Not-for-profit) Company · Delhi NCR</p>
+      <p class="foot-tl" style="margin-top:0.2rem;font-size:0.72rem;color:rgba(177,182,193,0.5);">Powered by MCBEE</p>
+    </div>
+    <div class="foot-col"><h5>Programme</h5><ul class="foot-links"><li><a href="tracks.html#track-one">Track One</a></li><li><a href="tracks.html#track-two">Track Two</a></li><li><a href="index.html#curriculum">Curriculum</a></li><li><a href="index.html#outcomes">Outcomes</a></li></ul></div>
+    <div class="foot-col"><h5>Get Involved</h5><ul class="foot-links"><li><a href="index.html#apply">Apply as Student</a></li><li><a href="partner.html">Partner With Us</a></li><li><a href="mailto:mcbeeskillsfoundation@gmail.com">Email Partnerships</a></li></ul></div>
+    <div class="foot-col"><h5>Legal</h5><ul class="foot-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="donor-policy.html">Donor Policy</a></li><li><a href="grievance.html">Grievance</a></li></ul></div>
+  </div>
+  <div class="foot-bot">
+    <p class="foot-copy">© 2026 MCBEE Skills Foundation. All rights reserved. · CIN: [to be added] · Delhi NCR</p>
+  </div>
+</footer>
+
+<script>
+  /* ─── Nav hamburger ─────────────────── */
+  const burger = document.getElementById('burger');
+  const drawer = document.getElementById('drawer');
+  burger.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    drawer.classList.remove('open'); burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
+  }));
+
+  /* ─── Sticky tab active state ───────── */
+  const tabOne = document.getElementById('tab-one');
+  const tabTwo = document.getElementById('tab-two');
+  const sectionOne = document.getElementById('track-one');
+  const sectionTwo = document.getElementById('track-two');
+
+  const switcherIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      if (e.target === sectionOne) { tabOne.classList.add('active'); tabTwo.classList.remove('active'); }
+      if (e.target === sectionTwo) { tabTwo.classList.add('active'); tabOne.classList.remove('active'); }
+    });
+  }, { threshold: 0.3 });
+  switcherIO.observe(sectionOne);
+  switcherIO.observe(sectionTwo);
+
+  /* ─── Entrance animations ───────────── */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.a-up, .a-left, .a-right, .a-scale').forEach(el => io.observe(el));
+
+  // Hero fires on load
+  setTimeout(() => {
+    document.querySelectorAll('#hero .a-up, #hero .a-left, #hero .a-right').forEach(el => el.classList.add('vis'));
+  }, 150);
+</script>
+</body>
+</html>

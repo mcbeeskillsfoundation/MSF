@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCBEE Skills Foundation — Training India's next generation</title>
+  <meta name="description" content="A Section 8 not-for-profit training underprivileged youth for real careers in AV, IT, automation, security, and building systems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <script src="content.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #050505;
+      --paper:  #FCFCFC;
+      --white:  #FFFFFF;
+      --purple: #9741F4;
+      --orange: #FF820D;
+      --muted:  #B1B6C1;
+      --line:   #E8E8E8;
+      --max-w:  1200px;
+      --pad-x:  clamp(1.25rem, 5vw, 2.5rem);
+      --sec:    clamp(2rem, 4vw, 4rem);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.65;
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); }
+    section { padding: var(--sec) 0; }
+    .dark  { background: var(--ink); }
+    .white { background: var(--white); }
+
+    h1 { font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.025em; }
+    h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 300; line-height: 1.1;  letter-spacing: -0.02em; }
+    h3 { font-size: clamp(1.2rem, 2vw, 1.5rem);  font-weight: 300; line-height: 1.2; letter-spacing: -0.01em; }
+    h4 { font-size: 1rem; font-weight: 700; line-height: 1.3; }
+    p  { line-height: 1.7; }
+
+    .eyebrow {
+      display: block;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 0.9rem;
+    }
+    .divider       { display: block; width: 48px; height: 1.5px; background: var(--purple); margin: 1.25rem auto; }
+    .divider--left { margin: 1.25rem 0; }
+
+    .sec-head { text-align: center; max-width: 720px; margin: 0 auto 2.5rem; }
+    .sec-head h2 { margin-bottom: 0.6rem; }
+    .sec-sub  { color: var(--muted); font-weight: 300; font-size: 0.975rem; margin-top: 0.5rem; }
+
+    /* ── FOUNDER ROTATING IMAGES ──────────────── */
+    .founders-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .founders-img-stack { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 3/4; background: #f0f0f0; }
+    .founders-img-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease; }
+    .founders-img-slide.active { opacity: 1; }
+    .founders-img-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .founder-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(5,5,5,0.75) 0%, transparent 100%);
+      padding: 2rem 1.25rem 1.1rem;
+    }
+    .founder-name { display: block; font-size: 1rem; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+    .founder-role { display: block; font-size: 0.78rem; font-weight: 400; color: rgba(255,255,255,0.65); margin-top: 0.15rem; letter-spacing: 0.03em; }
+    .founders-img-dots { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 2; }
+    .fimg-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.45); cursor: pointer; transition: background 0.2s, width 0.3s cubic-bezier(0.16,1,0.3,1); }
+    .fimg-dot.active { background: #fff; width: 18px; border-radius: 3px; }
+
+    /* ── THREE IMAGE STRIP ─────────────────────── */
+    .img-strip-grid { display: grid; grid-template-columns: repeat(3,1fr); }
+    .img-strip-item { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; }
+    .img-strip-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.65s cubic-bezier(0.16,1,0.3,1); filter: brightness(0.75); }
+    .img-strip-item:hover img { transform: scale(1.04); filter: brightness(0.9); }
+    .img-strip-label { position: absolute; bottom: 1.25rem; left: 1.25rem; color: rgba(255,255,255,0.8); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; visibility: hidden; }
+
+    /* ── OUTCOMES IMAGE LEFT ───────────────────── */
+    .outcomes-img-wrap { border-radius: 8px; overflow: hidden; height: 100%; min-height: 360px; }
+    .outcomes-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ── PARTNER CARD ALIGNMENT ────────────────── */
+    .partner-body { padding: 1.75rem; display: flex; flex-direction: column; height: 100%; }
+    .partner-body-top { flex: 1; }
+    .partner-body-top .p-icon { margin-bottom: 1rem; }
+
+    /* ── FORM DARK INPUTS ──────────────────────── */
+    .form-wrap.dark-form label { color: rgba(252,252,252,0.7); }
+    #applyForm input:not([type="checkbox"]):not([type="radio"]),
+    #applyForm select, #applyForm textarea {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--paper);
+    }
+    #applyForm input:not([type="checkbox"]):not([type="radio"]):focus,
+    #applyForm select:focus, #applyForm textarea:focus {
+      border-color: var(--purple);
+      background: rgba(151,65,244,0.08);
+    }
+    #applyForm input::placeholder, #applyForm textarea::placeholder { color: rgba(177,182,193,0.5); }
+    #applyForm option { background: #1a1a1a; color: var(--paper); }
+    #applyForm label { color: rgba(252,252,252,0.6); }
+    #applyForm .rl, #applyForm .cl { color: rgba(252,252,252,0.65); }
+
+    /* ── SHINE BORDER ──────────────────────────── */
+    @keyframes card-shine {
+      0%   { background-position: 0% 0%; }
+      25%  { background-position: 100% 0%; }
+      50%  { background-position: 100% 100%; }
+      75%  { background-position: 0% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    /* Apply to all card types */
+    .card, .card-dark, .mod,
+    .ob, .who-card, .format-card,
+    .partner-card, .type-card {
+      position: relative;
+    }
+    .card::before, .card-dark::before, .mod::before,
+    .ob::before, .partner-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background-image: radial-gradient(
+        ellipse at center,
+        transparent 20%,
+        var(--purple) 50%,
+        var(--orange) 70%,
+        transparent 90%
+      );
+      background-size: 300% 300%;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: card-shine 16s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.7;
+    }
+    /* stagger so cards animate at different points in the cycle */
+    .card:nth-child(2)::before,  .card-dark:nth-child(2)::before,  .mod:nth-child(2)::before  { animation-delay: -2.7s; }
+    .card:nth-child(3)::before,  .card-dark:nth-child(3)::before,  .mod:nth-child(3)::before  { animation-delay: -5.4s; }
+    .card:nth-child(4)::before,  .card-dark:nth-child(4)::before,  .mod:nth-child(4)::before  { animation-delay: -8.0s; }
+    .card:nth-child(5)::before,  .card-dark:nth-child(5)::before,  .mod:nth-child(5)::before  { animation-delay: -10.7s; }
+    .card:nth-child(6)::before,  .card-dark:nth-child(6)::before,  .mod:nth-child(6)::before  { animation-delay: -13.4s; }
+    .card:nth-child(7)::before,  .mod:nth-child(7)::before  { animation-delay: -1.6s; }
+    .card:nth-child(8)::before,  .mod:nth-child(8)::before  { animation-delay: -4.3s; }
+    .card:nth-child(9)::before,  .mod:nth-child(9)::before  { animation-delay: -7.0s; }
+    .card:nth-child(10)::before, .mod:nth-child(10)::before { animation-delay: -9.7s; }
+    .card:nth-child(11)::before, .mod:nth-child(11)::before { animation-delay: -12.4s; }
+    .card:nth-child(12)::before, .mod:nth-child(12)::before { animation-delay: -15.0s; }
+
+    .ob::before { animation-duration: 18s; opacity: 0.5; }
+    .ob:nth-child(2)::before { animation-delay: -4.5s; }
+    .ob:nth-child(3)::before { animation-delay: -9.0s; }
+    .ob:nth-child(4)::before { animation-delay: -13.5s; }
+
+    /* remove old static borders — shine replaces them */
+    .card      { border-color: transparent; }
+    .card-dark { border-color: transparent; }
+    .mod       { border-top-color: transparent; }
+    .ob        { border-left-color: transparent; border-color: transparent; }
+
+    /* keep hover accents on top of shine via z-index trick */
+    .card-body, .card-dark-body { position: relative; z-index: 1; }
+    .mod-num, .mod-title, .mod-desc { position: relative; z-index: 1; }
+
+    /* ── CAROUSEL ──────────────────────────────── */
+    .carousel-wrap { }
+    .carousel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .carousel-tabs { display: flex; background: var(--line); border-radius: 6px; padding: 3px; gap: 2px; }
+    .ctab { padding: 0.5rem 1.25rem; border: none; border-radius: 4px; font-family: 'Manrope', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--muted); background: transparent; cursor: pointer; transition: background 0.2s, color 0.2s, box-shadow 0.2s; white-space: nowrap; }
+    .ctab.active { background: var(--white); color: var(--ink); box-shadow: 0 1px 4px rgba(5,5,5,0.1); }
+    .ctab:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+    .carousel-nav { display: flex; gap: 0.5rem; }
+    .cnav { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--white); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); transition: border-color 0.2s, color 0.2s, transform 0.15s cubic-bezier(0.34,1.56,0.64,1); }
+    .cnav:hover { border-color: var(--purple); color: var(--purple); transform: scale(1.08); }
+    .cnav:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+    .carousel-track { overflow: hidden; width: 100%; }
+    .cslide-inner { display: flex; width: 100%; transition: transform 0.55s cubic-bezier(0.16,1,0.3,1); will-change: transform; align-items: flex-start; }
+    .cslide {
+      min-width: 100%; width: 100%; flex-shrink: 0; box-sizing: border-box;
+      display: flex; flex-direction: column;
+    }
+
+    /* Grid grows to fill whatever height the slide is locked to */
+    .cslide .forces-grid,
+    .cslide .mv-wrap,
+    .cslide .tracks-grid,
+    .cslide .challenge-grid,
+    .cslide .cred-grid,
+    .cslide .road-grid {
+      flex: 1;
+      align-items: stretch;
+      align-content: stretch;
+    }
+
+    /* Cards fill their grid cell fully */
+    .cslide .card,
+    .cslide .card-dark { display: flex; flex-direction: column; height: 100%; }
+    .cslide .card-body,
+    .cslide .card-dark-body { flex: 1; display: flex; flex-direction: column; padding: 1.75rem; }
+
+    /* Uniform slide-head spacing */
+    .slide-head { margin-bottom: 2rem; }
+    .slide-head h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 300; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+
+    /* Challenge grid — equal height cards */
+    .challenge-grid .card { height: 100%; display: flex; flex-direction: column; }
+    .challenge-grid .card-body { flex: 1; }
+    .slide-head { margin-bottom: 2rem; }
+    .slide-head h2 { margin-bottom: 0.5rem; }
+    .carousel-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.75rem; }
+    .cdot { width: 6px; height: 6px; border-radius: 50%; background: var(--line); cursor: pointer; transition: background 0.2s, width 0.3s cubic-bezier(0.16,1,0.3,1); }
+    .cdot.active { background: var(--purple); width: 20px; border-radius: 3px; }
+
+    /* images */
+    .img-wrap { border-radius: 8px; overflow: hidden; position: relative; background: #1a1a1a; }
+    .img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.65s var(--ease-out); }
+    .img-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,5,5,0.45) 0%, transparent 55%); pointer-events: none; }
+    .img-wrap.light::after { background: linear-gradient(to top, rgba(5,5,5,0.12) 0%, transparent 60%); }
+    .card:hover .img-wrap img,
+    .card-dark:hover .img-wrap img,
+    .partner-card:hover .img-wrap img { transform: scale(1.05); }
+
+    /* buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.8rem 1.75rem; border-radius: 4px;
+      font-family: 'Manrope', sans-serif; font-size: 0.875rem;
+      font-weight: 700; letter-spacing: 0.04em;
+      text-decoration: none; cursor: pointer;
+      border: 2px solid transparent; position: relative; overflow: hidden;
+      transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out),
+                  border-color 0.2s var(--ease-out), transform 0.15s var(--ease-spring),
+                  box-shadow 0.2s var(--ease-out);
+    }
+    .btn:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: var(--purple); color: #fff; border-color: var(--purple);
+      box-shadow: 0 2px 8px rgba(151,65,244,0.3), 0 8px 24px rgba(151,65,244,0.1);
+    }
+    .btn-primary::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.18) 50%, transparent 65%);
+      transform: translateX(-100%); transition: transform 0.55s ease;
+    }
+    .btn-primary:hover { background: var(--orange); border-color: var(--orange); box-shadow: 0 2px 8px rgba(255,130,13,0.3), 0 8px 24px rgba(255,130,13,0.12); transform: translateY(-1px); }
+    .btn-primary:hover::after { transform: translateX(120%); }
+    .btn-outline { background: transparent; color: var(--paper); border-color: rgba(252,252,252,0.4); }
+    .btn-outline:hover { background: rgba(252,252,252,0.07); border-color: var(--paper); transform: translateY(-1px); }
+    .btn-outline-ink { background: transparent; color: var(--ink); border-color: var(--ink); }
+    .btn-outline-ink:hover { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
+
+    /* cards */
+    .card {
+      background: var(--white); border: 1px solid var(--line); border-radius: 8px;
+      border-top: 4px solid transparent; overflow: hidden;
+      box-shadow: 0 1px 3px rgba(5,5,5,0.04), 0 4px 12px rgba(5,5,5,0.03);
+      transition: border-top-color 0.2s ease, box-shadow 0.2s ease, transform 0.25s var(--ease-out);
+    }
+    .card:hover { border-top-color: var(--purple); box-shadow: 0 4px 16px rgba(151,65,244,0.1), 0 1px 3px rgba(5,5,5,0.06); transform: translateY(-3px); }
+    .card-body { padding: 1.75rem; }
+    .card-dark {
+      background: #0d0d0d; border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px; border-top: 4px solid transparent;
+      transition: border-top-color 0.2s ease, transform 0.25s var(--ease-out);
+    }
+    .card-dark:hover { border-top-color: var(--orange); transform: translateY(-3px); }
+    .card-dark-body { padding: 1.75rem; }
+
+    /* ═══════════════════════════════════════════
+       ENTRANCE ANIMATION PRIMITIVES
+       All start hidden, .vis triggers entrance.
+       Each class has a distinct motion signature.
+    ═══════════════════════════════════════════ */
+
+    /* fade up — generic fallback */
+    .a-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
+    }
+    .a-up.vis { opacity: 1; transform: none; }
+
+    /* slide from left */
+    .a-left {
+      opacity: 0; transform: translateX(-48px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .a-left.vis { opacity: 1; transform: none; }
+
+    /* slide from right */
+    .a-right {
+      opacity: 0; transform: translateX(48px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .a-right.vis { opacity: 1; transform: none; }
+
+    /* drop from above */
+    .a-down {
+      opacity: 0; transform: translateY(-32px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+    .a-down.vis { opacity: 1; transform: none; }
+
+    /* scale pop — spring */
+    .a-scale {
+      opacity: 0; transform: scale(0.82);
+      transition: opacity 0.5s ease, transform 0.65s var(--ease-spring);
+    }
+    .a-scale.vis { opacity: 1; transform: scale(1); }
+
+    /* 3-D tilt-up — perspective card entrance */
+    .a-tilt {
+      opacity: 0; transform: perspective(700px) rotateX(14deg) translateY(22px);
+      transition: opacity 0.6s ease, transform 0.7s var(--ease-out);
+    }
+    .a-tilt.vis { opacity: 1; transform: perspective(700px) rotateX(0deg) translateY(0); }
+
+    /* rotate-fade in */
+    .a-rotate {
+      opacity: 0; transform: rotate(-5deg) scale(0.94);
+      transition: opacity 0.55s ease, transform 0.65s var(--ease-spring);
+    }
+    .a-rotate.vis { opacity: 1; transform: rotate(0deg) scale(1); }
+
+    /* wipe — clip-path right to left reveal */
+    .a-wipe {
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 0.75s var(--ease-out);
+    }
+    .a-wipe.vis { clip-path: inset(0 0% 0 0); }
+
+    /* wipe from bottom up */
+    .a-wipe-up {
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path 0.8s var(--ease-out);
+    }
+    .a-wipe-up.vis { clip-path: inset(0 0 0% 0); }
+
+    /* hero H1 line reveal */
+    .h1-line { display: block; overflow: hidden; }
+    .h1-inner {
+      display: block;
+      transform: translateY(110%); opacity: 0;
+      transition: transform 0.9s var(--ease-out), opacity 0.5s ease;
+    }
+    .h1-inner.vis { transform: translateY(0); opacity: 1; }
+    .h1-inner.d1 { transition-delay: 0.05s; }
+    .h1-inner.d2 { transition-delay: 0.2s; }
+
+    /* timeline draw */
+    .tl-draw {
+      position: absolute; top: 8px; left: 0; right: 0;
+      height: 1.5px; background: var(--purple);
+      transform: scaleX(0); transform-origin: left center;
+      transition: transform 1.1s var(--ease-out);
+    }
+    .tl-draw.vis { transform: scaleX(1); }
+
+    /* SVG check draw */
+    .chk-svg polyline {
+      stroke-dasharray: 30;
+      stroke-dashoffset: 30;
+      transition: stroke-dashoffset 0.55s var(--ease-out);
+    }
+    .chk-svg.vis polyline { stroke-dashoffset: 0; }
+
+    /* stat number shimmer gradient */
+    .stat-num {
+      background: linear-gradient(135deg, var(--purple) 0%, var(--orange) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* delay utilities */
+    .d1  { transition-delay: 0.07s !important; }
+    .d2  { transition-delay: 0.14s !important; }
+    .d3  { transition-delay: 0.21s !important; }
+    .d4  { transition-delay: 0.28s !important; }
+    .d5  { transition-delay: 0.35s !important; }
+    .d6  { transition-delay: 0.42s !important; }
+    .d7  { transition-delay: 0.49s !important; }
+    .d8  { transition-delay: 0.56s !important; }
+    .d9  { transition-delay: 0.63s !important; }
+    .d10 { transition-delay: 0.70s !important; }
+    .d11 { transition-delay: 0.77s !important; }
+    .d12 { transition-delay: 0.84s !important; }
+
+    /* card hover refinements */
+    .ob { border: 1px solid var(--line); border-left: 3px solid transparent; border-radius: 8px; transition: border-left-color 0.2s, transform 0.3s var(--ease-spring), box-shadow 0.3s ease; }
+    .ob:hover { border-left-color: var(--purple); transform: translateX(4px); box-shadow: 4px 0 16px rgba(151,65,244,0.1); }
+    .gov-chk { transition: transform 0.3s var(--ease-spring); }
+    .card:hover .gov-chk { transform: scale(1.18); }
+
+    /* NAV */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem var(--pad-x);
+      transition: background 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+    }
+    #nav.scrolled { background: var(--ink); box-shadow: 0 2px 20px rgba(0,0,0,0.4); padding-top: 0.85rem; padding-bottom: 0.85rem; }
+    /* NAV */
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logomark-img { height: 36px; width: auto; display: block; object-fit: contain; }
+    .logo-mark { width: 34px; height: 34px; border-radius: 4px; flex-shrink: 0; background: linear-gradient(135deg, var(--purple), var(--orange)); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #fff; }
+
+    /* Contact Us dropdown */
+    .nav-contact { position: relative; }
+    .nav-contact-btn {
+      padding: 0.5rem 1.1rem; background: transparent; color: rgba(252,252,252,0.7);
+      border: 1.5px solid rgba(252,252,252,0.25); border-radius: 4px;
+      font-family: 'Manrope', sans-serif; font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s;
+      display: flex; align-items: center; gap: 0.35rem;
+    }
+    .nav-contact-btn:hover { color: var(--paper); border-color: rgba(252,252,252,0.5); }
+    .nav-contact-btn::after { content: '▾'; font-size: 0.7rem; }
+    .nav-dropdown {
+      position: absolute; top: 100%; right: 0; padding-top: 8px;
+      background: var(--ink); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; min-width: 200px; overflow: hidden;
+      opacity: 0; pointer-events: none; transform: translateY(-6px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .nav-contact:hover .nav-dropdown,
+    .nav-contact:focus-within .nav-dropdown { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .nav-dropdown a {
+      display: block; padding: 0.7rem 1.1rem; font-size: 0.82rem; font-weight: 500;
+      color: rgba(252,252,252,0.75); text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-dropdown a:last-child { border-bottom: none; }
+    .nav-dropdown a:hover { background: rgba(151,65,244,0.12); color: var(--paper); }
+
+    /* HERO */
+    .hero-logomark { margin-bottom: 1.25rem; display: flex; flex-direction: column; align-items: center; }
+    .hero-logomark img { height: 80px; width: auto; display: block; }
+    .hero-name-unit { display: flex; flex-direction: column; gap: 0; margin-bottom: 1.5rem; }
+    .hero-logomark-name { font-size: clamp(1rem, 2.2vw, 1.35rem); font-weight: 300; color: var(--paper); letter-spacing: 0.01em; }
+    .hero-logomark-name + .hero-sub { color: var(--paper); }
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; color: rgba(252,252,252,0.7); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--paper); }
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0.4rem; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: var(--paper); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .drawer { display: none; position: fixed; inset: 0; background: var(--ink); z-index: 999; padding: 5rem 2rem 2rem; flex-direction: column; gap: 1.5rem; }
+    .drawer.open { display: flex; }
+    .drawer a { font-size: 1.4rem; font-weight: 300; color: var(--paper); text-decoration: none; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s; }
+    .drawer a:hover { color: var(--orange); }
+    .drawer-foot { margin-top: auto; display: flex; gap: 1rem; }
+    .drawer-foot a { font-size: 0.75rem; color: var(--muted); border: none; padding: 0; }
+
+    /* HERO */
+    #hero { min-height: 100vh; display: flex; align-items: center; background: var(--ink); position: relative; overflow: hidden; padding: 7rem var(--pad-x) 5rem; }
+    .hero-bg-img { position: absolute; inset: 0; }
+    .hero-bg-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.18; }
+    .hero-bg-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, var(--ink) 45%, rgba(5,5,5,0.6) 100%); }
+    .hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 55% 55% at 75% 50%, rgba(151,65,244,0.1) 0%, transparent 65%), radial-gradient(ellipse 35% 35% at 20% 75%, rgba(255,130,13,0.05) 0%, transparent 55%); }
+    .hero-inner { max-width: var(--max-w); margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+    .hero-content { max-width: 760px; margin: 0 auto; text-align: center; }
+    .hero-h1 { color: var(--paper); margin-bottom: 0.75rem; }
+    .hero-sub { color: var(--orange); font-size: clamp(1rem, 2.2vw, 1.35rem); font-weight: 300; margin-bottom: 1.5rem; }
+    .hero-name-unit .hero-sub { color: var(--paper); margin-bottom: 0; }
+    .hero-body { color: rgba(252,252,252,0.7); font-size: 1.05rem; max-width: 580px; margin: 0 auto 2.25rem; line-height: 1.7; }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; }
+
+    /* STATS */
+    #stats { padding: 0; }
+    .stats-inner { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .stat-block { padding: 2.5rem 2rem; text-align: center; border-right: 1px solid var(--line); }
+    .stat-block:last-child { border-right: none; }
+    .stat-num { font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 500; letter-spacing: 0.04em; }
+
+    /* FOUNDERS */
+    .founders-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .founders-pullout { font-size: 1.15rem; font-weight: 700; margin-top: 1.5rem; padding-left: 1.1rem; border-left: 3px solid var(--purple); }
+    .founders-sig { margin-top: 1.25rem; color: var(--muted); font-size: 0.9rem; display: inline-block; border-bottom: 1px solid var(--purple); padding-bottom: 2px; }
+    .founders-photo { border-radius: 8px; overflow: hidden; aspect-ratio: 3/4; }
+    .founders-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* FORCES */
+    .forces-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; align-items: stretch; }
+    .forces-grid .card, .forces-grid .card-dark { height: 100%; }
+    .force-img { height: 220px; }
+    .force-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* CHALLENGE */
+    .challenge-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; align-items: stretch; }
+    .challenge-grid .card { height: 100%; }
+    .challenge-img { height: 180px; }
+    .challenge-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ANNOUNCEMENT */
+    #announcement .ann-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .ann-quote { font-size: clamp(1.15rem, 2.2vw, 1.6rem); font-weight: 300; color: var(--orange); line-height: 1.45; margin: 1.75rem 0; }
+    .ann-img { height: 280px; margin-top: 2.5rem; border-radius: 8px; overflow: hidden; }
+    .ann-img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.4; }
+    .status-strip { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; background: rgba(151,65,244,0.1); border: 1px solid rgba(151,65,244,0.2); border-radius: 6px; padding: 0.85rem 1.25rem; font-size: 0.825rem; color: var(--muted); }
+    .status-strip .chk { color: var(--purple); font-weight: 700; }
+
+    /* TRACKS */
+    .tracks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; align-items: stretch; }
+    .tracks-grid .card, .tracks-grid .card-dark { display: flex; flex-direction: column; }
+    .tracks-grid .card-body, .tracks-grid .card-dark-body { flex: 1; }
+    .track-img { height: 200px; }
+    .track-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .track-foot { font-size: 0.85rem; font-weight: 700; margin-top: 1rem; }
+    .track-link { display: inline-block; margin-top: 1rem; font-size: 0.85rem; font-weight: 700; text-decoration: none; color: var(--purple); border-bottom: 1px solid var(--purple); transition: color 0.2s, border-color 0.2s; }
+    .track-link:hover { color: var(--orange); border-color: var(--orange); }
+    .track-link-lt { color: var(--orange); border-color: var(--orange); }
+    .track-link-lt:hover { color: var(--paper); border-color: var(--paper); }
+
+    /* CURRICULUM */
+    .curr-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-top: 2.5rem; }
+    .mod { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 1.35rem; border-top: 3px solid var(--line); transition: border-top-color 0.2s, box-shadow 0.2s, transform 0.2s var(--ease-out); }
+    .mod:hover { border-top-color: var(--purple); box-shadow: 0 4px 16px rgba(151,65,244,0.1); transform: translateY(-2px); }
+    .mod-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: var(--purple); margin-bottom: 0.35rem; }
+    .mod-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .mod-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+    .curr-foot { text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(--purple); font-weight: 500; }
+
+    /* OUTCOMES */
+    .outcomes-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 1.5rem; margin-top: 2.5rem; align-items: stretch; }
+    .outcomes-card { background: var(--ink); border-radius: 8px; overflow: hidden; border-left: 4px solid var(--purple); }
+    .outcomes-card-img { height: 220px; }
+    .outcomes-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.5; }
+    .outcomes-card-body { padding: 2rem; }
+    .outcome-list { display: flex; flex-direction: column; gap: 0; }
+    .ob { background: var(--white); padding: 1rem 1.25rem; display: flex; gap: 0.9rem; align-items: flex-start; flex: 1; border-radius: 0; border-left: 3px solid transparent; border-bottom: 1px solid var(--line); }
+    .ob:first-child { border-top-left-radius: 8px; border-top-right-radius: 8px; border-top: 1px solid var(--line); }
+    .ob:last-child  { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; border-bottom: 1px solid var(--line); }
+    .ob-icon { color: var(--purple); flex-shrink: 0; margin-top: 2px; }
+    .ob-icon svg { width: 18px; height: 18px; }
+    .ob-title { font-weight: 700; font-size: 0.875rem; margin-bottom: 0.15rem; }
+    .ob-body { font-size: 0.825rem; color: var(--muted); line-height: 1.5; }
+    .outcomes-pullout { text-align: center; margin: 2.5rem auto 0; max-width: 640px; font-size: 1rem; font-weight: 300; color: var(--purple); line-height: 1.6; letter-spacing: 0.01em; }
+
+    /* MISSION/VISION */
+    .mv-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; align-items: stretch; }
+    .mv-wrap .card { display: flex; flex-direction: column; }
+    .mv-wrap .card-body { flex: 1; }
+    .mv-img { height: 200px; }
+    .mv-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* CREDIBILITY */
+    .cred-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    .cred-num { font-size: 3rem; font-weight: 300; color: var(--orange); line-height: 1; margin-bottom: 0.85rem; letter-spacing: -0.03em; }
+
+    /* ROAD AHEAD */
+    .road-wrap { position: relative; }
+    .timeline-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; position: relative; padding-top: 16px; }
+    .tl-dot { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1; position: relative; z-index: 1; }
+    .tl-pip { width: 14px; height: 14px; border-radius: 50%; background: var(--purple); }
+    .tl-lbl { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; color: var(--orange); white-space: nowrap; }
+    .road-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+    .road-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: var(--orange); margin-bottom: 0.75rem; display: block; }
+
+    /* TRACK TWO */
+    .t2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+    .t2-img { height: 240px; border-radius: 8px; overflow: hidden; margin-bottom: 2rem; }
+    .t2-img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.55; }
+
+    /* PARTNER */
+    #partner { position: relative; overflow: hidden; }
+    #partner::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 50% 60% at 80% 50%, rgba(151,65,244,0.07) 0%, transparent 65%), radial-gradient(ellipse 35% 40% at 15% 30%, rgba(255,130,13,0.05) 0%, transparent 55%); }
+    .partner-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    .partner-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 8px; overflow: hidden; border-top: 4px solid transparent; transition: border-top-color 0.2s, background 0.2s, transform 0.25s var(--ease-out); }
+    .partner-card:hover { border-top-color: var(--purple); background: rgba(255,255,255,0.06); transform: translateY(-3px); }
+    .partner-img { height: 180px; }
+    .partner-img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.45; }
+    .partner-body { padding: 1.5rem; }
+    .p-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; color: var(--orange); text-transform: uppercase; margin-bottom: 0.6rem; display: block; }
+    .partner-card h3 { color: var(--paper); font-size: 1.6rem; margin-bottom: 0.4rem; }
+    .p-sub { color: var(--orange); font-size: 0.85rem; font-weight: 300; margin-bottom: 0.75rem; }
+    .partner-card p { color: rgba(252,252,252,0.6); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1.25rem; }
+    .p-icon { color: var(--orange); margin-bottom: 1rem; }
+    .p-icon svg { width: 26px; height: 26px; }
+
+    /* APPLY */
+    .apply-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; align-items: start; }
+    .apply-img { height: 200px; border-radius: 8px; overflow: hidden; margin-bottom: 1.75rem; }
+    .apply-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .checklist { list-style: none; margin: 1.25rem 0; display: flex; flex-direction: column; gap: 0.6rem; }
+    .checklist li { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.9rem; opacity: 0; transform: translateX(-16px); transition: opacity 0.4s ease, transform 0.4s var(--ease-out); }
+    .checklist li.vis { opacity: 1; transform: none; }
+    .checklist li::before { content: '✓'; color: var(--purple); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .steps { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.65rem; }
+    .step { display: flex; gap: 0.85rem; align-items: flex-start; font-size: 0.875rem; color: var(--muted); }
+    .snum { width: 26px; height: 26px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    /* FORM */
+    .form-wrap { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: 2rem; box-shadow: 0 2px 8px rgba(5,5,5,0.05), 0 8px 32px rgba(151,65,244,0.05); }
+    .form-wrap h4 { margin-bottom: 1.5rem; }
+    .apply-form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .fg { display: flex; flex-direction: column; gap: 0.35rem; }
+    .fr { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; color: var(--ink); text-transform: uppercase; }
+    input, select, textarea { font-family: 'Manrope', sans-serif; font-size: 0.875rem; padding: 0.7rem 0.9rem; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); color: var(--ink); width: 100%; transition: border-color 0.2s, box-shadow 0.2s; -webkit-appearance: none; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(151,65,244,0.1); }
+    textarea { resize: vertical; min-height: 90px; }
+    .radio-row { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+    .rl { display: flex; align-items: center; gap: 0.45rem; font-size: 0.875rem; font-weight: 400; text-transform: none; letter-spacing: 0; cursor: pointer; }
+    .cl { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.8rem; font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--muted); line-height: 1.5; cursor: pointer; }
+    input[type="checkbox"], input[type="radio"] { width: auto; accent-color: var(--purple); -webkit-appearance: auto; appearance: auto; padding: 0; border: none; background: none; box-shadow: none; }
+
+    /* GOVERNANCE */
+    .gov-img { height: 220px; border-radius: 8px; overflow: hidden; margin-bottom: 2.5rem; }
+    .gov-img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.45; }
+    .gov-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+    .gov-chk { width: 30px; height: 30px; border-radius: 50%; background: rgba(151,65,244,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 0.85rem; }
+    .gov-chk svg { color: var(--purple); width: 14px; height: 14px; }
+
+    /* CLOSING */
+    #closing { text-align: center; padding: 5rem var(--pad-x); }
+    .closing-img { height: 320px; border-radius: 8px; overflow: hidden; max-width: 800px; margin: 0 auto 3rem; position: relative; }
+    .closing-img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.3; }
+    .big-q { font-size: 5rem; line-height: 0.7; color: var(--orange); font-weight: 700; margin-bottom: 0.85rem; display: block; }
+    .closing-quote { font-size: clamp(1.2rem, 2.8vw, 1.9rem); font-weight: 300; color: var(--ink); max-width: 680px; margin: 0 auto 0.75rem; line-height: 1.4; letter-spacing: -0.01em; }
+    .closing-cta { font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 300; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 1.75rem; }
+    .closing-btns { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+
+    /* FOOTER */
+    footer { background: var(--ink); border-top: 4px solid var(--purple); padding: 3.5rem var(--pad-x) 2rem; }
+    .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; max-width: var(--max-w); margin: 0 auto; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .foot-wm { font-size: 0.95rem; font-weight: 300; color: var(--paper); margin-bottom: 0.4rem; }
+    .foot-tl { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.2rem; }
+    .foot-pw { font-size: 0.72rem; color: rgba(177,182,193,0.5); }
+    .foot-col h5 { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.1rem; }
+    .foot-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .foot-links a { font-size: 0.85rem; color: rgba(252,252,252,0.5); text-decoration: none; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--orange); }
+    .foot-bot { max-width: var(--max-w); margin: 2rem auto 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .foot-copy { font-size: 0.77rem; color: rgba(177,182,193,0.45); line-height: 1.6; }
+    .socials { display: flex; gap: 0.75rem; }
+    .socials a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s, background 0.2s; }
+    .socials a:hover { border-color: var(--orange); color: var(--orange); background: rgba(255,130,13,0.06); }
+    .socials svg { width: 15px; height: 15px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) { .curr-grid { grid-template-columns: repeat(3,1fr); } .outcomes-wrap { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      .founders-grid, .forces-grid, .challenge-grid, .tracks-grid, .mv-wrap,
+      .cred-grid, .road-grid, .t2-grid, .partner-grid, .apply-grid, .stats-inner { grid-template-columns: 1fr; }
+      .stats-inner .stat-block { border-right: none; border-bottom: 1px solid var(--line); }
+      .stats-inner .stat-block:last-child { border-bottom: none; }
+      .fr { grid-template-columns: 1fr; }
+      .curr-grid { grid-template-columns: repeat(2,1fr); }
+      .gov-grid { grid-template-columns: repeat(2,1fr); }
+      .foot-grid { grid-template-columns: 1fr 1fr; }
+      .founders-photo { display: none; }
+      .founders-grid { grid-template-columns: 1fr; }
+      .founders-img-stack { aspect-ratio: 16/9; }
+    }
+    @media (max-width: 480px) { .curr-grid, .gov-grid, .foot-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="MSF logomark.png" alt="MCBEE Skills Foundation" class="nav-logomark-img" />
+  </a>
+  <ul class="nav-links" style="margin-left:auto;">
+    <li><a href="#programme">About the Programme</a></li>
+    <li><a href="#credibility">Our Vision</a></li>
+    <li><a href="#partner">Stand With Us</a></li>
+    <li class="nav-contact">
+      <button class="nav-contact-btn">Contact Us</button>
+      <div class="nav-dropdown">
+        <a href="#apply">Apply for the Programme</a>
+        <a href="partner.html">Partner With Us</a>
+      </div>
+    </li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="drawer" id="drawer">
+  <a href="#programme">About the Programme</a>
+  <a href="#credibility">Our Vision</a>
+  <a href="#partner">Stand With Us</a>
+  <a href="#apply">Apply for the Programme</a>
+  <a href="partner.html">Partner With Us</a>
+  <div class="drawer-foot"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+</div>
+
+<!-- ══ HERO — line-by-line slide-up reveal ═══════ -->
+<section id="hero">
+  <!-- Video background (shown when hero-video-url is set in admin) -->
+  <video id="hero-video" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;z-index:0;"></video>
+  <!-- Dark overlay between video and content — controls how dark the video reads -->
+  <div id="hero-overlay" style="position:absolute;inset:0;background:rgba(5,5,5,0.82);z-index:1;display:none;"></div>
+  <div class="hero-glow" style="position:relative;z-index:2;"></div>
+  <div class="hero-inner" style="position:relative;z-index:3;">
+    <div class="hero-content">
+      <div class="hero-logomark h1-inner d1">
+        <img src="MSF logomark.png" alt="MCBEE Skills Foundation" />
+      </div>
+      <div class="hero-name-unit a-up" style="transition-delay:0.35s">
+        <p class="hero-logomark-name">MCBEE Skills Foundation,</p>
+        <p class="hero-sub" data-cms="hero-subhead">Giving back to the industry that built us.</p>
+      </div>
+      <span class="divider a-wipe" style="transition-delay:0.45s;margin:1.25rem auto;"></span>
+      <p class="hero-body a-up" style="transition-delay:0.5s" data-cms="hero-body">Training India's next generation of AV, IT, automation, security, and building-systems professionals. Free for young people who need it. Funded by the industry that needs them.</p>
+      <span class="a-wipe" id="hero-eyebrow" style="transition-delay:0.62s;margin-top:1.5rem;display:flex;flex-direction:column;align-items:center;gap:0.35rem;font-weight:300;font-size:clamp(0.8rem, 1.6vw, 1rem);color:var(--paper);">
+        <span>An initiative by</span>
+        <img src="MCBEE wordmark.png" alt="MCBEE" style="height:0.85em;width:auto;opacity:0.8;" />
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOUNDERS — left/right split entrance ══════ -->
+<section id="why">
+  <div class="container">
+    <div class="founders-grid">
+      <div class="a-left">
+        <span class="eyebrow">FROM THE FOUNDERS</span>
+        <h2 data-cms="founders-heading">A note before we begin.</h2>
+        <span class="divider divider--left"></span>
+        <p style="color:var(--muted);margin-bottom:1rem;" data-cms="founders-p1">For over a decade, our industry — AV, IT, security, automation, building systems — has rewarded us. It has also shown us the same gap every year: bright young people who want to enter this trade, with nowhere to learn it.</p>
+        <p style="color:var(--muted);" data-cms="founders-p2">We hire by word of mouth. We train on the job. We all complain about the same shortage — and none of us has done much about it. Until now.</p>
+        <p class="founders-pullout" data-cms="founders-pullout">We have decided to do something about it.</p>
+        <span class="founders-sig" style="color:var(--muted);" data-cms="founders-sig">— Sawan &amp; Sameer, Co-Founders, MCBEE Skills Foundation</span>
+      </div>
+      <div class="founders-img-stack a-right">
+        <div class="founders-img-slide active" id="fimg0">
+          <img data-cms-img="founders-img-1" src="https://placehold.co/520x620/f0f0f0/aaa?text=Founder+Photo+1" alt="Sawan Nichani" />
+          <div class="founder-caption">
+            <span class="founder-name">Sawan Nichani</span>
+            <span class="founder-role">Founder / CEO</span>
+          </div>
+        </div>
+        <div class="founders-img-slide" id="fimg1">
+          <img data-cms-img="founders-img-2" src="https://placehold.co/520x620/e8e0f8/9741F4?text=Founder+Photo+2" alt="Sameer Nichani" />
+          <div class="founder-caption">
+            <span class="founder-name">Sameer Nichani</span>
+            <span class="founder-role">Founder / COO</span>
+          </div>
+        </div>
+        <div class="founders-img-dots">
+          <span class="fimg-dot active" data-idx="0"></span>
+          <span class="fimg-dot" data-idx="1"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MISSION STATEMENT ══════════════════════════ -->
+<section id="mission" class="white">
+  <div class="container">
+    <div style="max-width:780px;margin:0 auto;text-align:center;" class="a-up">
+      <span class="eyebrow">WHAT WE STAND FOR</span>
+      <p style="font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:300;line-height:1.65;color:var(--ink);letter-spacing:-0.01em;" data-cms="mission-text">
+        We are building India's most comprehensive industry-led training ecosystem for AV, IT, security, automation, and building systems — making world-class skills accessible to underprivileged youth, and giving today's installers the recognition their craft deserves. Within the next decade, every Indian integrator should be able to hire from a recognised national pool of trained, certified professionals.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS — scale-pop per block ═══════════════ -->
+<section id="stats" class="white">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-block a-scale d1"><div class="stat-num" data-cms="stat-1-num" data-val="12" data-suf="">12</div><div class="stat-label" data-cms="stat-1-label">Curriculum Modules</div></div>
+      <div class="stat-block a-scale d2"><div class="stat-num" data-cms="stat-2-num" data-val="6" data-suf=" mo">6 mo</div><div class="stat-label" data-cms="stat-2-label">Full-Time Programme</div></div>
+      <div class="stat-block a-scale d3"><div class="stat-num" data-cms="stat-3-num" data-val="0" data-pfx="₹" data-suf="">₹0</div><div class="stat-label" data-cms="stat-3-label">Cost for Track One Students</div></div>
+      <div class="stat-block a-scale d4"><div class="stat-num" data-cms="stat-4-num" data-val="2026" data-suf="">2026</div><div class="stat-label" data-cms="stat-4-label">First Cohort Opens</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ THE MOMENT WE'RE IN ════════════════════════ -->
+<section id="moment" class="white" style="border-top:4px solid var(--purple);">
+  <div class="container">
+    <div class="sec-head a-up">
+      <span class="eyebrow">THE MOMENT WE'RE IN</span>
+      <h2>Two forces are meeting. We can either let them collide — or build a bridge.</h2>
+    </div>
+    <div class="forces-grid">
+      <div class="card a-left"><div class="card-body">
+        <span class="eyebrow" style="color:var(--purple);">FORCE ONE</span>
+        <h3 style="margin-bottom:0.6rem;">AI is reshaping work.</h3>
+        <p style="color:var(--muted);font-size:0.9rem;">Cognitive work is automating fast. What holds value? The physical, hands-on, real-world skills — installing systems, terminating cables, commissioning at 11pm. That's our trade.</p>
+      </div></div>
+      <div class="card-dark a-right"><div class="card-dark-body">
+        <span class="eyebrow">FORCE TWO</span>
+        <h3 style="color:var(--paper);margin-bottom:0.6rem;">India's youth are arriving.</h3>
+        <p style="color:rgba(252,252,252,0.6);font-size:0.9rem;">62% of India is working-age. Median age: 29. Millions entering the workforce each year without serious technical pathways. Without intervention, our talent shortage gets worse, not better.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══ THREE IMAGE STRIP ══════════════════════════ -->
+<section id="img-strip" style="padding:0;">
+  <div class="img-strip-grid">
+    <div class="img-strip-item a-up d1">
+      <img data-cms-img="strip-img-1" src="https://placehold.co/400x300/050505/333?text=Image+1" alt="" aria-hidden="true" />
+      <div class="img-strip-label" data-cms="strip-label-1">Training in action</div>
+    </div>
+    <div class="img-strip-item a-up d2">
+      <img data-cms-img="strip-img-2" src="https://placehold.co/400x300/050505/333?text=Image+2" alt="" aria-hidden="true" />
+      <div class="img-strip-label" data-cms="strip-label-2">On site</div>
+    </div>
+    <div class="img-strip-item a-up d3">
+      <img data-cms-img="strip-img-3" src="https://placehold.co/400x300/050505/333?text=Image+3" alt="" aria-hidden="true" />
+      <div class="img-strip-label" data-cms="strip-label-3">The team</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CAROUSEL B — How It Works + Credibility ════ -->
+<section id="programme" class="white">
+  <div class="container">
+    <div class="carousel-wrap a-up">
+      <div class="carousel-header">
+        <div class="carousel-tabs" role="tablist">
+          <button class="ctab active" data-slide="0" role="tab" aria-selected="true">How It Works</button>
+          <button class="ctab" data-slide="1" role="tab" aria-selected="false">Credibility</button>
+        </div>
+        <div class="carousel-nav">
+          <button class="cnav" id="cprev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <button class="cnav" id="cnext" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
+      <div class="carousel-track" id="ctrack"><div class="cslide-inner" id="cslide-inner">
+
+        <div class="cslide">
+          <div class="slide-head">
+            <h2>Two tracks. One mission.</h2>
+            <p class="sec-sub">A self-sustaining model where the industry funds the training of its own future workforce.</p>
+          </div>
+          <div class="tracks-grid">
+            <div class="card" style="border-top-color:var(--purple);"><div class="card-body">
+              <span class="eyebrow" style="color:var(--purple);">TRACK ONE</span>
+              <h3 style="margin-bottom:0.75rem;">Free for the youth who need it most.</h3>
+              <p style="color:var(--muted);font-size:0.9rem;">Underprivileged young people, 18+, given a fully sponsored pathway into the trade. Structured training, hands-on lab work, and industry placement — at no cost to them.</p>
+              <p class="track-foot" style="color:var(--purple);">Funded through CSR, donations, and Track Two surplus.</p>
+              <div style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;margin-top:1rem;">
+                <a href="#apply" class="track-link" style="margin-top:0;">→ Apply for the next cohort</a>
+                <a href="tracks.html#track-one" class="track-link" style="margin-top:0;color:var(--muted);border-color:var(--muted);">Learn more</a>
+              </div>
+            </div></div>
+            <div class="card-dark" style="border-top:4px solid var(--orange);"><div class="card-dark-body">
+              <span class="eyebrow">TRACK TWO</span>
+              <h3 style="color:var(--paper);margin-bottom:0.75rem;">Certification for existing installers.</h3>
+              <p style="color:rgba(252,252,252,0.6);font-size:0.9rem;">Working installers across AV, IT, security, and automation get formal, recognised certification. Modular, paid programmes designed around real-world schedules.</p>
+              <p class="track-foot" style="color:var(--orange);">Surplus from Track Two underwrites Track One.</p>
+              <div style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;margin-top:1rem;">
+                <a href="partner.html" class="track-link track-link-lt" style="margin-top:0;">→ Register your interest</a>
+                <a href="tracks.html#track-two" class="track-link" style="margin-top:0;color:rgba(252,252,252,0.45);border-color:rgba(252,252,252,0.25);">Learn more</a>
+              </div>
+            </div></div>
+          </div>
+        </div>
+
+        <div class="cslide">
+          <div class="slide-head"><h2>Built to be recognised — by industry, then by government.</h2></div>
+          <div class="cred-grid">
+            <div class="card-dark"><div class="card-dark-body"><div class="cred-num">01</div><h4 style="color:var(--paper);margin-bottom:0.6rem;">Industry-led standards</h4><p style="color:rgba(252,252,252,0.55);font-size:0.875rem;line-height:1.65;">Senior practitioners review and sign off every curriculum, assessment, and trainer qualification. Industry sets the bar.</p></div></div>
+            <div class="card-dark"><div class="card-dark-body"><div class="cred-num">02</div><h4 style="color:var(--paper);margin-bottom:0.6rem;">Real-world assessment</h4><p style="color:rgba(252,252,252,0.55);font-size:0.875rem;line-height:1.65;">Students design, build, and commission actual systems — not multiple-choice exams. The certificate proves they can do the work.</p></div></div>
+            <div class="card-dark"><div class="card-dark-body"><div class="cred-num">03</div><h4 style="color:var(--paper);margin-bottom:0.6rem;">Government recognition</h4><p style="color:rgba(252,252,252,0.55);font-size:0.875rem;line-height:1.65;">Every course is designed against the National Skills Qualifications Framework from day one. Formal NSQF alignment is the 2028 target.</p></div></div>
+          </div>
+        </div>
+
+      </div></div>
+      <div class="carousel-dots" role="presentation">
+        <span class="cdot active" data-slide="0"></span>
+        <span class="cdot" data-slide="1"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CURRICULUM — diagonal wave pop-in ═════════ -->
+<section id="curriculum" class="white">
+  <div class="container">
+    <div class="sec-head a-up">
+      <span class="eyebrow">THE CURRICULUM</span>
+      <h2>What we will teach.</h2>
+      <p class="sec-sub">End-to-end — from first principles to specialist depth, across every discipline our industry needs.</p>
+    </div>
+    <div class="curr-grid" id="curr-grid">
+      <div class="mod a-scale d1"><div class="mod-num">01</div><div class="mod-title">Design</div><div class="mod-desc">System design, drawings, BoQ, documentation.</div></div>
+      <div class="mod a-scale d2"><div class="mod-num">02</div><div class="mod-title">Installation</div><div class="mod-desc">Cabling, mounting, terminations — done cleanly.</div></div>
+      <div class="mod a-scale d3"><div class="mod-num">03</div><div class="mod-title">Rack Building</div><div class="mod-desc">Layout, dressing, labelling, thermal design.</div></div>
+      <div class="mod a-scale d4"><div class="mod-num">04</div><div class="mod-title">AV</div><div class="mod-desc">Audio, video, signal flow, processors, displays.</div></div>
+      <div class="mod a-scale d3"><div class="mod-num">05</div><div class="mod-title">IT &amp; Networking</div><div class="mod-desc">Switching, VLANs, Wi-Fi, the IT backbone.</div></div>
+      <div class="mod a-scale d4"><div class="mod-num">06</div><div class="mod-title">Security</div><div class="mod-desc">CCTV, access control, intrusion, monitoring.</div></div>
+      <div class="mod a-scale d5"><div class="mod-num">07</div><div class="mod-title">Automation</div><div class="mod-desc">Lighting, shading, scenes, residential control.</div></div>
+      <div class="mod a-scale d6"><div class="mod-num">08</div><div class="mod-title">BMS</div><div class="mod-desc">Building management — HVAC, energy, integration.</div></div>
+      <div class="mod a-scale d5"><div class="mod-num">09</div><div class="mod-title">Programming</div><div class="mod-desc">Control logic, scene programming, GUIs.</div></div>
+      <div class="mod a-scale d6"><div class="mod-num">10</div><div class="mod-title">AI Integration</div><div class="mod-desc">How AI layers into modern systems and workflows.</div></div>
+      <div class="mod a-scale d7"><div class="mod-num">11</div><div class="mod-title">Project &amp; Site</div><div class="mod-desc">Documentation, snag lists, handover, client comms.</div></div>
+      <div class="mod a-scale d8"><div class="mod-num">12</div><div class="mod-title">Conduct &amp; Care</div><div class="mod-desc">How we behave on site. Our trade's reputation lives here.</div></div>
+    </div>
+    <p class="curr-foot a-up" style="transition-delay:0.6s;">From first principles to specialist depth — across every discipline our industry needs.</p>
+  </div>
+</section>
+
+<!-- ══ OUTCOMES — left/right split + stagger ═════ -->
+<section id="outcomes">
+  <div class="container">
+    <div class="sec-head a-up">
+      <span class="eyebrow">WHAT WE BUILD TOWARD</span>
+      <h2>One year after graduation.</h2>
+    </div>
+    <div class="outcomes-wrap">
+      <div class="a-left">
+        <div class="outcomes-img-wrap">
+          <img data-cms-img="outcomes-img" src="https://placehold.co/520x560/050505/333?text=Graduate+at+Work" alt="" aria-hidden="true" />
+        </div>
+      </div>
+      <div class="outcome-list">
+        <div class="ob a-right d1"><span class="ob-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><div><div class="ob-title">Real jobs</div><div class="ob-body">AV technicians, network engineers, automation programmers, security-systems engineers.</div></div></div>
+        <div class="ob a-right d2"><span class="ob-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><div><div class="ob-title">Real employers</div><div class="ob-body">Integrators, OEMs, hotel groups, developers, hospitals — across India's fastest-growing sectors.</div></div></div>
+        <div class="ob a-right d3"><span class="ob-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><div><div class="ob-title">Real income</div><div class="ob-body">₹18,000–₹30,000/month year one. ₹45,000–₹80,000+ within 3–5 years with specialisation.</div></div></div>
+        <div class="ob a-right d4"><span class="ob-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><div><div class="ob-title">Real dignity</div><div class="ob-body">A uniform and toolkit that are theirs. Professional respect for a trade that has always deserved it.</div></div></div>
+      </div>
+    </div>
+    <p class="outcomes-pullout a-wipe-up" style="transition-delay:0.3s;">"We are not opening a door for the sake of it. We are opening it onto a real career, with real income, in a real industry."</p>
+  </div>
+</section>
+
+<!-- ══ CAROUSEL C — Where We Stand + Road Ahead ═══ -->
+<section id="credibility">
+  <div class="container">
+    <div class="carousel-wrap a-up">
+      <div class="carousel-header">
+        <div class="carousel-tabs" role="tablist">
+          <button class="ctab active" data-slide="0" role="tab" aria-selected="true">Where We Stand Today</button>
+          <button class="ctab" data-slide="1" role="tab" aria-selected="false">The Road Ahead</button>
+        </div>
+        <div class="carousel-nav">
+          <button class="cnav c2prev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <button class="cnav c2next" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
+      <div class="carousel-track"><div class="cslide-inner" id="ctrack2-inner">
+
+        <div class="cslide">
+          <div class="slide-head"><h2>A shared industry challenge — and a real opening.</h2></div>
+          <div class="challenge-grid">
+            <div class="card"><div class="card-body"><h4 style="margin-bottom:0.5rem;">No training pathway</h4><p style="color:var(--muted);font-size:0.875rem;">No recognised institute, no industry curriculum, no national qualification for an integration technician — across AV, IT, security, automation, or BMS.</p></div></div>
+            <div class="card"><div class="card-body"><h4 style="margin-bottom:0.5rem;">We compete for the same small pool</h4><p style="color:var(--muted);font-size:0.875rem;">When a project lands, we look for trained hands. Finding none, we poach from each other. None of us, alone, was going to fix this.</p></div></div>
+            <div class="card"><div class="card-body"><h4 style="margin-bottom:0.5rem;">Demand is multiplying</h4><p style="color:var(--muted);font-size:0.875rem;">Smart buildings, hospitality AV, retail security, corporate IT — the work is growing faster than the industry's ability to staff it.</p></div></div>
+          </div>
+        </div>
+
+        <div class="cslide">
+          <div class="slide-head"><h2>Where we're going — and how fast.</h2></div>
+          <div class="road-wrap">
+            <div class="timeline-row">
+              <div class="tl-draw" id="tl-line"></div>
+              <div class="tl-dot"><div class="tl-pip"></div><div class="tl-lbl">2026 · PILOT</div></div>
+              <div class="tl-dot"><div class="tl-pip"></div><div class="tl-lbl">2027 · SCALE</div></div>
+              <div class="tl-dot"><div class="tl-pip"></div><div class="tl-lbl">2028+ · EXPAND</div></div>
+            </div>
+            <div class="road-grid">
+              <div class="card-dark" style="padding:1.75rem;"><span class="road-tag">2026 · PILOT</span><h4 style="color:var(--paper);margin-bottom:0.5rem;font-weight:400;font-size:1rem;">First cohort, self-funded.</h4><p style="color:rgba(252,252,252,0.55);font-size:0.85rem;line-height:1.6;">Track One pilot — 15–20 underprivileged youth, MCBEE-funded. Prove the model, refine curriculum, generate placement data.</p></div>
+              <div class="card-dark" style="padding:1.75rem;"><span class="road-tag">2027 · SCALE</span><h4 style="color:var(--paper);margin-bottom:0.5rem;font-weight:400;font-size:1rem;">Both tracks live; CSR activated.</h4><p style="color:rgba(252,252,252,0.55);font-size:0.85rem;line-height:1.6;">Two Track One cohorts of 40+. Track Two launches. CSR partnerships activate. First outcomes published.</p></div>
+              <div class="card-dark" style="padding:1.75rem;"><span class="road-tag">2028+ · EXPAND</span><h4 style="color:var(--paper);margin-bottom:0.5rem;font-weight:400;font-size:1rem;">NSQF aligned; multi-city.</h4><p style="color:rgba(252,252,252,0.55);font-size:0.85rem;line-height:1.6;">Formal NSQF alignment. Centres in Mumbai, Bangalore, Hyderabad. A national talent pool begins to take shape.</p></div>
+            </div>
+          </div>
+        </div>
+
+      </div></div>
+      <div class="carousel-dots" role="presentation">
+        <span class="cdot active" data-slide="0"></span>
+        <span class="cdot" data-slide="1"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ PARTNER TEASER ════════════════════════════ -->
+<section id="partner" class="white">
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="sec-head a-up">
+      <span class="eyebrow">HOW YOU CAN STAND WITH US</span>
+      <h2>This cannot be done by one company alone.</h2>
+      <p class="sec-sub">Hire a graduate, share your expertise, or support us through CSR. Three ways in — pick whichever fits.</p>
+    </div>
+    <div class="partner-grid stagger">
+      <div class="card a-rotate d1">
+        <div class="partner-body">
+          <div class="partner-body-top">
+            <div class="p-icon" style="color:var(--purple);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <span class="p-tag" data-cms="hire-tag">FOR INTEGRATORS &amp; EMPLOYERS</span>
+            <h3 style="color:var(--ink);" data-cms="hire-heading">Hire</h3>
+            <p class="p-sub" style="color:var(--purple);" data-cms="hire-sub">Commit to interviewing one graduate per year.</p>
+            <p style="color:var(--muted);font-size:0.875rem;" data-cms="hire-body">Our students need a first job. You need trained people. One interview per year — that's the ask.</p>
+          </div>
+          <a href="partner.html?type=hire" class="btn btn-primary" style="font-size:0.82rem;padding:0.65rem 1.35rem;align-self:flex-start;" data-cms="hire-btn">I want to hire →</a>
+        </div>
+      </div>
+      <div class="card a-scale d3">
+        <div class="partner-body">
+          <div class="partner-body-top">
+            <div class="p-icon" style="color:var(--purple);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+            <span class="p-tag" data-cms="vol-tag">FOR SENIOR PRACTITIONERS</span>
+            <h3 style="color:var(--ink);" data-cms="vol-heading">Volunteer</h3>
+            <p class="p-sub" style="color:var(--purple);" data-cms="vol-sub">One teaching session per quarter.</p>
+            <p style="color:var(--muted);font-size:0.875rem;" data-cms="vol-body">Teach a module, review curriculum, mentor a cohort. A few hours a year of real-world wisdom.</p>
+          </div>
+          <a href="partner.html?type=volunteer" class="btn btn-primary" style="font-size:0.82rem;padding:0.65rem 1.35rem;align-self:flex-start;" data-cms="vol-btn">I want to volunteer →</a>
+        </div>
+      </div>
+      <div class="card a-rotate d5">
+        <div class="partner-body">
+          <div class="partner-body-top">
+            <div class="p-icon" style="color:var(--orange);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <span class="p-tag" data-cms="sup-tag">FOR OEMs, DISTRIBUTORS, FOUNDATIONS</span>
+            <h3 style="color:var(--ink);" data-cms="sup-heading">Support</h3>
+            <p class="p-sub" style="color:var(--orange);" data-cms="sup-sub">Equipment, sponsorship, or CSR partnership.</p>
+            <p style="color:var(--muted);font-size:0.875rem;" data-cms="sup-body">Donate kit, sponsor a cohort, or partner via your CSR programme. 80G-eligible once registrations clear.</p>
+          </div>
+          <a href="partner.html?type=support" class="btn btn-primary" style="font-size:0.82rem;padding:0.65rem 1.35rem;align-self:flex-start;" data-cms="sup-btn">I want to support →</a>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="partner.html" class="btn btn-outline-ink" style="font-size:0.875rem;">View full partnership page →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ APPLY — checklist tick-in + form slide ════ -->
+<section id="apply" class="dark">
+  <div class="container">
+    <div class="apply-grid">
+      <div class="a-left">
+        <span class="eyebrow">THE FIRST COHORT</span>
+        <h2 style="color:var(--paper);">Apply for free training. Build a real career.</h2>
+        <span class="divider divider--left"></span>
+        <p style="color:rgba(252,252,252,0.6);font-size:0.9rem;margin-bottom:1rem;">The first cohort opens in 2026. If you're 18+, ready to work hard, and want a real career in technology — this is for you.</p>
+        <ul class="checklist" id="checklist">
+          <li style="color:var(--paper);">18 years of age or older</li>
+          <li style="color:var(--paper);">Class XII (or equivalent) completed</li>
+          <li style="color:var(--paper);">Basic English comprehension</li>
+          <li style="color:var(--paper);">Ready for a 6-month full-time commitment</li>
+          <li style="color:var(--paper);">No fees of any kind for selected students</li>
+        </ul>
+        <div class="steps" style="margin-top:1.5rem;">
+          <p style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">What happens next</p>
+          <div class="step a-left" style="transition-delay:0.1s;color:rgba(252,252,252,0.65);"><div class="snum">1</div>Submit your application</div>
+          <div class="step a-left" style="transition-delay:0.2s;color:rgba(252,252,252,0.65);"><div class="snum">2</div>We'll be in touch within 14 days for an interview</div>
+          <div class="step a-left" style="transition-delay:0.3s;color:rgba(252,252,252,0.65);"><div class="snum">3</div>Selected candidates start the next cohort</div>
+        </div>
+        <p style="margin-top:1.25rem;font-size:0.82rem;color:var(--muted);">Questions? <a href="mailto:mcbeeskillsfoundation@gmail.com" style="color:var(--purple);">mcbeeskillsfoundation@gmail.com</a></p>
+      </div>
+      <div class="a-right" style="transition-delay:0.15s;">
+        <div class="form-wrap dark-form" style="background:var(--ink);border-color:rgba(255,255,255,0.08);">
+          <h4 style="color:var(--paper);">Student Application</h4>
+          <form class="apply-form" id="applyForm" novalidate>
+            <div class="fr">
+              <div class="fg"><label for="name">Full Name *</label><input type="text" id="name" name="name" required placeholder="Your full name" /></div>
+              <div class="fg"><label for="dob">Date of Birth *</label><input type="date" id="dob" name="dob" required /></div>
+            </div>
+            <div class="fg">
+              <label>Gender *</label>
+              <div class="radio-row">
+                <label class="rl"><input type="radio" name="gender" value="M" required /> Male</label>
+                <label class="rl"><input type="radio" name="gender" value="F" /> Female</label>
+                <label class="rl"><input type="radio" name="gender" value="Other" /> Other</label>
+                <label class="rl"><input type="radio" name="gender" value="PNS" /> Prefer not to say</label>
+              </div>
+            </div>
+            <div class="fr">
+              <div class="fg"><label for="phone">Phone *</label><input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210" /></div>
+              <div class="fg"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="your@email.com" /></div>
+            </div>
+            <div class="fr">
+              <div class="fg"><label for="city">City *</label><input type="text" id="city" name="city" required placeholder="City / Town" /></div>
+              <div class="fg"><label for="edu">Education *</label><select id="edu" name="edu" required><option value="">Select…</option><option>Class X</option><option>Class XII</option><option>Diploma</option><option>Graduate</option><option>Other</option></select></div>
+            </div>
+            <div class="fg"><label for="why">Why do you want to join? *</label><textarea id="why" name="why" required minlength="100" placeholder="Min 100 characters — tell us in your own words"></textarea></div>
+            <div class="fg"><label for="src">How did you hear about us? *</label><select id="src" name="src" required><option value="">Select…</option><option>Friend / Word of mouth</option><option>Social media</option><option>News article</option><option>Industry event</option><option>Other</option></select></div>
+            <div class="fg"><label class="cl" style="font-size:0.75rem;"><input type="checkbox" name="consent" required /> I agree to the <a href="privacy.html" style="color:var(--purple);">Privacy Policy</a> and consent to my information being stored to evaluate this application. *</label></div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.95rem;">Submit Application</button>
+            <p id="fmsg" style="font-size:0.8rem;text-align:center;margin-top:0.6rem;min-height:1.1em;color:var(--muted);"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div style="margin-bottom:0.9rem;">
+        <img src="MSF wordmark.png" alt="MCBEE Skills Foundation" style="height:80px;width:auto;object-fit:contain;display:block;" />
+      </div>
+      <p class="foot-tl" data-cms="footer-tagline">A Section 8 (Not-for-profit) Company · Delhi NCR</p>
+      <p class="foot-pw" style="display:flex;align-items:center;gap:0.4rem;">Powered by <img src="MCBEE wordmark.png" alt="MCBEE" style="height:0.9em;width:auto;opacity:0.5;vertical-align:middle;" /></p>
+    </div>
+    <div class="foot-col"><h5>Programme</h5><ul class="foot-links"><li><a href="#curriculum">The Curriculum</a></li><li><a href="#apply">Apply</a></li><li><a href="tracks.html#track-two">Track Two</a></li><li><a href="#outcomes">One Year After</a></li></ul></div>
+    <div class="foot-col"><h5>Get Involved</h5><ul class="foot-links"><li><a href="#partner">Hire a Graduate</a></li><li><a href="#partner">Volunteer</a></li><li><a href="#partner">Support / Donate</a></li><li><a href="mailto:mcbeeskillsfoundation@gmail.com">Press / Media</a></li></ul></div>
+    <div class="foot-col"><h5>About &amp; Legal</h5><ul class="foot-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="donor-policy.html">Donor Policy</a></li><li><a href="grievance.html">Grievance</a></li></ul></div>
+  </div>
+  <div class="foot-bot">
+    <div><p class="foot-copy">© 2026 MCBEE Skills Foundation. All rights reserved.</p><p class="foot-copy">CIN: [to be added] · Registered Office: Delhi NCR</p></div>
+    <div class="socials">
+      <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ─── NAV ─────────────────────────────── */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 80), { passive: true });
+
+  const burger = document.getElementById('burger');
+  const drawer = document.getElementById('drawer');
+  burger.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    drawer.classList.remove('open'); burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
+  }));
+
+  /* ─── HERO entrance (fires on load) ──── */
+  setTimeout(() => {
+    document.querySelectorAll('.h1-inner').forEach(el => el.classList.add('vis'));
+    document.querySelectorAll('#hero .a-up, #hero .a-wipe').forEach(el => el.classList.add('vis'));
+    setTimeout(() => {
+      document.getElementById('hero-eyebrow').classList.add('vis');
+    }, 400);
+  }, 180);
+
+  /* ─── INTERSECTION OBSERVER ─────────────
+     One observer handles all animation classes.
+     Each class has its own motion via CSS.
+     Fires once per element, then unobserves.
+  ─────────────────────────────────────── */
+  const ANIM_CLASSES = [
+    'a-up','a-left','a-right','a-down',
+    'a-scale','a-tilt','a-rotate',
+    'a-wipe','a-wipe-up',
+    'tl-draw', 'chk-svg'
+  ];
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('vis');
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  // observe every animated element except hero (handled above)
+  document.querySelectorAll(
+    ANIM_CLASSES.map(c => `#why .${c},#moment .${c},#challenge .${c},#announcement .${c},` +
+    `#programme .${c},#curriculum .${c},#outcomes .${c},#mission .${c},` +
+    `#credibility .${c},#roadahead .${c},#track2 .${c},#partner .${c},` +
+    `#apply .${c},#trust .${c},#closing .${c},#stats .${c},#img-strip .${c}`).join(',')
+  ).forEach(el => io.observe(el));
+
+  // also observe tl-draw and chk-svg directly
+  document.querySelectorAll('.tl-draw, .chk-svg').forEach(el => io.observe(el));
+
+  /* ─── CHECKLIST tick-in ─────────────── */
+  const checkIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll('li').forEach((li, i) => {
+        setTimeout(() => li.classList.add('vis'), i * 120);
+      });
+      checkIO.unobserve(e.target);
+    });
+  }, { threshold: 0.3 });
+  const cl = document.getElementById('checklist');
+  if (cl) checkIO.observe(cl);
+
+  /* ─── STATS count-up ─────────────────── */
+  function countUp(el, target, prefix, suffix, dur) {
+    if (target === 0) { el.textContent = prefix + '0' + suffix; return; }
+    const start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const statsIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll('.stat-num[data-val]').forEach(n => {
+        countUp(n, +n.dataset.val, n.dataset.pfx || '', n.dataset.suf || '', 1400);
+      });
+      statsIO.unobserve(e.target);
+    });
+  }, { threshold: 0.4 });
+  const statsEl = document.querySelector('.stats-inner');
+  if (statsEl) statsIO.observe(statsEl);
+
+  /* ─── Rotating founder images ───────── */
+  (function() {
+    const slides = document.querySelectorAll('.founders-img-slide');
+    const dots   = document.querySelectorAll('.fimg-dot');
+    if (!slides.length) return;
+    let cur = 0;
+    function goTo(idx) {
+      slides[cur].classList.remove('active');
+      dots[cur].classList.remove('active');
+      cur = idx % slides.length;
+      slides[cur].classList.add('active');
+      dots[cur].classList.add('active');
+    }
+    dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+    setInterval(() => goTo(cur + 1), 4000);
+  })();
+
+  /* ─── CAROUSEL FACTORY (with auto-advance) ── */
+  function initCarousel(innerId, tabSel, dotSel, prevSel, nextSel, autoMs) {
+    const inner = document.getElementById(innerId);
+    if (!inner) return;
+    const tabs = document.querySelectorAll(tabSel);
+    const dots = document.querySelectorAll(dotSel);
+    const prev = document.querySelector(prevSel);
+    const next = document.querySelector(nextSel);
+    let cur = 0;
+    const total = tabs.length;
+    let timer;
+
+    function goTo(idx) {
+      cur = (idx + total) % total;
+      inner.style.transform = 'translateX(-' + (cur * 100) + '%)';
+      tabs.forEach((t, i) => { t.classList.toggle('active', i === cur); t.setAttribute('aria-selected', i === cur); });
+      dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      if (autoMs) timer = setInterval(() => goTo(cur + 1), autoMs);
+    }
+
+    tabs.forEach((t, i) => t.addEventListener('click', () => { goTo(i); resetTimer(); }));
+    dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i); resetTimer(); }));
+    if (prev) prev.addEventListener('click', () => { goTo(cur - 1); resetTimer(); });
+    if (next) next.addEventListener('click', () => { goTo(cur + 1); resetTimer(); });
+
+    let sx = 0;
+    inner.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+    inner.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 50) { goTo(dx < 0 ? cur + 1 : cur - 1); resetTimer(); }
+    }, { passive: true });
+
+    resetTimer();
+  }
+
+  /* ─── Equalise carousel slide heights ──────
+     Measures all slides in each carousel and
+     sets them all to the tallest one's height.
+     Runs once after fonts/images settle.       */
+  function equaliseCarousels() {
+    document.querySelectorAll('.cslide-inner').forEach(inner => {
+      const slides = inner.querySelectorAll('.cslide');
+      // Reset first
+      slides.forEach(s => s.style.minHeight = '');
+      // Find tallest
+      let max = 0;
+      slides.forEach(s => { max = Math.max(max, s.offsetHeight); });
+      // Apply to all
+      if (max > 0) slides.forEach(s => s.style.minHeight = max + 'px');
+    });
+  }
+  // Run immediately, then again after fonts/images settle
+  setTimeout(equaliseCarousels, 100);
+  setTimeout(equaliseCarousels, 600);
+  window.addEventListener('load', () => setTimeout(equaliseCarousels, 300));
+  window.addEventListener('resize', equaliseCarousels, { passive: true });
+
+  const AUTO = 10000;
+  initCarousel('cslide-inner',  '#programme .ctab',  '#programme .cdot',  '#cprev',   '#cnext',   AUTO);
+  initCarousel('ctrack2-inner', '#credibility .ctab', '#credibility .cdot', '#credibility .c2prev', '#credibility .c2next', AUTO);
+  // Carousel 3 removed — moment section is now a plain section
+
+  // Re-equalise whenever any tab is clicked (handles dynamic content shifts)
+  document.querySelectorAll('.ctab, .cnav, .cdot').forEach(el => {
+    el.addEventListener('click', () => setTimeout(equaliseCarousels, 60));
+  });
+
+  /* ─── CMS hydration ─────────────────── */
+  if (typeof CMS !== 'undefined') {
+    // Fix: clear old uppercase saved value so default takes effect
+    const _d = CMS.load();
+    if (_d['hero-eyebrow'] === 'AN INITIATIVE BY MCBEE') {
+      _d['hero-eyebrow'] = 'An initiative by MCBEE';
+      CMS.save(_d);
+    }
+    CMS.hydrate();
+  }
+
+  /* ─── FORM ───────────────────────────── */
+  const form = document.getElementById('applyForm');
+  const fmsg = document.getElementById('fmsg');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const dob = new Date(form.dob.value);
+    const age = (Date.now() - dob) / (1000 * 60 * 60 * 24 * 365.25);
+    if (age < 18) { fmsg.style.color = '#c00'; fmsg.textContent = 'You must be 18 or older to apply.'; return; }
+    fmsg.style.color = 'var(--muted)'; fmsg.textContent = 'Sending…';
+
+    // Save submission to localStorage
+    const els = form.elements;
+    const submission = {
+      id: Date.now(),
+      submittedAt: new Date().toISOString(),
+      status: 'New',
+      name:      els['name'].value,
+      dob:       els['dob'].value,
+      gender:    form.querySelector('[name="gender"]:checked')?.value || '',
+      phone:     els['phone'].value,
+      email:     els['email'].value,
+      city:      els['city'].value,
+      education: els['edu'].value,
+      why:       els['why'].value,
+      source:    els['src'].value,
+    };
+    const existing = JSON.parse(localStorage.getItem('msf_applications') || '[]');
+    existing.unshift(submission);
+    localStorage.setItem('msf_applications', JSON.stringify(existing));
+
+    setTimeout(() => {
+      fmsg.style.color = 'var(--purple)';
+      fmsg.textContent = "Application received! We'll be in touch within 14 days.";
+      form.reset();
+    }, 1000);
+  });
+</script>
+</body>
+</html>
