@@ -1,6 +1,3 @@
-# Admin page — keep URL secret
-msf-admin-23.html
-
 # Supabase credentials — never commit
 config.js
 
