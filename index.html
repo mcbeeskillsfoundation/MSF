@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
   <script src="content.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1327,52 +1329,45 @@
   });
 
   /* ─── CMS hydration ─────────────────── */
-  if (typeof CMS !== 'undefined') {
-    // Fix: clear old uppercase saved value so default takes effect
-    const _d = CMS.load();
-    if (_d['hero-eyebrow'] === 'AN INITIATIVE BY MCBEE') {
-      _d['hero-eyebrow'] = 'An initiative by MCBEE';
-      CMS.save(_d);
+  (async () => {
+    if (typeof CMS !== 'undefined') {
+      await CMS.init();
+      CMS.hydrate();
     }
-    CMS.hydrate();
-  }
 
-  /* ─── FORM ───────────────────────────── */
-  const form = document.getElementById('applyForm');
-  const fmsg = document.getElementById('fmsg');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const dob = new Date(form.dob.value);
-    const age = (Date.now() - dob) / (1000 * 60 * 60 * 24 * 365.25);
-    if (age < 18) { fmsg.style.color = '#c00'; fmsg.textContent = 'You must be 18 or older to apply.'; return; }
-    fmsg.style.color = 'var(--muted)'; fmsg.textContent = 'Sending…';
+    /* ─── FORM ───────────────────────────── */
+    const form = document.getElementById('applyForm');
+    const fmsg = document.getElementById('fmsg');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const dob = new Date(form.dob.value);
+      const age = (Date.now() - dob) / (1000 * 60 * 60 * 24 * 365.25);
+      if (age < 18) { fmsg.style.color = '#c00'; fmsg.textContent = 'You must be 18 or older to apply.'; return; }
+      fmsg.style.color = 'var(--muted)'; fmsg.textContent = 'Sending…';
 
-    // Save submission to localStorage
-    const els = form.elements;
-    const submission = {
-      id: Date.now(),
-      submittedAt: new Date().toISOString(),
-      status: 'New',
-      name:      els['name'].value,
-      dob:       els['dob'].value,
-      gender:    form.querySelector('[name="gender"]:checked')?.value || '',
-      phone:     els['phone'].value,
-      email:     els['email'].value,
-      city:      els['city'].value,
-      education: els['edu'].value,
-      why:       els['why'].value,
-      source:    els['src'].value,
-    };
-    const existing = JSON.parse(localStorage.getItem('msf_applications') || '[]');
-    existing.unshift(submission);
-    localStorage.setItem('msf_applications', JSON.stringify(existing));
+      const els = form.elements;
+      const { error } = await _supabase.from('applications').insert({
+        name:      els['name'].value,
+        dob:       els['dob'].value,
+        gender:    form.querySelector('[name="gender"]:checked')?.value || '',
+        phone:     els['phone'].value,
+        email:     els['email'].value,
+        city:      els['city'].value,
+        education: els['edu'].value,
+        why:       els['why'].value,
+        source:    els['src'].value,
+      });
 
-    setTimeout(() => {
-      fmsg.style.color = 'var(--purple)';
-      fmsg.textContent = "Application received! We'll be in touch within 14 days.";
-      form.reset();
-    }, 1000);
-  });
+      if (!error) {
+        fmsg.style.color = 'var(--purple)';
+        fmsg.textContent = "Application received! We'll be in touch within 14 days.";
+        form.reset();
+      } else {
+        fmsg.style.color = '#c00';
+        fmsg.textContent = 'Something went wrong. Please email us directly.';
+      }
+    });
+  })();
 </script>
 </body>
 </html>

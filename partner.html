@@ -8,6 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="content.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -434,34 +437,31 @@
   const form = document.getElementById('partnerForm');
   const success = document.getElementById('success');
 
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     form.style.opacity = '0.5';
     form.style.pointerEvents = 'none';
 
-    // Save submission to localStorage
     const els = form.elements;
-    const submission = {
-      id: Date.now(),
-      submittedAt: new Date().toISOString(),
-      status: 'New',
-      name:        els['name'].value,
-      company:     els['company'].value,
-      designation: els['designation'].value,
-      email:       els['email'].value,
-      phone:       els['phone'].value,
-      involvement: form.querySelector('[name="involvement"]:checked')?.value || '',
-      companyType: els['company-type'].value,
-      message:     els['message'].value,
-    };
-    const existing = JSON.parse(localStorage.getItem('msf_partner_enquiries') || '[]');
-    existing.unshift(submission);
-    localStorage.setItem('msf_partner_enquiries', JSON.stringify(existing));
+    const { error } = await _supabase.from('partner_enquiries').insert({
+      name:         els['name'].value,
+      company:      els['company'].value,
+      designation:  els['designation'].value,
+      email:        els['email'].value,
+      phone:        els['phone'].value,
+      involvement:  form.querySelector('[name="involvement"]:checked')?.value || '',
+      company_type: els['company-type'].value,
+      message:      els['message'].value,
+    });
 
-    setTimeout(() => {
+    if (!error) {
       form.style.display = 'none';
       success.classList.add('show');
-    }, 900);
+    } else {
+      form.style.opacity = '1';
+      form.style.pointerEvents = 'auto';
+      alert('Something went wrong. Please email us directly at mcbeeskillsfoundation@gmail.com');
+    }
   });
 </script>
 </body>

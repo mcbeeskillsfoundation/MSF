@@ -1,74 +1,55 @@
 /**
  * MCBEE Skills Foundation — Content Management
- * Text content → localStorage (small, fast)
- * Images       → IndexedDB (large blobs, no size limit)
+ * Text content → Supabase (cms_content table)
+ * Images       → Supabase Storage (site-images / site-videos buckets, private)
  */
 
-/* ── ImageDB — IndexedDB wrapper for image blobs ── */
+/* ── Supabase client ── */
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* ── ImageDB — Supabase Storage wrapper ── */
 const ImageDB = {
-  DB_NAME: 'msf_images',
-  VERSION: 1,
-  STORE:   'images',
-
-  _db: null,
-
-  open() {
-    if (this._db) return Promise.resolve(this._db);
-    return new Promise((resolve, reject) => {
-      const req = indexedDB.open(this.DB_NAME, this.VERSION);
-      req.onupgradeneeded = e => e.target.result.createObjectStore(this.STORE);
-      req.onsuccess = e => { this._db = e.target.result; resolve(this._db); };
-      req.onerror   = e => reject(e.target.error);
-    });
+  _bucket(key) {
+    return key === 'hero-video' ? 'site-videos' : 'site-images';
   },
 
-  async set(key, blob) {
-    const db = await this.open();
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction(this.STORE, 'readwrite');
-      tx.objectStore(this.STORE).put(blob, key);
-      tx.oncomplete = resolve;
-      tx.onerror    = e => reject(e.target.error);
-    });
+  async set(key, file) {
+    const { error } = await _supabase.storage
+      .from(this._bucket(key))
+      .upload(key, file, { upsert: true });
+    if (error) throw error;
   },
 
   async get(key) {
-    const db = await this.open();
-    return new Promise((resolve, reject) => {
-      const req = db.transaction(this.STORE, 'readonly').objectStore(this.STORE).get(key);
-      req.onsuccess = e => resolve(e.target.result || null);
-      req.onerror   = e => reject(e.target.error);
-    });
+    const { data, error } = await _supabase.storage
+      .from(this._bucket(key))
+      .createSignedUrl(key, 3600);
+    if (error || !data) return null;
+    return data.signedUrl;
   },
 
   async del(key) {
-    const db = await this.open();
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction(this.STORE, 'readwrite');
-      tx.objectStore(this.STORE).delete(key);
-      tx.oncomplete = resolve;
-      tx.onerror    = e => reject(e.target.error);
-    });
+    const { error } = await _supabase.storage
+      .from(this._bucket(key))
+      .remove([key]);
+    if (error) throw error;
   },
 
-  /** Apply all stored image blobs to [data-cms-img] elements on the page */
   async applyToPage() {
     const elements = document.querySelectorAll('[data-cms-img]');
     for (const el of elements) {
       const key = el.dataset.cmsImg;
       try {
-        const blob = await this.get(key);
-        if (blob) {
-          el.src = URL.createObjectURL(blob);
-          el.style.display = 'block';
-        }
+        const url = await this.get(key);
+        if (url) el.src = url;
       } catch(e) { /* ignore per-image errors */ }
     }
   }
 };
 
+/* ── CMS — Supabase cms_content table ── */
 const CMS = {
-  STORAGE_KEY: 'msf_content',
+  _cache: null,
 
   defaults: {
     'hero-eyebrow':   'An initiative by MCBEE',
@@ -76,7 +57,7 @@ const CMS = {
     'hero-h1-2':      'Foundation',
     'hero-subhead':   'Giving back to the industry that built us.',
     'hero-body':      'Training India\'s next generation of AV, IT, automation, security, and building-systems professionals. Free for young people who need it. Funded by the industry that needs them.',
-    'hero-video-url': '',   // MP4/WebM URL — overrides background image when set
+    'hero-video-url': '',
     'mission-text':   'We are building India\'s most comprehensive industry-led training ecosystem for AV, IT, security, automation, and building systems — making world-class skills accessible to underprivileged youth, and giving today\'s installers the recognition their craft deserves. Within the next decade, every Indian integrator should be able to hire from a recognised national pool of trained, certified professionals.',
 
     'stat-1-num':   '12',   'stat-1-suf': '',    'stat-1-label': 'Curriculum Modules',
@@ -144,7 +125,6 @@ const CMS = {
 
     'logo-dark': '', 'logo-light': '', 'logo-mark': '', 'logo-og': '',
 
-    // ── ORGANISATION DETAILS ───────────────────
     'org-cin':             '[CIN — to be added after incorporation]',
     'org-pan':             '[PAN — to be added]',
     'org-tan':             '[TAN — to be added]',
@@ -159,71 +139,87 @@ const CMS = {
     'org-jurisdiction':    '[City — to confirm with legal counsel]',
     'org-analytics':       'Plausible Analytics',
 
-    // ── POLICY DATES ───────────────────────────
     'date-privacy':   '[Date]',
     'date-terms':     '[Date]',
     'date-donor':     '[Date]',
     'date-grievance': '[Date]',
   },
 
-  load() {
+  /** Fetch from Supabase and populate cache. Call once on page load. */
+  async init() {
     try {
-      const saved = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '{}');
-      return Object.assign({}, this.defaults, saved);
-    } catch(e) { return Object.assign({}, this.defaults); }
+      const { data, error } = await _supabase
+        .from('cms_content')
+        .select('data')
+        .eq('id', 1)
+        .single();
+      if (error) throw error;
+      this._cache = Object.assign({}, this.defaults, data.data || {});
+    } catch(e) {
+      console.warn('CMS.init: failed, using defaults', e);
+      this._cache = Object.assign({}, this.defaults);
+    }
   },
 
-  save(data) {
+  /** Synchronous — returns cache. Must call await CMS.init() first. */
+  load() {
+    return this._cache ? Object.assign({}, this._cache) : Object.assign({}, this.defaults);
+  },
+
+  /** Persist full content object to Supabase */
+  async save(data) {
+    this._cache = Object.assign({}, data);
     try {
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
+      const { error } = await _supabase
+        .from('cms_content')
+        .update({ data, updated_at: new Date().toISOString() })
+        .eq('id', 1);
+      if (error) throw error;
       return true;
     } catch(e) {
-      if (e.name === 'QuotaExceededError' || e.code === 22) {
-        alert('Storage full — the image file is too large to save in the browser.\n\nPlease use the "Or URL" field instead: host the image on Google Drive, Dropbox, or any image host, then paste the direct link.');
-      }
+      console.error('CMS.save failed', e);
       return false;
     }
   },
 
-  /** Update a single key and save */
-  set(key, value) {
+  async set(key, value) {
     const data = this.load();
     data[key] = value;
     return this.save(data);
   },
 
-  /** Apply saved content to the live page */
+  /** Apply cached content to the live page */
   hydrate() {
     const c = this.load();
-    // Apply image blobs from IndexedDB asynchronously
+
+    // Apply images from Supabase Storage asynchronously
     if (typeof ImageDB !== 'undefined') ImageDB.applyToPage();
 
-    // Text nodes — data-cms="key"
+    // Text nodes
     document.querySelectorAll('[data-cms]').forEach(el => {
       const v = c[el.dataset.cms];
       if (v !== undefined && v !== '') el.textContent = v;
     });
 
-    // Image sources — data-cms-img="key"
-    // Only override if a real URL has been saved; otherwise keep the existing src (placeholder)
+    // Image sources — URL override only (Storage blobs handled by applyToPage)
     document.querySelectorAll('[data-cms-img]').forEach(el => {
       const v = c[el.dataset.cmsImg];
       if (v && v.trim()) el.src = v;
     });
 
-    // Anchor hrefs — data-cms-href="key"
+    // Anchor hrefs
     document.querySelectorAll('[data-cms-href]').forEach(el => {
       const v = c[el.dataset.cmsHref];
       if (v) el.href = v;
     });
 
-    // Brand colours → CSS custom properties
+    // Brand colours
     ['ink','paper','purple','orange','muted','line'].forEach(k => {
       const v = c['color-' + k];
       if (v) document.documentElement.style.setProperty('--' + k, v);
     });
 
-    // Stats: update data-val / data-suf / data-pfx so count-up uses new values
+    // Stats countup
     [1,2,3,4].forEach(i => {
       const el = document.querySelector('[data-cms="stat-' + i + '-num"]');
       if (!el) return;
@@ -232,15 +228,15 @@ const CMS = {
       if (c['stat-' + i + '-pfx']) el.dataset.pfx = c['stat-' + i + '-pfx'];
     });
 
-    // Hero video — try IndexedDB blob first, fall back to URL
+    // Hero video — signed URL from Storage, fallback to URL field
     const heroVideo = document.getElementById('hero-video');
     if (heroVideo) {
       (async () => {
         try {
-          const blob = typeof ImageDB !== 'undefined' ? await ImageDB.get('hero-video') : null;
+          const url = typeof ImageDB !== 'undefined' ? await ImageDB.get('hero-video') : null;
           const overlay = document.getElementById('hero-overlay');
-          if (blob) {
-            heroVideo.src = URL.createObjectURL(blob);
+          if (url) {
+            heroVideo.src = url;
             heroVideo.style.display = 'block';
             if (overlay) overlay.style.display = 'block';
           } else if (c['hero-video-url'] && c['hero-video-url'].trim()) {
@@ -248,7 +244,7 @@ const CMS = {
             heroVideo.style.display = 'block';
             if (overlay) overlay.style.display = 'block';
           }
-        } catch(e) { /* silently skip if video fails */ }
+        } catch(e) { /* silently skip */ }
       })();
     }
 
@@ -257,7 +253,7 @@ const CMS = {
     const md = document.querySelector('meta[name="description"]');
     if (md && c['seo-desc']) md.content = c['seo-desc'];
 
-    // Logo — swap logo-mark placeholder with real logo img using safe DOM
+    // Logo swap
     const logoSrc = c['logo-dark'];
     if (logoSrc) {
       document.querySelectorAll('.logo-mark').forEach(el => {

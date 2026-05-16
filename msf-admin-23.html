@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
   <script src="content.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -741,26 +743,8 @@
 <div id="toast"></div>
 
 <script>
-  /* ─── Password ──────────────────────────
-     Default: mcbee2026  (change via the panel)
-     Stored hashed in localStorage.
-  ─────────────────────────────────────── */
-  const PASS_KEY = 'msf_admin_pass';
-  const SESSION_KEY = 'msf_admin_auth';
-  const DEFAULT_PASS = 'mcbee2026';
-
-  function getStoredPass() {
-    return localStorage.getItem(PASS_KEY) || DEFAULT_PASS;
-  }
-  function checkAuth() {
-    return sessionStorage.getItem(SESSION_KEY) === 'true';
-  }
-  function setAuth(val) {
-    sessionStorage.setItem(SESSION_KEY, val ? 'true' : 'false');
-  }
-
-  /* ─── Login overlay ─────────────────── */
-  const overlay = document.getElementById('login-overlay');
+  /* ─── Auth — Supabase ──────────────── */
+  const overlay   = document.getElementById('login-overlay');
   const loginPass = document.getElementById('login-pass');
   const loginBtn  = document.getElementById('login-btn');
   const loginErr  = document.getElementById('login-error');
@@ -768,15 +752,19 @@
   function showAdmin() { overlay.classList.add('hidden'); }
   function showLogin() { overlay.classList.remove('hidden'); loginPass.value = ''; loginErr.textContent = ''; }
 
-  if (checkAuth()) { showAdmin(); } else { showLogin(); }
-
-  function attemptLogin() {
-    if (loginPass.value === getStoredPass()) {
-      setAuth(true);
+  async function attemptLogin() {
+    loginBtn.disabled = true;
+    const { error } = await _supabase.auth.signInWithPassword({
+      email: ADMIN_EMAIL,
+      password: loginPass.value,
+    });
+    loginBtn.disabled = false;
+    if (!error) {
       showAdmin();
+      await CMS.init();
       populateFields();
-      populateImagePreviews();
-      setTimeout(renderSubmissions, 100);
+      await populateImagePreviews();
+      await renderSubmissions();
     } else {
       loginErr.textContent = 'Incorrect password.';
       loginPass.value = '';
@@ -786,26 +774,38 @@
   loginBtn.addEventListener('click', attemptLogin);
   loginPass.addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
 
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    setAuth(false);
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await _supabase.auth.signOut();
     showLogin();
   });
 
   /* ─── Change password ───────────────── */
-  document.getElementById('change-pass-btn')?.addEventListener('click', () => {
-    const cur     = document.getElementById('cur-pass').value;
+  document.getElementById('change-pass-btn')?.addEventListener('click', async () => {
     const nw      = document.getElementById('new-pass').value;
     const confirm = document.getElementById('confirm-pass').value;
     const msg     = document.getElementById('pass-msg');
-    if (cur !== getStoredPass()) { msg.style.color = 'var(--danger)'; msg.textContent = 'Current password incorrect.'; return; }
-    if (nw.length < 6)           { msg.style.color = 'var(--danger)'; msg.textContent = 'New password must be at least 6 characters.'; return; }
-    if (nw !== confirm)          { msg.style.color = 'var(--danger)'; msg.textContent = 'Passwords do not match.'; return; }
-    localStorage.setItem(PASS_KEY, nw);
+    if (nw.length < 6)  { msg.style.color = 'var(--danger)'; msg.textContent = 'New password must be at least 6 characters.'; return; }
+    if (nw !== confirm) { msg.style.color = 'var(--danger)'; msg.textContent = 'Passwords do not match.'; return; }
+    const { error } = await _supabase.auth.updateUser({ password: nw });
+    if (error) { msg.style.color = 'var(--danger)'; msg.textContent = error.message; return; }
     msg.style.color = 'var(--success)'; msg.textContent = '✓ Password updated.';
-    document.getElementById('cur-pass').value = '';
     document.getElementById('new-pass').value = '';
     document.getElementById('confirm-pass').value = '';
   });
+
+  /* ─── Check existing session on load ── */
+  (async () => {
+    const { data: { session } } = await _supabase.auth.getSession();
+    if (session) {
+      showAdmin();
+      await CMS.init();
+      populateFields();
+      await populateImagePreviews();
+      await renderSubmissions();
+    } else {
+      showLogin();
+    }
+  })();
 
   /* ─── Toast ─────────────────────────── */
   const toast = document.getElementById('toast');
@@ -876,16 +876,15 @@
 
   /* ─── Hero video upload ─────────────── */
   (async function initVideoUpload() {
-    const fileInput   = document.getElementById('hero-video-file');
-    const statusEl    = document.getElementById('hero-video-status');
-    const clearBtn    = document.getElementById('hero-video-clear');
+    const fileInput = document.getElementById('hero-video-file');
+    const statusEl  = document.getElementById('hero-video-status');
+    const clearBtn  = document.getElementById('hero-video-clear');
     if (!fileInput) return;
 
-    // Show existing upload state
     async function refreshStatus() {
-      const blob = await ImageDB.get('hero-video');
-      if (blob) {
-        statusEl.textContent = '✓ Video uploaded (' + (blob.size / 1048576).toFixed(1) + ' MB)';
+      const url = await ImageDB.get('hero-video');
+      if (url) {
+        statusEl.textContent = '✓ Video uploaded';
         statusEl.style.color = 'var(--success)';
         clearBtn.style.display = 'inline';
       } else {
@@ -899,11 +898,10 @@
     fileInput.addEventListener('change', async () => {
       const file = fileInput.files[0];
       if (!file) return;
-      statusEl.textContent = 'Saving…'; statusEl.style.color = 'var(--muted)';
+      statusEl.textContent = 'Uploading…'; statusEl.style.color = 'var(--muted)';
       try {
         await ImageDB.set('hero-video', file);
-        // Clear URL override so file takes priority
-        const c = CMS.load(); c['hero-video-url'] = ''; CMS.save(c);
+        const c = CMS.load(); c['hero-video-url'] = ''; await CMS.save(c);
         document.querySelector('[data-cms-key="hero-video-url"]').value = '';
         await refreshStatus();
         showToast('✓ Video saved — reload main site to see it', 'success');
@@ -921,32 +919,27 @@
     });
   })();
 
-  /* ─── File upload → IndexedDB ───────── */
+  /* ─── File upload → Supabase Storage ── */
   document.addEventListener('change', async e => {
     const input = e.target;
     if (input.type !== 'file' || !input.dataset.imgKey) return;
     const file = input.files[0];
     if (!file) return;
 
-    const key     = input.dataset.imgKey;
-    const prevId  = input.dataset.preview;
-    const badgeId = 'badge-' + key.replace(/-/g, '').replace('img', '').replace('strip', 'strip').replace('outcomes', 'outcomes');
+    const key    = input.dataset.imgKey;
+    const prevId = input.dataset.preview;
 
-    // Show preview immediately
-    const objUrl = URL.createObjectURL(file);
+    // Show local preview immediately
     if (prevId) {
       const img = document.getElementById(prevId);
-      if (img) { img.src = objUrl; img.classList.add('loaded'); }
+      if (img) { img.src = URL.createObjectURL(file); img.classList.add('loaded'); }
     }
 
-    // Store blob in IndexedDB
     try {
       await ImageDB.set(key, file);
-      // Also clear any URL override for this key so IndexedDB takes precedence
       const content = CMS.load();
       delete content[key];
-      CMS.save(content);
-      // Show badge
+      await CMS.save(content);
       const badge = document.getElementById('badge-' + prevId?.replace('pv-', ''));
       if (badge) { badge.classList.add('show'); setTimeout(() => badge.classList.remove('show'), 3000); }
       showToast('✓  Image saved — reload main site to see it', 'success');
@@ -958,20 +951,17 @@
   /* ─── Load existing images into previews ─ */
   async function populateImagePreviews() {
     if (typeof ImageDB === 'undefined') return;
-    const keys = ['founders-img-1','founders-img-2','strip-img-1','strip-img-2','strip-img-3','outcomes-img',
-                  'logo-dark','logo-light','logo-mark','logo-og'];
-    for (const key of keys) {
-      const blob = await ImageDB.get(key);
-      if (!blob) continue;
-      // Find the preview img for this key
-      const previewMap = {
-        'founders-img-1': 'pv-founders1', 'founders-img-2': 'pv-founders2',
-        'strip-img-1': 'pv-strip1', 'strip-img-2': 'pv-strip2', 'strip-img-3': 'pv-strip3',
-        'outcomes-img': 'pv-outcomes', 'logo-dark': 'pv-logo-dark',
-        'logo-light': 'pv-logo-light', 'logo-mark': 'pv-logo-mark', 'logo-og': 'pv-logo-og',
-      };
-      const img = document.getElementById(previewMap[key]);
-      if (img) { img.src = URL.createObjectURL(blob); img.classList.add('loaded'); }
+    const previewMap = {
+      'founders-img-1': 'pv-founders1', 'founders-img-2': 'pv-founders2',
+      'strip-img-1': 'pv-strip1', 'strip-img-2': 'pv-strip2', 'strip-img-3': 'pv-strip3',
+      'outcomes-img': 'pv-outcomes', 'logo-dark': 'pv-logo-dark',
+      'logo-light': 'pv-logo-light', 'logo-mark': 'pv-logo-mark', 'logo-og': 'pv-logo-og',
+    };
+    for (const [key, pvId] of Object.entries(previewMap)) {
+      const url = await ImageDB.get(key);
+      if (!url) continue;
+      const img = document.getElementById(pvId);
+      if (img) { img.src = url; img.classList.add('loaded'); }
     }
   }
 
@@ -983,11 +973,9 @@
       const v = content[el.dataset.cmsKey];
       if (v !== undefined && v !== null) {
         el.value = v;
-        // Update colour swatch hex label
         if (el.classList.contains('color-swatch') && el.nextElementSibling) {
           el.nextElementSibling.textContent = v.toUpperCase();
         }
-        // Trigger image preview
         if (URL_PREVIEW_MAP[el.dataset.cmsKey]) {
           updatePreview(el.dataset.cmsKey, v);
         }
@@ -996,21 +984,19 @@
   }
 
   /* ─── Save ──────────────────────────── */
-  document.getElementById('saveBtn').addEventListener('click', () => {
+  document.getElementById('saveBtn').addEventListener('click', async () => {
     if (typeof CMS === 'undefined') { showToast('content.js not loaded', 'error'); return; }
     const content = CMS.load();
-    // Collect all tagged fields
     document.querySelectorAll('[data-cms-key]').forEach(el => {
       content[el.dataset.cmsKey] = el.value;
     });
-    const ok = CMS.save(content);
+    const ok = await CMS.save(content);
     if (ok) {
       showToast('✓  Saved — reload the main site to see changes', 'success');
+    } else {
+      showToast('Save failed — check your connection', 'error');
     }
   });
-
-  /* Populate on load if already authenticated */
-  if (checkAuth()) { populateFields(); populateImagePreviews(); renderSubmissions(); }
 
   /* ─── SUBMISSIONS ───────────────────── */
   function fmtDate(iso) {
@@ -1027,7 +1013,7 @@
     return td;
   }
 
-  function makeStatusSelect(current, options, storageKey, id) {
+  function makeStatusSelect(current, options, tableName, id) {
     const sel = document.createElement('select');
     sel.className = 'status-select';
     options.forEach(o => {
@@ -1036,10 +1022,9 @@
       if (o === current) opt.selected = true;
       sel.appendChild(opt);
     });
-    sel.addEventListener('change', () => {
-      const items = JSON.parse(localStorage.getItem(storageKey) || '[]');
-      const item = items.find(i => i.id === id);
-      if (item) { item.status = sel.value; localStorage.setItem(storageKey, JSON.stringify(items)); }
+    sel.addEventListener('change', async () => {
+      const { error } = await _supabase.from(tableName).update({ status: sel.value }).eq('id', id);
+      if (error) showToast('Status update failed', 'error');
     });
     return sel;
   }
@@ -1072,11 +1057,14 @@
     td.colSpan = cols; td.className = 'empty-state'; td.textContent = msg;
   }
 
-  function renderApplications() {
+  async function renderApplications() {
     const tbody = document.getElementById('app-tbody');
     if (!tbody) return;
     let items = [];
-    try { items = JSON.parse(localStorage.getItem('msf_applications') || '[]'); } catch(e) {}
+    try {
+      const { data } = await _supabase.from('applications').select('*').order('submitted_at', { ascending: false });
+      if (data) items = data;
+    } catch(e) {}
     const total = document.getElementById('app-total');
     const badge = document.getElementById('app-count-badge');
     if (total) total.textContent = '(' + items.length + ')';
@@ -1085,15 +1073,14 @@
     if (!items.length) { emptyRow(tbody, 7, 'No applications yet.'); return; }
     items.forEach(function(item) {
       var tr = tbody.insertRow();
-      tr.insertCell().textContent = fmtDate(item.submittedAt);
+      tr.insertCell().textContent = fmtDate(item.submitted_at);
       var nc = tr.insertCell(); var b = document.createElement('strong'); b.textContent = String(item.name||''); nc.appendChild(b);
       tr.insertCell().textContent = String(item.phone||'');
       tr.insertCell().textContent = String(item.city||'');
       tr.insertCell().textContent = String(item.education||'');
-      var sc = tr.insertCell(); sc.appendChild(makeStatusSelect(item.status, APP_STATUSES, 'msf_applications', item.id));
+      var sc = tr.insertCell(); sc.appendChild(makeStatusSelect(item.status, APP_STATUSES, 'applications', item.id));
       var ec = tr.insertCell();
       var btn = document.createElement('button'); btn.className = 'expand-btn'; btn.textContent = 'Details ▾'; ec.appendChild(btn);
-      // expand row
       var xtr = tbody.insertRow(); xtr.className = 'expand-row';
       var xtd = xtr.insertCell(); xtd.colSpan = 7;
       [{l:'DOB',v:item.dob},{l:'Gender',v:item.gender},{l:'Email',v:item.email},{l:'Source',v:item.source}].forEach(function(f,i,a) {
@@ -1107,11 +1094,14 @@
     });
   }
 
-  function renderEnquiries() {
+  async function renderEnquiries() {
     const tbody = document.getElementById('enq-tbody');
     if (!tbody) return;
     let items = [];
-    try { items = JSON.parse(localStorage.getItem('msf_partner_enquiries') || '[]'); } catch(e) {}
+    try {
+      const { data } = await _supabase.from('partner_enquiries').select('*').order('submitted_at', { ascending: false });
+      if (data) items = data;
+    } catch(e) {}
     const total = document.getElementById('enq-total');
     const badge = document.getElementById('enq-count-badge');
     if (total) total.textContent = '(' + items.length + ')';
@@ -1120,17 +1110,17 @@
     if (!items.length) { emptyRow(tbody, 7, 'No enquiries yet.'); return; }
     items.forEach(function(item) {
       var tr = tbody.insertRow();
-      tr.insertCell().textContent = fmtDate(item.submittedAt);
+      tr.insertCell().textContent = fmtDate(item.submitted_at);
       var nc = tr.insertCell(); var b = document.createElement('strong'); b.textContent = String(item.name||''); nc.appendChild(b);
       tr.insertCell().textContent = String(item.company||'');
       var tc = tr.insertCell(); var sp = document.createElement('span'); sp.className = 'status-badge status-new'; sp.textContent = String(item.involvement||''); tc.appendChild(sp);
       tr.insertCell().textContent = String(item.email||'');
-      var sc = tr.insertCell(); sc.appendChild(makeStatusSelect(item.status, ENQ_STATUSES, 'msf_partner_enquiries', item.id));
+      var sc = tr.insertCell(); sc.appendChild(makeStatusSelect(item.status, ENQ_STATUSES, 'partner_enquiries', item.id));
       var ec = tr.insertCell();
       var btn = document.createElement('button'); btn.className = 'expand-btn'; btn.textContent = 'Details ▾'; ec.appendChild(btn);
       var xtr = tbody.insertRow(); xtr.className = 'expand-row';
       var xtd = xtr.insertCell(); xtd.colSpan = 7;
-      [{l:'Designation',v:item.designation},{l:'Phone',v:item.phone},{l:'Company Type',v:item.companyType}].forEach(function(f,i,a) {
+      [{l:'Designation',v:item.designation},{l:'Phone',v:item.phone},{l:'Company Type',v:item.company_type}].forEach(function(f,i,a) {
         var lb = document.createElement('strong'); lb.textContent = f.l + ': '; xtd.appendChild(lb);
         xtd.appendChild(document.createTextNode(String(f.v||'') + (i < a.length-1 ? '   |   ' : '')));
       });
@@ -1141,12 +1131,12 @@
     });
   }
 
-  function renderSubmissions() { renderApplications(); renderEnquiries(); }
+  async function renderSubmissions() { await renderApplications(); await renderEnquiries(); }
 
   document.querySelectorAll('.sb-item').forEach(item => {
     item.addEventListener('click', () => {
-      if (item.dataset.panel === 'applications') setTimeout(renderApplications, 50);
-      if (item.dataset.panel === 'enquiries')    setTimeout(renderEnquiries, 50);
+      if (item.dataset.panel === 'applications') renderApplications();
+      if (item.dataset.panel === 'enquiries')    renderEnquiries();
     });
   });
 
@@ -1160,37 +1150,39 @@
     a.download = filename; a.click();
   }
 
-  document.getElementById('export-apps')?.addEventListener('click', () => {
-    const items = JSON.parse(localStorage.getItem('msf_applications') || '[]');
-    downloadCSV(toCSV(items, [
-      {label:'Date',key:'submittedAt'},{label:'Status',key:'status'},{label:'Name',key:'name'},
+  document.getElementById('export-apps')?.addEventListener('click', async () => {
+    const { data: items } = await _supabase.from('applications').select('*').order('submitted_at', { ascending: false });
+    downloadCSV(toCSV(items || [], [
+      {label:'Date',key:'submitted_at'},{label:'Status',key:'status'},{label:'Name',key:'name'},
       {label:'DOB',key:'dob'},{label:'Gender',key:'gender'},{label:'Phone',key:'phone'},
       {label:'Email',key:'email'},{label:'City',key:'city'},{label:'Education',key:'education'},
       {label:'Source',key:'source'},{label:'Why',key:'why'},
     ]), 'mcbee-applications-' + new Date().toISOString().slice(0,10) + '.csv');
   });
 
-  document.getElementById('export-enqs')?.addEventListener('click', () => {
-    const items = JSON.parse(localStorage.getItem('msf_partner_enquiries') || '[]');
-    downloadCSV(toCSV(items, [
-      {label:'Date',key:'submittedAt'},{label:'Status',key:'status'},{label:'Name',key:'name'},
+  document.getElementById('export-enqs')?.addEventListener('click', async () => {
+    const { data: items } = await _supabase.from('partner_enquiries').select('*').order('submitted_at', { ascending: false });
+    downloadCSV(toCSV(items || [], [
+      {label:'Date',key:'submitted_at'},{label:'Status',key:'status'},{label:'Name',key:'name'},
       {label:'Company',key:'company'},{label:'Designation',key:'designation'},
       {label:'Email',key:'email'},{label:'Phone',key:'phone'},
-      {label:'Involvement',key:'involvement'},{label:'Company Type',key:'companyType'},
+      {label:'Involvement',key:'involvement'},{label:'Company Type',key:'company_type'},
       {label:'Message',key:'message'},
     ]), 'mcbee-enquiries-' + new Date().toISOString().slice(0,10) + '.csv');
   });
 
-  document.getElementById('clear-apps')?.addEventListener('click', () => {
+  document.getElementById('clear-apps')?.addEventListener('click', async () => {
     if (confirm('Delete all student applications? This cannot be undone.')) {
-      localStorage.removeItem('msf_applications'); renderApplications();
+      await _supabase.from('applications').delete().neq('id', 0);
+      await renderApplications();
       showToast('All applications cleared', 'error');
     }
   });
 
-  document.getElementById('clear-enqs')?.addEventListener('click', () => {
+  document.getElementById('clear-enqs')?.addEventListener('click', async () => {
     if (confirm('Delete all partner enquiries? This cannot be undone.')) {
-      localStorage.removeItem('msf_partner_enquiries'); renderEnquiries();
+      await _supabase.from('partner_enquiries').delete().neq('id', 0);
+      await renderEnquiries();
       showToast('All enquiries cleared', 'error');
     }
   });
