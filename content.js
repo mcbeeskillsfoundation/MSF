@@ -58,6 +58,7 @@ const CMS = {
     'hero-subhead':   'Giving back to the industry that built us.',
     'hero-body':      'Training India\'s next generation of AV, IT, automation, security, and building-systems professionals. Free for young people who need it. Funded by the industry that needs them.',
     'hero-video-url': '',
+    'hero-mobile-video-url': '',
     'mission-text':   'We are building India\'s most comprehensive industry-led training ecosystem for AV, IT, security, automation, and building systems — making world-class skills accessible to underprivileged youth, and giving today\'s installers the recognition their craft deserves. Within the next decade, every Indian integrator should be able to hire from a recognised national pool of trained, certified professionals.',
 
     'stat-1-num':   '12',   'stat-1-suf': '',    'stat-1-label': 'Curriculum Modules',
@@ -228,21 +229,29 @@ const CMS = {
       if (c['stat-' + i + '-pfx']) el.dataset.pfx = c['stat-' + i + '-pfx'];
     });
 
-    // Hero video — signed URL from Storage, fallback to URL field
+    // Hero video — use mobile video on small screens, desktop otherwise
     const heroVideo = document.getElementById('hero-video');
     if (heroVideo) {
       (async () => {
         try {
-          const url = typeof ImageDB !== 'undefined' ? await ImageDB.get('hero-video') : null;
+          const isMobile = window.innerWidth < 768;
+          const key = isMobile ? 'hero-mobile-video' : 'hero-video';
+          const urlKey = isMobile ? 'hero-mobile-video-url' : 'hero-video-url';
+          // Try mobile key first; if nothing set, fall back to desktop
+          let url = typeof ImageDB !== 'undefined' ? await ImageDB.get(key) : null;
+          if (!url && isMobile) url = typeof ImageDB !== 'undefined' ? await ImageDB.get('hero-video') : null;
           const overlay = document.getElementById('hero-overlay');
           if (url) {
             heroVideo.src = url;
             heroVideo.style.display = 'block';
             if (overlay) overlay.style.display = 'block';
-          } else if (c['hero-video-url'] && c['hero-video-url'].trim()) {
-            heroVideo.src = c['hero-video-url'];
-            heroVideo.style.display = 'block';
-            if (overlay) overlay.style.display = 'block';
+          } else {
+            const fallbackUrl = c[urlKey] || c['hero-video-url'];
+            if (fallbackUrl && fallbackUrl.trim()) {
+              heroVideo.src = fallbackUrl;
+              heroVideo.style.display = 'block';
+              if (overlay) overlay.style.display = 'block';
+            }
           }
         } catch(e) { /* silently skip */ }
       })();

@@ -390,6 +390,26 @@
         <input type="url" data-cms-key="hero-video-url" placeholder="https://…/hero-reel.mp4" />
         <span class="hint">URL takes effect only if no file is uploaded above.</span>
       </div>
+
+      <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--line);">
+        <div class="edit-card-title" style="margin-bottom:0.75rem;">Mobile Video <span style="font-size:0.72rem;font-weight:400;color:var(--muted);margin-left:0.5rem;">Optional — shown on screens under 768px</span></div>
+        <p style="font-size:0.825rem;color:var(--muted);margin-bottom:1rem;">Upload a shorter/vertical cut for mobile. If not set, the desktop video is used.</p>
+        <div class="fg" style="margin-bottom:1rem;">
+          <label>Upload mobile video (MP4 or WebM)</label>
+          <div style="margin-top:0.4rem;">
+            <input type="file" accept="video/mp4,video/webm,video/*" id="hero-mobile-video-file" style="display:none;" />
+            <label for="hero-mobile-video-file" class="img-upload-btn" style="max-width:280px;">⬆ Choose mobile video file</label>
+          </div>
+          <div id="hero-mobile-video-status" style="font-size:0.78rem;margin-top:0.5rem;color:var(--muted);">No file uploaded yet.</div>
+          <button id="hero-mobile-video-clear" style="display:none;margin-top:0.4rem;font-size:0.75rem;color:var(--danger);background:none;border:none;cursor:pointer;padding:0;font-family:Manrope,sans-serif;">✕ Remove uploaded mobile video</button>
+        </div>
+        <div class="img-or">— or paste a URL —</div>
+        <div class="fg" style="margin-top:0.75rem;">
+          <label>Mobile Video URL (MP4 or WebM)</label>
+          <input type="url" data-cms-key="hero-mobile-video-url" placeholder="https://…/hero-mobile.mp4" />
+          <span class="hint">URL takes effect only if no file is uploaded above.</span>
+        </div>
+      </div>
     </div>
     <div class="edit-card"><div class="edit-card-title">Copy</div><div class="field-grid single">
       <div class="fg"><label>Name Line (MCBEE Skills Foundation,)</label><input type="text" data-cms-key="hero-h1-1" placeholder="MCBEE Skills Foundation," /></div>
@@ -916,6 +936,51 @@
       fileInput.value = '';
       await refreshStatus();
       showToast('Video removed', 'success');
+    });
+  })();
+
+  /* ─── Mobile hero video upload ──────── */
+  (async function initMobileVideoUpload() {
+    const fileInput = document.getElementById('hero-mobile-video-file');
+    const statusEl  = document.getElementById('hero-mobile-video-status');
+    const clearBtn  = document.getElementById('hero-mobile-video-clear');
+    if (!fileInput) return;
+
+    async function refreshStatus() {
+      const url = await ImageDB.get('hero-mobile-video');
+      if (url) {
+        statusEl.textContent = '✓ Mobile video uploaded';
+        statusEl.style.color = 'var(--success)';
+        clearBtn.style.display = 'inline';
+      } else {
+        statusEl.textContent = 'No file uploaded yet.';
+        statusEl.style.color = 'var(--muted)';
+        clearBtn.style.display = 'none';
+      }
+    }
+    await refreshStatus();
+
+    fileInput.addEventListener('change', async () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+      statusEl.textContent = 'Uploading…'; statusEl.style.color = 'var(--muted)';
+      try {
+        await ImageDB.set('hero-mobile-video', file);
+        const c = CMS.load(); c['hero-mobile-video-url'] = ''; await CMS.save(c);
+        document.querySelector('[data-cms-key="hero-mobile-video-url"]').value = '';
+        await refreshStatus();
+        showToast('✓ Mobile video saved', 'success');
+      } catch(err) {
+        statusEl.textContent = 'Error: ' + err.message;
+        statusEl.style.color = 'var(--danger)';
+      }
+    });
+
+    clearBtn.addEventListener('click', async () => {
+      await ImageDB.del('hero-mobile-video');
+      fileInput.value = '';
+      await refreshStatus();
+      showToast('Mobile video removed', 'success');
     });
   })();
 
