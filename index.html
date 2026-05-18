@@ -29,7 +29,8 @@
       --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; overflow-x: clip; }
+    body { max-width: 100%; overflow-x: clip; }
     body {
       font-family: 'Manrope', sans-serif;
       font-weight: 400;
@@ -38,7 +39,6 @@
       background: var(--paper);
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
 
     .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); }
@@ -186,7 +186,7 @@
     .mod-num, .mod-title, .mod-desc { position: relative; z-index: 1; }
 
     /* ── CAROUSEL ──────────────────────────────── */
-    .carousel-wrap { }
+    .carousel-wrap { overflow: hidden; max-width: 100%; }
     .carousel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
     .carousel-tabs { display: flex; background: var(--line); border-radius: 6px; padding: 3px; gap: 2px; }
     .ctab { padding: 0.5rem 1.25rem; border: none; border-radius: 4px; font-family: 'Manrope', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--muted); background: transparent; cursor: pointer; transition: background 0.2s, color 0.2s, box-shadow 0.2s; white-space: nowrap; }
