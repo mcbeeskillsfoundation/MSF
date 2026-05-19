@@ -66,7 +66,7 @@ const CMS = {
     'stat-3-num':   '0',    'stat-3-pfx': '₹',  'stat-3-label': 'Cost for Track One Students',
     'stat-4-num':   '2026', 'stat-4-suf': '',    'stat-4-label': 'First Cohort Opens',
 
-    'founders-heading':  'A note before we begin.',
+    'founders-heading':  'A note before we begin',
     'founders-p1':       'For over a decade, our industry — AV, IT, security, automation, building systems — has rewarded us. It has also shown us the same gap every year: bright young people who want to enter this trade, with nowhere to learn it.',
     'founders-p2':       'We hire by word of mouth. We train on the job. We all complain about the same shortage — and none of us has done much about it. Until now.',
     'founders-pullout':  'We have decided to do something about it.',
@@ -78,10 +78,10 @@ const CMS = {
     'strip-img-2': '', 'strip-label-2': 'On site',
     'strip-img-3': '', 'strip-label-3': 'The team',
 
-    'track1-heading':  'Free for the youth who need it most.',
+    'track1-heading':  'Free for the youth who need it most',
     'track1-body':     'Underprivileged young people, 18+, given a fully sponsored pathway into the trade.',
     'track1-footnote': 'Funded through CSR, donations, and Track Two surplus.',
-    'track2-heading':  'Certification for existing installers.',
+    'track2-heading':  'Certification for existing installers',
     'track2-body':     'Working installers across AV, IT, security, and automation get formal, recognised certification.',
     'track2-footnote': 'Surplus from Track Two underwrites Track One.',
     'mission-body':    'To build India\'s most comprehensive industry-led training ecosystem for AV, IT, security, automation, and building systems.',
@@ -90,7 +90,7 @@ const CMS = {
     'outcomes-img':   '',
     'outcomes-quote': '"We are not opening a door for the sake of it. We are opening it onto a real career, with real income, in a real industry."',
 
-    'partner-heading': 'This cannot be done by one company alone.',
+    'partner-heading': 'This cannot be done by one company alone',
     'partner-sub':     'Three ways to join us. Pick whichever fits — or all three.',
     'hire-tag': 'FOR INTEGRATORS & EMPLOYERS', 'hire-heading': 'Hire',
     'hire-sub': 'Commit to interviewing one graduate per year.',
@@ -105,7 +105,7 @@ const CMS = {
     'sup-body': 'Donate kit, sponsor a cohort, or partner via your CSR programme.',
     'sup-btn': 'I want to support →',
 
-    'apply-heading':  'Apply for free training. Build a real career.',
+    'apply-heading':  'Apply for free training, Build a real career',
     'apply-sub':      'The first cohort opens in 2026. If you\'re 18+, ready to work hard, and want a real career in technology — this is for you.',
     'apply-email':    'mcbeeskillsfoundation@gmail.com',
     'apply-whatsapp': '+91-XXXXX-XXXXX',
