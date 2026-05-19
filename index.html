@@ -472,9 +472,9 @@
     .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-burger.open span:nth-child(2) { opacity: 0; }
     .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .drawer { display: none; position: fixed; inset: 0; background: var(--ink); z-index: 999; padding: 5rem 2rem 2rem; flex-direction: column; gap: 1.5rem; }
+    .drawer { display: none; position: fixed; inset: 0; background: var(--ink); z-index: 999; padding: 5rem var(--pad-x) 2rem; flex-direction: column; align-items: flex-start; gap: 1.5rem; }
     .drawer.open { display: flex; }
-    .drawer a { font-size: 1.4rem; font-weight: 300; color: var(--paper); text-decoration: none; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s; }
+    .drawer a { font-size: 1.4rem; font-weight: 300; color: var(--paper); text-decoration: none; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s; width: 100%; text-align: left; }
     .drawer a:hover { color: var(--orange); }
     .drawer-foot { margin-top: auto; display: flex; gap: 1rem; }
     .drawer-foot a { font-size: 0.75rem; color: var(--muted); border: none; padding: 0; }
@@ -756,7 +756,7 @@
     <div class="founders-grid">
       <div class="a-left">
         <span class="eyebrow">FROM THE FOUNDERS</span>
-        <h2 data-cms="founders-heading">A note before we begin.</h2>
+        <h2 data-cms="founders-heading">A note before we begin</h2>
         <span class="divider divider--left"></span>
         <p style="color:var(--muted);margin-bottom:1rem;" data-cms="founders-p1">For over a decade, our industry — AV, IT, security, automation, building systems — has rewarded us. It has also shown us the same gap every year: bright young people who want to enter this trade, with nowhere to learn it.</p>
         <p style="color:var(--muted);" data-cms="founders-p2">We hire by word of mouth. We train on the job. We all complain about the same shortage — and none of us has done much about it. Until now.</p>
@@ -816,17 +816,17 @@
   <div class="container">
     <div class="sec-head a-up">
       <span class="eyebrow">THE MOMENT WE'RE IN</span>
-      <h2>Two forces are meeting. We can either let them collide — or build a bridge.</h2>
+      <h2>Two forces are meeting. We can either let them collide — or build a bridge</h2>
     </div>
     <div class="forces-grid">
       <div class="card a-left"><div class="card-body">
         <span class="eyebrow" style="color:var(--purple);">FORCE ONE</span>
-        <h3 style="margin-bottom:0.6rem;">AI is reshaping work.</h3>
+        <h3 style="margin-bottom:0.6rem;">AI is reshaping work</h3>
         <p style="color:var(--muted);font-size:0.9rem;">Cognitive work is automating fast. What holds value? The physical, hands-on, real-world skills — installing systems, terminating cables, commissioning at 11pm. That's our trade.</p>
       </div></div>
       <div class="card-dark a-right"><div class="card-dark-body">
         <span class="eyebrow">FORCE TWO</span>
-        <h3 style="color:var(--paper);margin-bottom:0.6rem;">India's youth are arriving.</h3>
+        <h3 style="color:var(--paper);margin-bottom:0.6rem;">India's youth are arriving</h3>
         <p style="color:rgba(252,252,252,0.6);font-size:0.9rem;">62% of India is working-age. Median age: 29. Millions entering the workforce each year without serious technical pathways. Without intervention, our talent shortage gets worse, not better.</p>
       </div></div>
     </div>
@@ -871,13 +871,13 @@
 
         <div class="cslide">
           <div class="slide-head">
-            <h2>Two tracks. One mission.</h2>
+            <h2>Two tracks. One mission</h2>
             <p class="sec-sub">A self-sustaining model where the industry funds the training of its own future workforce.</p>
           </div>
           <div class="tracks-grid">
             <div class="card" style="border-top-color:var(--purple);"><div class="card-body">
               <span class="eyebrow" style="color:var(--purple);">TRACK ONE</span>
-              <h3 style="margin-bottom:0.75rem;">Free for the youth who need it most.</h3>
+              <h3 style="margin-bottom:0.75rem;">Free for the youth who need it most</h3>
               <p style="color:var(--muted);font-size:0.9rem;">Underprivileged young people, 18+, given a fully sponsored pathway into the trade. Structured training, hands-on lab work, and industry placement — at no cost to them.</p>
               <p class="track-foot" style="color:var(--purple);">Funded through CSR, donations, and Track Two surplus.</p>
               <div style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;margin-top:1rem;">
@@ -887,7 +887,7 @@
             </div></div>
             <div class="card-dark" style="border-top:4px solid var(--orange);"><div class="card-dark-body">
               <span class="eyebrow">TRACK TWO</span>
-              <h3 style="color:var(--paper);margin-bottom:0.75rem;">Certification for existing installers.</h3>
+              <h3 style="color:var(--paper);margin-bottom:0.75rem;">Certification for existing installers</h3>
               <p style="color:rgba(252,252,252,0.6);font-size:0.9rem;">Working installers across AV, IT, security, and automation get formal, recognised certification. Modular, paid programmes designed around real-world schedules.</p>
               <p class="track-foot" style="color:var(--orange);">Surplus from Track Two underwrites Track One.</p>
               <div style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;margin-top:1rem;">
@@ -899,7 +899,7 @@
         </div>
 
         <div class="cslide">
-          <div class="slide-head"><h2>Built to be recognised — by industry, then by government.</h2></div>
+          <div class="slide-head"><h2>Built to be recognised — by industry, then by government</h2></div>
           <div class="cred-grid">
             <div class="card-dark"><div class="card-dark-body"><div class="cred-num">01</div><h4 style="color:var(--paper);margin-bottom:0.6rem;">Industry-led standards</h4><p style="color:rgba(252,252,252,0.55);font-size:0.875rem;line-height:1.65;">Senior practitioners review and sign off every curriculum, assessment, and trainer qualification. Industry sets the bar.</p></div></div>
             <div class="card-dark"><div class="card-dark-body"><div class="cred-num">02</div><h4 style="color:var(--paper);margin-bottom:0.6rem;">Real-world assessment</h4><p style="color:rgba(252,252,252,0.55);font-size:0.875rem;line-height:1.65;">Students design, build, and commission actual systems — not multiple-choice exams. The certificate proves they can do the work.</p></div></div>
@@ -921,7 +921,7 @@
   <div class="container">
     <div class="sec-head a-up">
       <span class="eyebrow">THE CURRICULUM</span>
-      <h2>What we will teach.</h2>
+      <h2>What we will teach</h2>
       <p class="sec-sub">End-to-end — from first principles to specialist depth, across every discipline our industry needs.</p>
     </div>
     <div class="curr-grid" id="curr-grid">
@@ -947,7 +947,7 @@
   <div class="container">
     <div class="sec-head a-up">
       <span class="eyebrow">WHAT WE BUILD TOWARD</span>
-      <h2>One year after graduation.</h2>
+      <h2>One year after graduation</h2>
     </div>
     <div class="outcomes-wrap">
       <div class="a-left">
@@ -983,7 +983,7 @@
       <div class="carousel-track"><div class="cslide-inner" id="ctrack2-inner">
 
         <div class="cslide">
-          <div class="slide-head"><h2>A shared industry challenge — and a real opening.</h2></div>
+          <div class="slide-head"><h2>A shared industry challenge — and a real opening</h2></div>
           <div class="challenge-grid">
             <div class="card"><div class="card-body"><h4 style="margin-bottom:0.5rem;">No training pathway</h4><p style="color:var(--muted);font-size:0.875rem;">No recognised institute, no industry curriculum, no national qualification for an integration technician — across AV, IT, security, automation, or BMS.</p></div></div>
             <div class="card"><div class="card-body"><h4 style="margin-bottom:0.5rem;">We compete for the same small pool</h4><p style="color:var(--muted);font-size:0.875rem;">When a project lands, we look for trained hands. Finding none, we poach from each other. None of us, alone, was going to fix this.</p></div></div>
@@ -992,7 +992,7 @@
         </div>
 
         <div class="cslide">
-          <div class="slide-head"><h2>Where we're going — and how fast.</h2></div>
+          <div class="slide-head"><h2>Where we're going — and how fast</h2></div>
           <div class="road-wrap">
             <div class="timeline-row">
               <div class="tl-draw" id="tl-line"></div>
@@ -1001,9 +1001,9 @@
               <div class="tl-dot"><div class="tl-pip"></div><div class="tl-lbl">2028+ · EXPAND</div></div>
             </div>
             <div class="road-grid">
-              <div class="card-dark" style="padding:1.75rem;"><span class="road-tag">2026 · PILOT</span><h4 style="color:var(--paper);margin-bottom:0.5rem;font-weight:400;font-size:1rem;">First cohort, self-funded.</h4><p style="color:rgba(252,252,252,0.55);font-size:0.85rem;line-height:1.6;">Track One pilot — 15–20 underprivileged youth, MCBEE-funded. Prove the model, refine curriculum, generate placement data.</p></div>
-              <div class="card-dark" style="padding:1.75rem;"><span class="road-tag">2027 · SCALE</span><h4 style="color:var(--paper);margin-bottom:0.5rem;font-weight:400;font-size:1rem;">Both tracks live; CSR activated.</h4><p style="color:rgba(252,252,252,0.55);font-size:0.85rem;line-height:1.6;">Two Track One cohorts of 40+. Track Two launches. CSR partnerships activate. First outcomes published.</p></div>
-              <div class="card-dark" style="padding:1.75rem;"><span class="road-tag">2028+ · EXPAND</span><h4 style="color:var(--paper);margin-bottom:0.5rem;font-weight:400;font-size:1rem;">NSQF aligned; multi-city.</h4><p style="color:rgba(252,252,252,0.55);font-size:0.85rem;line-height:1.6;">Formal NSQF alignment. Centres in Mumbai, Bangalore, Hyderabad. A national talent pool begins to take shape.</p></div>
+              <div class="card-dark" style="padding:1.75rem;"><span class="road-tag">2026 · PILOT</span><h4 style="color:var(--paper);margin-bottom:0.5rem;font-weight:400;font-size:1rem;">First cohort, self-funded</h4><p style="color:rgba(252,252,252,0.55);font-size:0.85rem;line-height:1.6;">Track One pilot — 15–20 underprivileged youth, MCBEE-funded. Prove the model, refine curriculum, generate placement data.</p></div>
+              <div class="card-dark" style="padding:1.75rem;"><span class="road-tag">2027 · SCALE</span><h4 style="color:var(--paper);margin-bottom:0.5rem;font-weight:400;font-size:1rem;">Both tracks live; CSR activated</h4><p style="color:rgba(252,252,252,0.55);font-size:0.85rem;line-height:1.6;">Two Track One cohorts of 40+. Track Two launches. CSR partnerships activate. First outcomes published.</p></div>
+              <div class="card-dark" style="padding:1.75rem;"><span class="road-tag">2028+ · EXPAND</span><h4 style="color:var(--paper);margin-bottom:0.5rem;font-weight:400;font-size:1rem;">NSQF aligned; multi-city</h4><p style="color:rgba(252,252,252,0.55);font-size:0.85rem;line-height:1.6;">Formal NSQF alignment. Centres in Mumbai, Bangalore, Hyderabad. A national talent pool begins to take shape.</p></div>
             </div>
           </div>
         </div>
@@ -1023,7 +1023,7 @@
   <div class="container" style="position:relative;z-index:1;">
     <div class="sec-head a-up">
       <span class="eyebrow">HOW YOU CAN STAND WITH US</span>
-      <h2>This cannot be done by one company alone.</h2>
+      <h2>This cannot be done by one company alone</h2>
       <p class="sec-sub">Hire a graduate, share your expertise, or support us through CSR. Three ways in — pick whichever fits.</p>
     </div>
     <div class="partner-grid stagger">
@@ -1076,7 +1076,7 @@
     <div class="apply-grid">
       <div class="a-left">
         <span class="eyebrow">THE FIRST COHORT</span>
-        <h2 style="color:var(--paper);">Apply for free training. Build a real career.</h2>
+        <h2 style="color:var(--paper);">Apply for free training. Build a real career</h2>
         <span class="divider divider--left"></span>
         <p style="color:rgba(252,252,252,0.6);font-size:0.9rem;margin-bottom:1rem;">The first cohort opens in 2026. If you're 18+, ready to work hard, and want a real career in technology — this is for you.</p>
         <ul class="checklist" id="checklist">

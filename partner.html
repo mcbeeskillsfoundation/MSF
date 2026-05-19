@@ -56,9 +56,9 @@
     .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-burger.open span:nth-child(2) { opacity: 0; }
     .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .drawer { display: none; position: fixed; inset: 0; background: var(--ink); z-index: 999; padding: 5rem 2rem 2rem; flex-direction: column; gap: 1.5rem; }
+    .drawer { display: none; position: fixed; inset: 0; background: var(--ink); z-index: 999; padding: 5rem var(--pad-x) 2rem; flex-direction: column; align-items: flex-start; gap: 1.5rem; }
     .drawer.open { display: flex; }
-    .drawer a { font-size: 1.4rem; font-weight: 300; color: var(--paper); text-decoration: none; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s; }
+    .drawer a { font-size: 1.4rem; font-weight: 300; color: var(--paper); text-decoration: none; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s; width: 100%; text-align: left; }
     .drawer a:hover { color: var(--orange); }
 
     /* BUTTONS */
@@ -319,7 +319,7 @@
 
         <div class="success-state" id="success">
           <div class="success-icon">✓</div>
-          <h3>Thank you — we'll be in touch.</h3>
+          <h3>Thank you — we'll be in touch</h3>
           <p style="color:var(--muted);margin-top:0.5rem;">Expect to hear from us within 5 working days at the email you provided.</p>
           <a href="index.html" class="btn btn-primary" style="margin-top:2rem;">Back to home</a>
         </div>
