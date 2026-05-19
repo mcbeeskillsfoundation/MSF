@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /msf-admin-23.html

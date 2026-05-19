@@ -208,10 +208,10 @@ const CMS = {
       if (v && v.trim()) el.src = v;
     });
 
-    // Anchor hrefs
+    // Anchor hrefs — only allow https:// URLs to prevent javascript: injection
     document.querySelectorAll('[data-cms-href]').forEach(el => {
       const v = c[el.dataset.cmsHref];
-      if (v) el.href = v;
+      if (v && /^https:\/\//.test(v)) el.href = v;
     });
 
     // Brand colours

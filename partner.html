@@ -444,14 +444,17 @@
 
     const els = form.elements;
     const { error } = await _supabase.from('partner_enquiries').insert({
-      name:         els['name'].value,
-      company:      els['company'].value,
-      designation:  els['designation'].value,
-      email:        els['email'].value,
-      phone:        els['phone'].value,
-      involvement:  form.querySelector('[name="involvement"]:checked')?.value || '',
-      company_type: els['company-type'].value,
-      message:      els['message'].value,
+      name:              els['name'].value,
+      company:           els['company'].value,
+      designation:       els['designation'].value,
+      email:             els['email'].value,
+      phone:             els['phone'].value,
+      involvement:       form.querySelector('[name="involvement"]:checked')?.value || '',
+      company_type:      els['company-type'].value,
+      message:           els['message'].value,
+      consent_given:     true,
+      consent_timestamp: new Date().toISOString(),
+      updates_consent:   els['updates']?.checked || false,
     });
 
     if (!error) {

@@ -1357,15 +1357,17 @@
 
       const els = form.elements;
       const { error } = await _supabase.from('applications').insert({
-        name:      els['name'].value,
-        dob:       els['dob'].value,
-        gender:    form.querySelector('[name="gender"]:checked')?.value || '',
-        phone:     els['phone'].value,
-        email:     els['email'].value,
-        city:      els['city'].value,
-        education: els['edu'].value,
-        why:       els['why'].value,
-        source:    els['src'].value,
+        name:              els['name'].value,
+        dob:               els['dob'].value,
+        gender:            form.querySelector('[name="gender"]:checked')?.value || '',
+        phone:             els['phone'].value,
+        email:             els['email'].value,
+        city:              els['city'].value,
+        education:         els['edu'].value,
+        why:               els['why'].value,
+        source:            els['src'].value,
+        consent_given:     true,
+        consent_timestamp: new Date().toISOString(),
       });
 
       if (!error) {

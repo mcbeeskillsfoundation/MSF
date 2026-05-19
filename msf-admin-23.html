@@ -209,7 +209,8 @@
   <div class="login-box">
     <img src="MSF logomark.png" alt="MCBEE Skills Foundation" style="height:48px;width:auto;object-fit:contain;margin:0 auto 1.25rem;display:block;" />
     <h2>MCBEE Admin</h2>
-    <p>Enter your password to continue</p>
+    <p>Enter your credentials to continue</p>
+    <input class="login-input" type="email" id="login-email" placeholder="Email address" autocomplete="username" style="margin-bottom:0.75rem;" />
     <input class="login-input" type="password" id="login-pass" placeholder="Password" autocomplete="current-password" />
     <button class="login-btn" id="login-btn">Sign in</button>
     <div class="login-error" id="login-error"></div>
@@ -764,18 +765,19 @@
 
 <script>
   /* ─── Auth — Supabase ──────────────── */
-  const overlay   = document.getElementById('login-overlay');
-  const loginPass = document.getElementById('login-pass');
-  const loginBtn  = document.getElementById('login-btn');
-  const loginErr  = document.getElementById('login-error');
+  const overlay    = document.getElementById('login-overlay');
+  const loginEmail = document.getElementById('login-email');
+  const loginPass  = document.getElementById('login-pass');
+  const loginBtn   = document.getElementById('login-btn');
+  const loginErr   = document.getElementById('login-error');
 
   function showAdmin() { overlay.classList.add('hidden'); }
-  function showLogin() { overlay.classList.remove('hidden'); loginPass.value = ''; loginErr.textContent = ''; }
+  function showLogin() { overlay.classList.remove('hidden'); loginEmail.value = ''; loginPass.value = ''; loginErr.textContent = ''; }
 
   async function attemptLogin() {
     loginBtn.disabled = true;
     const { error } = await _supabase.auth.signInWithPassword({
-      email: ADMIN_EMAIL,
+      email:    loginEmail.value.trim(),
       password: loginPass.value,
     });
     loginBtn.disabled = false;
@@ -804,7 +806,7 @@
     const nw      = document.getElementById('new-pass').value;
     const confirm = document.getElementById('confirm-pass').value;
     const msg     = document.getElementById('pass-msg');
-    if (nw.length < 6)  { msg.style.color = 'var(--danger)'; msg.textContent = 'New password must be at least 6 characters.'; return; }
+    if (nw.length < 12) { msg.style.color = 'var(--danger)'; msg.textContent = 'New password must be at least 12 characters.'; return; }
     if (nw !== confirm) { msg.style.color = 'var(--danger)'; msg.textContent = 'Passwords do not match.'; return; }
     const { error } = await _supabase.auth.updateUser({ password: nw });
     if (error) { msg.style.color = 'var(--danger)'; msg.textContent = error.message; return; }
