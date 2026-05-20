@@ -1315,37 +1315,11 @@
     if (prev) prev.addEventListener('click', () => { goTo(cur - 1); resetTimer(); });
     if (next) next.addEventListener('click', () => { goTo(cur + 1); resetTimer(); });
 
-    let sx = 0, sy = 0;
-    inner.addEventListener('touchstart', e => {
-      sx = e.touches[0].clientX;
-      sy = e.touches[0].clientY;
-    }, { passive: true });
-
-    // On mobile: intercept vertical scroll to advance slides
-    inner.addEventListener('touchmove', e => {
-      if (window.innerWidth > 768) return;
-      const dx = Math.abs(e.touches[0].clientX - sx);
-      const dy = e.touches[0].clientY - sy;
-      const adx = Math.abs(dy);
-      if (adx > dx) {
-        // Vertical — only prevent scroll if we have a slide to go to
-        const goingNext = dy < 0;
-        if ((goingNext && cur < total - 1) || (!goingNext && cur > 0)) {
-          e.preventDefault();
-        }
-      }
-    }, { passive: false });
-
+    let sx = 0;
+    inner.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
     inner.addEventListener('touchend', e => {
       const dx = e.changedTouches[0].clientX - sx;
-      const dy = e.changedTouches[0].clientY - sy;
-      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 50 && window.innerWidth <= 768) {
-        // Vertical swipe on mobile → advance slide
-        goTo(dy < 0 ? cur + 1 : cur - 1); resetTimer();
-      } else if (Math.abs(dx) > 50) {
-        // Horizontal swipe → existing behaviour
-        goTo(dx < 0 ? cur + 1 : cur - 1); resetTimer();
-      }
+      if (Math.abs(dx) > 50) { goTo(dx < 0 ? cur + 1 : cur - 1); resetTimer(); }
     }, { passive: true });
 
     resetTimer();
@@ -1383,32 +1357,27 @@
     el.addEventListener('click', () => setTimeout(equaliseCarousels, 60));
   });
 
+  /* ─── Video: fire immediately, don't wait for CMS ───── */
+  if (typeof ImageDB !== 'undefined') {
+    const isMobileV = window.innerWidth < 768;
+    const vKey = isMobileV ? 'hero-mobile-video' : 'hero-video';
+    ImageDB.get(vKey).catch(() => null).then(async url => {
+      if (!url && isMobileV) url = await ImageDB.get('hero-video').catch(() => null);
+      if (url) {
+        const v = document.getElementById('hero-video');
+        const ov = document.getElementById('hero-overlay');
+        if (v) { v.src = url; v.style.display = 'block'; }
+        if (ov) ov.style.display = 'block';
+      }
+    });
+    ImageDB.applyToPage();
+  }
+
   /* ─── CMS hydration ─────────────────── */
   (async () => {
     if (typeof CMS !== 'undefined') {
-      // Start all image + video fetches immediately in parallel with CMS init
-      const isMobileHero = window.innerWidth < 768;
-      const heroKey = isMobileHero ? 'hero-mobile-video' : 'hero-video';
-      const videoUrlP = typeof ImageDB !== 'undefined' ? ImageDB.get(heroKey).catch(() => null) : Promise.resolve(null);
-      if (typeof ImageDB !== 'undefined') ImageDB.applyToPage();
-
       await CMS.init();
       CMS.hydrate();
-
-      // Apply video as soon as URL resolves — may already be done by now
-      const heroVideoEl = document.getElementById('hero-video');
-      if (heroVideoEl) {
-        const videoUrl = await videoUrlP;
-        if (!videoUrl && isMobileHero) {
-          const fallback = await (typeof ImageDB !== 'undefined' ? ImageDB.get('hero-video').catch(() => null) : Promise.resolve(null));
-          if (fallback) { heroVideoEl.src = fallback; heroVideoEl.style.display = 'block'; document.getElementById('hero-overlay').style.display = 'block'; }
-        } else if (videoUrl) {
-          heroVideoEl.src = videoUrl;
-          heroVideoEl.style.display = 'block';
-          const ov = document.getElementById('hero-overlay');
-          if (ov) ov.style.display = 'block';
-        }
-      }
     }
 
     /* ─── FORM ───────────────────────────── */
