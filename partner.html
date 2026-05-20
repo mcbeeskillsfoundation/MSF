@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Partner With Us — MCBEE Skills Foundation</title>
   <meta name="description" content="Hire a graduate, volunteer your expertise, or support us through CSR. Join the industry effort to train India's next generation." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Partner With Us — MCBEE Skills Foundation" />
+  <meta property="og:description" content="Hire a graduate, volunteer as a trainer, or support through CSR. Three ways to stand with us." />
+  <meta property="og:url" content="https://mcbeefoundation.in/partner" />
+  <meta property="og:image" content="https://mcbeefoundation.in/MSF logomark.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
@@ -60,6 +66,8 @@
     .drawer.open { display: flex; }
     .drawer a { font-size: 1.4rem; font-weight: 300; color: var(--paper); text-decoration: none; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s; width: 100%; text-align: left; }
     .drawer a:hover { color: var(--orange); }
+    .drawer-foot { margin-top: auto; display: flex; gap: 1rem; }
+    .drawer-foot a { font-size: 0.75rem; color: var(--muted); border: none; padding: 0; }
 
     /* BUTTONS */
     .btn { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.8rem 1.75rem; border-radius: 4px; font-family: 'Manrope', sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; text-decoration: none; cursor: pointer; border: 2px solid transparent; position: relative; overflow: hidden; transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out), border-color 0.2s var(--ease-out), transform 0.15s var(--ease-spring), box-shadow 0.2s var(--ease-out); }
@@ -221,6 +229,7 @@
   <a href="index.html#credibility">Our Vision</a>
   <a href="index.html#partner">Stand With Us</a>
   <a href="index.html#apply">Apply for the Programme</a>
+  <div class="drawer-foot"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
 </div>
 
 <!-- ══ HERO ═══════════════════════════════════ -->
@@ -343,7 +352,7 @@
     <div class="foot-col"><h5>About &amp; Legal</h5><ul class="foot-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="donor-policy.html">Donor Policy</a></li><li><a href="grievance.html">Grievance</a></li></ul></div>
   </div>
   <div class="foot-bot">
-    <div><p class="foot-copy">© 2026 MCBEE Skills Foundation. All rights reserved.</p><p class="foot-copy">CIN: [to be added] · Registered Office: Delhi NCR</p></div>
+    <div><p class="foot-copy">© <span data-cms="footer-year">2026</span> MCBEE Skills Foundation. All rights reserved.</p><p class="foot-copy">CIN: <span data-cms="org-cin">[to be added]</span> · Registered Office: Delhi NCR</p></div>
     <div class="socials">
       <a href="https://www.linkedin.com/in/mcbee-skills-foundation-36681640b/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
       <a href="https://www.instagram.com/mcbeeskillsfoundation/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
@@ -432,6 +441,8 @@
   setTimeout(() => {
     document.querySelectorAll('#hero .a-up, #hero .a-left, #hero .a-right').forEach(el => el.classList.add('vis'));
   }, 150);
+
+  (async () => { if (typeof CMS !== 'undefined') { await CMS.init(); CMS.hydrate(); } })();
 
   /* ─── Form submission ────────────────────── */
   const form = document.getElementById('partnerForm');

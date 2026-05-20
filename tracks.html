@@ -6,9 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Two Tracks — MCBEE Skills Foundation</title>
   <meta name="description" content="Track One: free training for underprivileged youth. Track Two: certification for working installers. Two tracks, one mission." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Two Tracks, One Mission — MCBEE Skills Foundation" />
+  <meta property="og:description" content="Track One: free training for underprivileged youth. Track Two: certification for working installers." />
+  <meta property="og:url" content="https://mcbeefoundation.in/tracks" />
+  <meta property="og:image" content="https://mcbeefoundation.in/MSF logomark.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="content.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -599,9 +608,8 @@
 <footer>
   <div class="foot-grid">
     <div>
-      <div style="display:flex;align-items:center;gap:0.65rem;margin-bottom:0.9rem;">
-        <div class="logo-mark" style="width:30px;height:30px;font-size:0.72rem;">M</div>
-        <span class="foot-wm">MCBEE Skills Foundation</span>
+      <div style="margin-bottom:0.9rem;">
+        <img src="MSF wordmark.png" alt="MCBEE Skills Foundation" style="height:80px;width:auto;object-fit:contain;display:block;" />
       </div>
       <p class="foot-tl">A Section 8 (Not-for-profit) Company · Delhi NCR</p>
       <p class="foot-tl" style="margin-top:0.2rem;font-size:0.72rem;color:rgba(177,182,193,0.5);">Powered by MCBEE</p>
@@ -611,7 +619,7 @@
     <div class="foot-col"><h5>Legal</h5><ul class="foot-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="donor-policy.html">Donor Policy</a></li><li><a href="grievance.html">Grievance</a></li></ul></div>
   </div>
   <div class="foot-bot">
-    <p class="foot-copy">© 2026 MCBEE Skills Foundation. All rights reserved. · CIN: [to be added] · Delhi NCR</p>
+    <p class="foot-copy">© <span data-cms="footer-year">2026</span> MCBEE Skills Foundation. All rights reserved. · CIN: <span data-cms="org-cin">[to be added]</span> · Delhi NCR</p>
   </div>
 </footer>
 
@@ -658,6 +666,8 @@
   setTimeout(() => {
     document.querySelectorAll('#hero .a-up, #hero .a-left, #hero .a-right').forEach(el => el.classList.add('vis'));
   }, 150);
+
+  (async () => { if (typeof CMS !== 'undefined') { await CMS.init(); CMS.hydrate(); } })();
 </script>
 </body>
 </html>

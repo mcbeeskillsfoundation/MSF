@@ -75,11 +75,21 @@
     .contact-box a:hover { text-decoration: underline; }
 
     /* FOOTER */
-    footer { background: var(--ink); border-top: 4px solid var(--purple); padding: 2.5rem var(--pad-x); text-align: center; }
-    .foot-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 1.25rem; }
-    .foot-links a { font-size: 0.825rem; color: rgba(252,252,252,0.5); text-decoration: none; transition: color 0.2s; }
+    footer { background: var(--ink); border-top: 4px solid var(--purple); padding: 3.5rem var(--pad-x) 2rem; }
+    .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; max-width: 1200px; margin: 0 auto; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .foot-tl { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.2rem; }
+    .foot-pw { font-size: 0.72rem; color: rgba(177,182,193,0.5); }
+    .foot-col h5 { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.1rem; }
+    .foot-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .foot-links a { font-size: 0.85rem; color: rgba(252,252,252,0.5); text-decoration: none; transition: color 0.2s; }
     .foot-links a:hover { color: var(--orange); }
-    .foot-copy { font-size: 0.775rem; color: rgba(177,182,193,0.45); }
+    .foot-bot { max-width: 1200px; margin: 2rem auto 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .foot-copy { font-size: 0.77rem; color: rgba(177,182,193,0.45); line-height: 1.6; }
+    .socials { display: flex; gap: 0.75rem; }
+    .socials a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s, background 0.2s; }
+    .socials a:hover { border-color: var(--orange); color: var(--orange); background: rgba(255,130,13,0.06); }
+    .socials svg { width: 15px; height: 15px; }
+    @media (max-width: 768px) { .foot-grid { grid-template-columns: 1fr 1fr; } .foot-bot { flex-direction: column; align-items: flex-start; } }
 
     @media (max-width: 600px) {
       .rights-grid { grid-template-columns: 1fr; }
@@ -144,7 +154,7 @@
     <h3>When you apply for our Track One youth programme:</h3>
     <ul>
       <li>Full name, date of birth, gender</li>
-      <li>Phone number, WhatsApp number, email address</li>
+      <li>Phone number and email address</li>
       <li>City</li>
       <li>Education details and year of completion</li>
       <li>Your written application content</li>
@@ -290,14 +300,26 @@
 </div>
 
 <footer>
-  <div class="foot-links">
-    <a href="index.html">Home</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms of Use</a>
-    <a href="donor-policy.html">Donor Policy</a>
-    <a href="grievance.html">Grievance</a>
+  <div class="foot-grid">
+    <div>
+      <div style="margin-bottom:0.9rem;">
+        <img src="MSF wordmark.png" alt="MCBEE Skills Foundation" style="height:80px;width:auto;object-fit:contain;display:block;" />
+      </div>
+      <p class="foot-tl" data-cms="footer-tagline">A Section 8 (Not-for-profit) Company · Delhi NCR</p>
+      <p class="foot-pw" style="display:flex;align-items:center;gap:0.4rem;">Powered by <img src="MCBEE wordmark.png" alt="MCBEE" style="height:0.9em;width:auto;opacity:0.5;vertical-align:middle;" /></p>
+    </div>
+    <div class="foot-col"><h5>Programme</h5><ul class="foot-links"><li><a href="index.html#curriculum">The Curriculum</a></li><li><a href="index.html#apply">Apply</a></li><li><a href="tracks.html#track-two">Track Two</a></li><li><a href="index.html#outcomes">One Year After</a></li></ul></div>
+    <div class="foot-col"><h5>Get Involved</h5><ul class="foot-links"><li><a href="index.html#partner">Hire a Graduate</a></li><li><a href="index.html#partner">Volunteer</a></li><li><a href="index.html#partner">Support / Donate</a></li><li><a href="mailto:mcbeeskillsfoundation@gmail.com">Press / Media</a></li></ul></div>
+    <div class="foot-col"><h5>About &amp; Legal</h5><ul class="foot-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="donor-policy.html">Donor Policy</a></li><li><a href="grievance.html">Grievance</a></li></ul></div>
   </div>
-  <p class="foot-copy">© <span data-cms="footer-year">2026</span> MCBEE Skills Foundation · A Section 8 (Not-for-profit) Company · Delhi NCR · CIN: <span data-cms="org-cin">[to be added]</span></p>
+  <div class="foot-bot">
+    <div><p class="foot-copy">© 2026 MCBEE Skills Foundation. All rights reserved.</p><p class="foot-copy">CIN: [to be added] · Registered Office: Delhi NCR</p></div>
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/mcbee-skills-foundation-36681640b/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="https://www.instagram.com/mcbeeskillsfoundation/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="https://x.com/mcbeeskills" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg></a>
+    </div>
+  </div>
 </footer>
 
 <script>(async () => { if (typeof CMS !== 'undefined') { await CMS.init(); CMS.hydrate(); } })();</script>

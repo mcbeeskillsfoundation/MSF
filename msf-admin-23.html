@@ -788,7 +788,7 @@
       await populateImagePreviews();
       await renderSubmissions();
     } else {
-      loginErr.textContent = 'Incorrect password.';
+      loginErr.textContent = 'Incorrect email or password.';
       loginPass.value = '';
       loginPass.focus();
     }
