@@ -7,9 +7,7 @@
       "headers": [
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src https://*.supabase.co; frame-ancestors 'self'" }
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
       ]
     }
   ],
@@ -19,6 +17,7 @@
     { "source": "/donor",     "destination": "/donor-policy.html" },
     { "source": "/grievance", "destination": "/grievance.html" },
     { "source": "/partner",   "destination": "/partner.html" },
-    { "source": "/tracks",    "destination": "/tracks.html" }
+    { "source": "/tracks",    "destination": "/tracks.html" },
+    { "source": "/admin",     "destination": "/msf-admin-23.html" }
   ]
 }
