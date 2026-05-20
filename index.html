@@ -332,6 +332,13 @@
     }
     .a-scale.vis { opacity: 1; transform: scale(1); }
 
+    /* fade-rise — smooth fade + gentle lift, no spring, no scale */
+    .a-fade-rise {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s var(--ease-out);
+    }
+    .a-fade-rise.vis { opacity: 1; transform: none; }
+
     /* 3-D tilt-up — perspective card entrance */
     .a-tilt {
       opacity: 0; transform: perspective(700px) rotateX(14deg) translateY(22px);
@@ -925,18 +932,18 @@
       <p class="sec-sub">End-to-end — from first principles to specialist depth, across every discipline our industry needs.</p>
     </div>
     <div class="curr-grid" id="curr-grid">
-      <div class="mod a-scale d1"><div class="mod-num">01</div><div class="mod-title">Design</div><div class="mod-desc">System design, drawings, BoQ, documentation.</div></div>
-      <div class="mod a-scale d2"><div class="mod-num">02</div><div class="mod-title">Installation</div><div class="mod-desc">Cabling, mounting, terminations — done cleanly.</div></div>
-      <div class="mod a-scale d3"><div class="mod-num">03</div><div class="mod-title">Rack Building</div><div class="mod-desc">Layout, dressing, labelling, thermal design.</div></div>
-      <div class="mod a-scale d4"><div class="mod-num">04</div><div class="mod-title">AV</div><div class="mod-desc">Audio, video, signal flow, processors, displays.</div></div>
-      <div class="mod a-scale d3"><div class="mod-num">05</div><div class="mod-title">IT &amp; Networking</div><div class="mod-desc">Switching, VLANs, Wi-Fi, the IT backbone.</div></div>
-      <div class="mod a-scale d4"><div class="mod-num">06</div><div class="mod-title">Security</div><div class="mod-desc">CCTV, access control, intrusion, monitoring.</div></div>
-      <div class="mod a-scale d5"><div class="mod-num">07</div><div class="mod-title">Automation</div><div class="mod-desc">Lighting, shading, scenes, residential control.</div></div>
-      <div class="mod a-scale d6"><div class="mod-num">08</div><div class="mod-title">BMS</div><div class="mod-desc">Building management — HVAC, energy, integration.</div></div>
-      <div class="mod a-scale d5"><div class="mod-num">09</div><div class="mod-title">Programming</div><div class="mod-desc">Control logic, scene programming, GUIs.</div></div>
-      <div class="mod a-scale d6"><div class="mod-num">10</div><div class="mod-title">AI Integration</div><div class="mod-desc">How AI layers into modern systems and workflows.</div></div>
-      <div class="mod a-scale d7"><div class="mod-num">11</div><div class="mod-title">Project &amp; Site</div><div class="mod-desc">Documentation, snag lists, handover, client comms.</div></div>
-      <div class="mod a-scale d8"><div class="mod-num">12</div><div class="mod-title">Conduct &amp; Care</div><div class="mod-desc">How we behave on site. Our trade's reputation lives here.</div></div>
+      <div class="mod a-fade-rise d1"><div class="mod-num">01</div><div class="mod-title">Design</div><div class="mod-desc">System design, drawings, BoQ, documentation.</div></div>
+      <div class="mod a-fade-rise d2"><div class="mod-num">02</div><div class="mod-title">Installation</div><div class="mod-desc">Cabling, mounting, terminations — done cleanly.</div></div>
+      <div class="mod a-fade-rise d3"><div class="mod-num">03</div><div class="mod-title">Rack Building</div><div class="mod-desc">Layout, dressing, labelling, thermal design.</div></div>
+      <div class="mod a-fade-rise d4"><div class="mod-num">04</div><div class="mod-title">AV</div><div class="mod-desc">Audio, video, signal flow, processors, displays.</div></div>
+      <div class="mod a-fade-rise d3"><div class="mod-num">05</div><div class="mod-title">IT &amp; Networking</div><div class="mod-desc">Switching, VLANs, Wi-Fi, the IT backbone.</div></div>
+      <div class="mod a-fade-rise d4"><div class="mod-num">06</div><div class="mod-title">Security</div><div class="mod-desc">CCTV, access control, intrusion, monitoring.</div></div>
+      <div class="mod a-fade-rise d5"><div class="mod-num">07</div><div class="mod-title">Automation</div><div class="mod-desc">Lighting, shading, scenes, residential control.</div></div>
+      <div class="mod a-fade-rise d6"><div class="mod-num">08</div><div class="mod-title">BMS</div><div class="mod-desc">Building management — HVAC, energy, integration.</div></div>
+      <div class="mod a-fade-rise d5"><div class="mod-num">09</div><div class="mod-title">Programming</div><div class="mod-desc">Control logic, scene programming, GUIs.</div></div>
+      <div class="mod a-fade-rise d6"><div class="mod-num">10</div><div class="mod-title">AI Integration</div><div class="mod-desc">How AI layers into modern systems and workflows.</div></div>
+      <div class="mod a-fade-rise d7"><div class="mod-num">11</div><div class="mod-title">Project &amp; Site</div><div class="mod-desc">Documentation, snag lists, handover, client comms.</div></div>
+      <div class="mod a-fade-rise d8"><div class="mod-num">12</div><div class="mod-title">Conduct &amp; Care</div><div class="mod-desc">How we behave on site. Our trade's reputation lives here.</div></div>
     </div>
     <p class="curr-foot a-up" style="transition-delay:0.6s;">From first principles to specialist depth — across every discipline our industry needs.</p>
   </div>
@@ -956,10 +963,10 @@
         </div>
       </div>
       <div class="outcome-list">
-        <div class="ob a-right d1"><span class="ob-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><div><div class="ob-title">Real jobs</div><div class="ob-body">AV technicians, network engineers, automation programmers, security-systems engineers.</div></div></div>
-        <div class="ob a-right d2"><span class="ob-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><div><div class="ob-title">Real employers</div><div class="ob-body">Integrators, OEMs, hotel groups, developers, hospitals — across India's fastest-growing sectors.</div></div></div>
-        <div class="ob a-right d3"><span class="ob-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><div><div class="ob-title">Real income</div><div class="ob-body">₹18,000–₹30,000/month year one. ₹45,000–₹80,000+ within 3–5 years with specialisation.</div></div></div>
-        <div class="ob a-right d4"><span class="ob-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><div><div class="ob-title">Real dignity</div><div class="ob-body">A uniform and toolkit that are theirs. Professional respect for a trade that has always deserved it.</div></div></div>
+        <div class="ob a-fade-rise d1"><span class="ob-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><div><div class="ob-title">Real jobs</div><div class="ob-body">AV technicians, network engineers, automation programmers, security-systems engineers.</div></div></div>
+        <div class="ob a-fade-rise d2"><span class="ob-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><div><div class="ob-title">Real employers</div><div class="ob-body">Integrators, OEMs, hotel groups, developers, hospitals — across India's fastest-growing sectors.</div></div></div>
+        <div class="ob a-fade-rise d3"><span class="ob-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><div><div class="ob-title">Real income</div><div class="ob-body">₹18,000–₹30,000/month year one. ₹45,000–₹80,000+ within 3–5 years with specialisation.</div></div></div>
+        <div class="ob a-fade-rise d4"><span class="ob-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><div><div class="ob-title">Real dignity</div><div class="ob-body">A uniform and toolkit that are theirs. Professional respect for a trade that has always deserved it.</div></div></div>
       </div>
     </div>
     <p class="outcomes-pullout a-wipe-up" style="transition-delay:0.3s;">"We are not opening a door for the sake of it. We are opening it onto a real career, with real income, in a real industry."</p>
@@ -1190,6 +1197,7 @@
   const ANIM_CLASSES = [
     'a-up','a-left','a-right','a-down',
     'a-scale','a-tilt','a-rotate',
+    'a-fade-rise',
     'a-wipe','a-wipe-up',
     'tl-draw', 'chk-svg'
   ];
