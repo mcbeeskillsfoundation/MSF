@@ -61,7 +61,8 @@
     .socials a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s, background 0.2s; }
     .socials a:hover { border-color: var(--orange); color: var(--orange); background: rgba(255,130,13,0.06); }
     .socials svg { width: 15px; height: 15px; }
-    @media (max-width: 768px) { .foot-grid { grid-template-columns: 1fr 1fr; } .foot-bot { flex-direction: column; align-items: flex-start; } }
+    @media (max-width: 768px) { .foot-grid { grid-template-columns: 1fr; } .foot-grid > div:first-child { order: 4; margin-top: 1.5rem; } .foot-bot { flex-direction: column; align-items: flex-start; } }
+    @media (max-width: 480px) { .foot-grid { grid-template-columns: 1fr; } }
   </style>
   <link rel="canonical" href="https://mcbeefoundation.in/terms" />
   <meta property="og:type" content="website" />

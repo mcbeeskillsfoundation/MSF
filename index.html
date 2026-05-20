@@ -689,7 +689,8 @@
       .fr { grid-template-columns: 1fr; }
       .curr-grid { grid-template-columns: repeat(2,1fr); }
       .gov-grid { grid-template-columns: repeat(2,1fr); }
-      .foot-grid { grid-template-columns: 1fr 1fr; }
+      .foot-grid { grid-template-columns: 1fr; }
+      .foot-grid > div:first-child { order: 4; margin-top: 1.5rem; }
       .founders-photo { display: none; }
       .founders-grid { grid-template-columns: 1fr; }
       .founders-img-stack { aspect-ratio: unset; height: 600px; }
