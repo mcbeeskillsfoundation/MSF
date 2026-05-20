@@ -1359,10 +1359,11 @@
   /* ─── CMS hydration ─────────────────── */
   (async () => {
     if (typeof CMS !== 'undefined') {
-      // Start video URL fetch immediately in parallel with CMS init — saves one full round trip
+      // Start all image + video fetches immediately in parallel with CMS init
       const isMobileHero = window.innerWidth < 768;
       const heroKey = isMobileHero ? 'hero-mobile-video' : 'hero-video';
       const videoUrlP = typeof ImageDB !== 'undefined' ? ImageDB.get(heroKey).catch(() => null) : Promise.resolve(null);
+      if (typeof ImageDB !== 'undefined') ImageDB.applyToPage();
 
       await CMS.init();
       CMS.hydrate();

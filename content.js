@@ -48,14 +48,14 @@ const ImageDB = {
   },
 
   async applyToPage() {
-    const elements = document.querySelectorAll('[data-cms-img]');
-    for (const el of elements) {
-      const key = el.dataset.cmsImg;
+    const elements = [...document.querySelectorAll('[data-cms-img]')];
+    // Fetch all signed URLs in parallel instead of sequentially
+    await Promise.all(elements.map(async el => {
       try {
-        const url = await this.get(key);
+        const url = await this.get(el.dataset.cmsImg);
         if (url) el.src = url;
-      } catch(e) { /* ignore per-image errors */ }
-    }
+      } catch(e) {}
+    }));
   }
 };
 
@@ -237,8 +237,7 @@ const CMS = {
   hydrate() {
     const c = this.load();
 
-    // Apply images from Supabase Storage asynchronously
-    if (typeof ImageDB !== 'undefined') ImageDB.applyToPage();
+    // Images are applied earlier in parallel with CMS.init() — no duplicate fetch needed
 
     // Text nodes
     document.querySelectorAll('[data-cms]').forEach(el => {
