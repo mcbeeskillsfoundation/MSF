@@ -745,7 +745,7 @@
 <!-- ══ HERO — line-by-line slide-up reveal ═══════ -->
 <section id="hero">
   <!-- Video background (shown when hero-video-url is set in admin) -->
-  <video id="hero-video" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;z-index:0;"></video>
+  <video id="hero-video" autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;z-index:0;"></video>
   <!-- Dark overlay between video and content — controls how dark the video reads -->
   <div id="hero-overlay" style="position:absolute;inset:0;background:rgba(5,5,5,0.82);z-index:1;display:none;"></div>
   <div class="hero-glow" style="position:relative;z-index:2;"></div>
@@ -1315,11 +1315,37 @@
     if (prev) prev.addEventListener('click', () => { goTo(cur - 1); resetTimer(); });
     if (next) next.addEventListener('click', () => { goTo(cur + 1); resetTimer(); });
 
-    let sx = 0;
-    inner.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+    let sx = 0, sy = 0;
+    inner.addEventListener('touchstart', e => {
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+    }, { passive: true });
+
+    // On mobile: intercept vertical scroll to advance slides
+    inner.addEventListener('touchmove', e => {
+      if (window.innerWidth > 768) return;
+      const dx = Math.abs(e.touches[0].clientX - sx);
+      const dy = e.touches[0].clientY - sy;
+      const adx = Math.abs(dy);
+      if (adx > dx) {
+        // Vertical — only prevent scroll if we have a slide to go to
+        const goingNext = dy < 0;
+        if ((goingNext && cur < total - 1) || (!goingNext && cur > 0)) {
+          e.preventDefault();
+        }
+      }
+    }, { passive: false });
+
     inner.addEventListener('touchend', e => {
       const dx = e.changedTouches[0].clientX - sx;
-      if (Math.abs(dx) > 50) { goTo(dx < 0 ? cur + 1 : cur - 1); resetTimer(); }
+      const dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 50 && window.innerWidth <= 768) {
+        // Vertical swipe on mobile → advance slide
+        goTo(dy < 0 ? cur + 1 : cur - 1); resetTimer();
+      } else if (Math.abs(dx) > 50) {
+        // Horizontal swipe → existing behaviour
+        goTo(dx < 0 ? cur + 1 : cur - 1); resetTimer();
+      }
     }, { passive: true });
 
     resetTimer();
