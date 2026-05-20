@@ -1359,8 +1359,28 @@
   /* ─── CMS hydration ─────────────────── */
   (async () => {
     if (typeof CMS !== 'undefined') {
+      // Start video URL fetch immediately in parallel with CMS init — saves one full round trip
+      const isMobileHero = window.innerWidth < 768;
+      const heroKey = isMobileHero ? 'hero-mobile-video' : 'hero-video';
+      const videoUrlP = typeof ImageDB !== 'undefined' ? ImageDB.get(heroKey).catch(() => null) : Promise.resolve(null);
+
       await CMS.init();
       CMS.hydrate();
+
+      // Apply video as soon as URL resolves — may already be done by now
+      const heroVideoEl = document.getElementById('hero-video');
+      if (heroVideoEl) {
+        const videoUrl = await videoUrlP;
+        if (!videoUrl && isMobileHero) {
+          const fallback = await (typeof ImageDB !== 'undefined' ? ImageDB.get('hero-video').catch(() => null) : Promise.resolve(null));
+          if (fallback) { heroVideoEl.src = fallback; heroVideoEl.style.display = 'block'; document.getElementById('hero-overlay').style.display = 'block'; }
+        } else if (videoUrl) {
+          heroVideoEl.src = videoUrl;
+          heroVideoEl.style.display = 'block';
+          const ov = document.getElementById('hero-overlay');
+          if (ov) ov.style.display = 'block';
+        }
+      }
     }
 
     /* ─── FORM ───────────────────────────── */

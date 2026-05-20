@@ -274,32 +274,19 @@ const CMS = {
       if (c['stat-' + i + '-pfx']) el.dataset.pfx = c['stat-' + i + '-pfx'];
     });
 
-    // Hero video — use mobile video on small screens, desktop otherwise
+    // Hero video URL fallback — only applies when a direct URL is set in CMS (not Storage upload)
+    // Storage-uploaded videos are handled earlier in parallel with CMS.init() in index.html
     const heroVideo = document.getElementById('hero-video');
-    if (heroVideo) {
-      (async () => {
-        try {
-          const isMobile = window.innerWidth < 768;
-          const key = isMobile ? 'hero-mobile-video' : 'hero-video';
-          const urlKey = isMobile ? 'hero-mobile-video-url' : 'hero-video-url';
-          // Try mobile key first; if nothing set, fall back to desktop
-          let url = typeof ImageDB !== 'undefined' ? await ImageDB.get(key) : null;
-          if (!url && isMobile) url = typeof ImageDB !== 'undefined' ? await ImageDB.get('hero-video') : null;
-          const overlay = document.getElementById('hero-overlay');
-          if (url) {
-            heroVideo.src = url;
-            heroVideo.style.display = 'block';
-            if (overlay) overlay.style.display = 'block';
-          } else {
-            const fallbackUrl = c[urlKey] || c['hero-video-url'];
-            if (fallbackUrl && fallbackUrl.trim()) {
-              heroVideo.src = fallbackUrl;
-              heroVideo.style.display = 'block';
-              if (overlay) overlay.style.display = 'block';
-            }
-          }
-        } catch(e) { /* silently skip */ }
-      })();
+    if (heroVideo && !heroVideo.src) {
+      const isMobile = window.innerWidth < 768;
+      const urlKey = isMobile ? 'hero-mobile-video-url' : 'hero-video-url';
+      const fallbackUrl = c[urlKey] || c['hero-video-url'];
+      if (fallbackUrl && fallbackUrl.trim()) {
+        heroVideo.src = fallbackUrl;
+        heroVideo.style.display = 'block';
+        const overlay = document.getElementById('hero-overlay');
+        if (overlay) overlay.style.display = 'block';
+      }
     }
 
     // SEO
