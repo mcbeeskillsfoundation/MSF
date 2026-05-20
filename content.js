@@ -49,11 +49,16 @@ const ImageDB = {
 
   async applyToPage() {
     const elements = [...document.querySelectorAll('[data-cms-img]')];
-    // Fetch all signed URLs in parallel instead of sequentially
+    // Fetch all signed URLs in parallel, fade each image in once loaded
     await Promise.all(elements.map(async el => {
       try {
         const url = await this.get(el.dataset.cmsImg);
-        if (url) el.src = url;
+        if (url) {
+          el.style.opacity = '0';
+          el.style.transition = 'opacity 0.5s ease';
+          el.src = url;
+          el.onload = () => { el.style.opacity = '1'; };
+        }
       } catch(e) {}
     }));
   }
