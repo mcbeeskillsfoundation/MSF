@@ -788,7 +788,7 @@
       await populateImagePreviews();
       await renderSubmissions();
     } else {
-      loginErr.textContent = 'Incorrect email or password.';
+      loginErr.textContent = 'Incorrect password.';
       loginPass.value = '';
       loginPass.focus();
     }
@@ -1224,6 +1224,7 @@
       {label:'DOB',key:'dob'},{label:'Gender',key:'gender'},{label:'Phone',key:'phone'},
       {label:'Email',key:'email'},{label:'City',key:'city'},{label:'Education',key:'education'},
       {label:'Source',key:'source'},{label:'Why',key:'why'},
+      {label:'Consent Given',key:'consent_given'},{label:'Consent Timestamp',key:'consent_timestamp'},
     ]), 'mcbee-applications-' + new Date().toISOString().slice(0,10) + '.csv');
   });
 
@@ -1235,6 +1236,8 @@
       {label:'Email',key:'email'},{label:'Phone',key:'phone'},
       {label:'Involvement',key:'involvement'},{label:'Company Type',key:'company_type'},
       {label:'Message',key:'message'},
+      {label:'Consent Given',key:'consent_given'},{label:'Consent Timestamp',key:'consent_timestamp'},
+      {label:'Updates Consent',key:'updates_consent'},
     ]), 'mcbee-enquiries-' + new Date().toISOString().slice(0,10) + '.csv');
   });
 

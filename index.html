@@ -6,12 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>MCBEE Skills Foundation — Training India's next generation</title>
   <meta name="description" content="A Section 8 not-for-profit training underprivileged youth for real careers in AV, IT, automation, security, and building systems." />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="MCBEE Skills Foundation — Training India's next generation" />
-  <meta property="og:description" content="Free training for underprivileged youth. Funded by the industry that needs them. AV, IT, automation, security, and building systems." />
-  <meta property="og:url" content="https://mcbeefoundation.in" />
-  <meta property="og:image" content="https://mcbeefoundation.in/MSF logomark.png" />
-  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
@@ -706,6 +700,16 @@
     }
     @media (max-width: 480px) { .curr-grid, .gov-grid, .foot-grid { grid-template-columns: 1fr; } }
   </style>
+  <link rel="canonical" href="https://mcbeefoundation.in/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MCBEE Skills Foundation — Training India's next generation" />
+  <meta property="og:description" content="A Section 8 not-for-profit training underprivileged youth for real careers in AV, IT, automation, security, and building systems." />
+  <meta property="og:url" content="https://mcbeefoundation.in/" />
+  <meta property="og:image" content="https://mcbeefoundation.in/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MCBEE Skills Foundation — Training India's next generation" />
+  <meta name="twitter:description" content="A Section 8 not-for-profit training underprivileged youth for real careers in AV, IT, automation, security, and building systems." />
+  <meta name="twitter:image" content="https://mcbeefoundation.in/og-image.png" />
 </head>
 <body>
 
@@ -1159,7 +1163,7 @@
     <div class="foot-col"><h5>About &amp; Legal</h5><ul class="foot-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="donor-policy.html">Donor Policy</a></li><li><a href="grievance.html">Grievance</a></li></ul></div>
   </div>
   <div class="foot-bot">
-    <div><p class="foot-copy">© <span data-cms="footer-year">2026</span> MCBEE Skills Foundation. All rights reserved.</p><p class="foot-copy">CIN: <span data-cms="org-cin">[to be added]</span> · Registered Office: Delhi NCR</p></div>
+    <div><p class="foot-copy">© 2026 MCBEE Skills Foundation. All rights reserved.</p><p class="foot-copy">CIN: [to be added] · Registered Office: Delhi NCR</p></div>
     <div class="socials">
       <a href="https://www.linkedin.com/in/mcbee-skills-foundation-36681640b/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
       <a href="https://www.instagram.com/mcbeeskillsfoundation/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
@@ -1365,7 +1369,6 @@
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const dob = new Date(form.dob.value);
-      if (!form.dob.value || isNaN(dob.getTime())) { fmsg.style.color = '#c00'; fmsg.textContent = 'Please enter a valid date of birth.'; return; }
       const age = (Date.now() - dob) / (1000 * 60 * 60 * 24 * 365.25);
       if (age < 18) { fmsg.style.color = '#c00'; fmsg.textContent = 'You must be 18 or older to apply.'; return; }
       fmsg.style.color = 'var(--muted)'; fmsg.textContent = 'Sending…';
