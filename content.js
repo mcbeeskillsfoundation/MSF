@@ -21,10 +21,22 @@ const ImageDB = {
   },
 
   async get(key) {
+    const cacheKey = 'msf_img_' + key;
+    try {
+      const cached = localStorage.getItem(cacheKey);
+      if (cached) {
+        const { url, exp } = JSON.parse(cached);
+        // Reuse if more than 5 minutes remain on the signed URL
+        if (url && Date.now() < exp - 300000) return url;
+      }
+    } catch(e) {}
     const { data, error } = await _supabase.storage
       .from(this._bucket(key))
       .createSignedUrl(key, 3600);
     if (error || !data) return null;
+    try {
+      localStorage.setItem(cacheKey, JSON.stringify({ url: data.signedUrl, exp: Date.now() + 3600000 }));
+    } catch(e) {}
     return data.signedUrl;
   },
 
@@ -48,6 +60,9 @@ const ImageDB = {
 };
 
 /* ── CMS — Supabase cms_content table ── */
+const CMS_CACHE_KEY = 'msf_cms_v1';
+const CMS_TTL = 3600000; // 1 hour
+
 const CMS = {
   _cache: null,
 
@@ -148,6 +163,19 @@ const CMS = {
 
   /** Fetch from Supabase and populate cache. Call once on page load. */
   async init() {
+    // Try localStorage cache first — avoids a Supabase round-trip on repeat visits
+    try {
+      const cached = localStorage.getItem(CMS_CACHE_KEY);
+      if (cached) {
+        const { payload, ts } = JSON.parse(cached);
+        if (payload && Date.now() - ts < CMS_TTL) {
+          this._cache = Object.assign({}, this.defaults, payload);
+          return;
+        }
+      }
+    } catch(e) {}
+
+    // Cache miss — fetch from Supabase
     try {
       const { data, error } = await _supabase
         .from('cms_content')
@@ -155,11 +183,26 @@ const CMS = {
         .eq('id', 1)
         .single();
       if (error) throw error;
-      this._cache = Object.assign({}, this.defaults, data.data || {});
+      const payload = data.data || {};
+      this._cache = Object.assign({}, this.defaults, payload);
+      try {
+        localStorage.setItem(CMS_CACHE_KEY, JSON.stringify({ payload, ts: Date.now() }));
+      } catch(e) {}
     } catch(e) {
       console.warn('CMS.init: failed, using defaults', e);
       this._cache = Object.assign({}, this.defaults);
     }
+  },
+
+  /** Bust the localStorage cache — call after saving so next page load gets fresh data. */
+  bustCache() {
+    try { localStorage.removeItem(CMS_CACHE_KEY); } catch(e) {}
+    // Also bust all image URL caches
+    try {
+      Object.keys(localStorage)
+        .filter(k => k.startsWith('msf_img_'))
+        .forEach(k => localStorage.removeItem(k));
+    } catch(e) {}
   },
 
   /** Synchronous — returns cache. Must call await CMS.init() first. */
@@ -176,6 +219,7 @@ const CMS = {
         .update({ data, updated_at: new Date().toISOString() })
         .eq('id', 1);
       if (error) throw error;
+      this.bustCache(); // invalidate so next visit fetches fresh data
       return true;
     } catch(e) {
       console.error('CMS.save failed', e);
