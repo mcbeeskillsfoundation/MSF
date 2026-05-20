@@ -1239,7 +1239,8 @@
   });
 
   document.getElementById('clear-apps')?.addEventListener('click', async () => {
-    if (confirm('Delete all student applications? This cannot be undone.')) {
+    const typed = prompt('This will permanently delete ALL student applications.\n\nType DELETE to confirm:');
+    if (typed === 'DELETE') {
       await _supabase.from('applications').delete().neq('id', 0);
       await renderApplications();
       showToast('All applications cleared', 'error');
@@ -1247,7 +1248,8 @@
   });
 
   document.getElementById('clear-enqs')?.addEventListener('click', async () => {
-    if (confirm('Delete all partner enquiries? This cannot be undone.')) {
+    const typed = prompt('This will permanently delete ALL partner enquiries.\n\nType DELETE to confirm:');
+    if (typed === 'DELETE') {
       await _supabase.from('partner_enquiries').delete().neq('id', 0);
       await renderEnquiries();
       showToast('All enquiries cleared', 'error');

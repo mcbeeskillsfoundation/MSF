@@ -247,9 +247,10 @@ const CMS = {
     });
 
     // Image sources — URL override only (Storage blobs handled by applyToPage)
+    // Only allow https:// URLs to prevent data:/javascript: injection
     document.querySelectorAll('[data-cms-img]').forEach(el => {
       const v = c[el.dataset.cmsImg];
-      if (v && v.trim()) el.src = v;
+      if (v && /^https:\/\//.test(v)) el.src = v;
     });
 
     // Anchor hrefs — only allow https:// URLs to prevent javascript: injection
@@ -258,10 +259,10 @@ const CMS = {
       if (v && /^https:\/\//.test(v)) el.href = v;
     });
 
-    // Brand colours
+    // Brand colours — validate #RGB / #RRGGBB format before applying
     ['ink','paper','purple','orange','muted','line'].forEach(k => {
       const v = c['color-' + k];
-      if (v) document.documentElement.style.setProperty('--' + k, v);
+      if (v && /^#[0-9a-fA-F]{3,6}$/.test(v)) document.documentElement.style.setProperty('--' + k, v);
     });
 
     // Stats countup
@@ -306,9 +307,9 @@ const CMS = {
     const md = document.querySelector('meta[name="description"]');
     if (md && c['seo-desc']) md.content = c['seo-desc'];
 
-    // Logo swap
+    // Logo swap — only allow https:// URLs
     const logoSrc = c['logo-dark'];
-    if (logoSrc) {
+    if (logoSrc && /^https:\/\//.test(logoSrc)) {
       document.querySelectorAll('.logo-mark').forEach(el => {
         el.style.background = 'transparent';
         el.style.padding = '0';
