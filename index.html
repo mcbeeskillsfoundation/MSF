@@ -499,6 +499,10 @@
     .hero-name-unit .hero-sub { color: var(--paper); margin-bottom: 0; }
     .hero-body { color: rgba(252,252,252,0.7); font-size: 1.05rem; max-width: 580px; margin: 0 auto 2.25rem; line-height: 1.7; }
     .hero-btns { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; }
+    .scroll-indicator { display: flex; justify-content: center; margin-top: 2.5rem; }
+    .scroll-mouse { width: 24px; height: 38px; border: 2px solid rgba(252,252,252,0.35); border-radius: 12px; display: flex; justify-content: center; padding-top: 6px; }
+    .scroll-wheel { width: 3px; height: 7px; background: rgba(252,252,252,0.7); border-radius: 2px; animation: scroll-bob 1.6s ease-in-out infinite; }
+    @keyframes scroll-bob { 0%,100% { transform: translateY(0); opacity: 1; } 60% { transform: translateY(8px); opacity: 0.2; } }
 
     /* STATS */
     #stats { padding: 0; }
@@ -771,6 +775,9 @@
         <span>An initiative by</span>
         <img src="MCBEE wordmark.png" alt="MCBEE" style="height:0.85em;width:auto;opacity:0.8;" />
       </span>
+      <div class="scroll-indicator a-up" style="transition-delay:0.8s;">
+        <span class="scroll-mouse"><span class="scroll-wheel"></span></span>
+      </div>
     </div>
   </div>
 </section>
