@@ -280,6 +280,18 @@
             </div>
           </div>
 
+          <div class="fg" id="grad-type-section" style="display:none;overflow:hidden;transition:opacity 0.3s ease;">
+            <label style="margin-bottom:0.6rem;display:block;">What type of graduate? (select all that apply)</label>
+            <div class="type-pills" style="gap:0.5rem;">
+              <div class="type-pill"><input type="checkbox" name="grad_type" id="gt-av" value="AV Technician" /><label for="gt-av">AV Technician</label></div>
+              <div class="type-pill"><input type="checkbox" name="grad_type" id="gt-net" value="Network / IT Engineer" /><label for="gt-net">Network / IT Engineer</label></div>
+              <div class="type-pill"><input type="checkbox" name="grad_type" id="gt-sec" value="Security Systems" /><label for="gt-sec">Security Systems</label></div>
+              <div class="type-pill"><input type="checkbox" name="grad_type" id="gt-auto" value="Automation Programmer" /><label for="gt-auto">Automation Programmer</label></div>
+              <div class="type-pill"><input type="checkbox" name="grad_type" id="gt-bms" value="BMS / Building Systems" /><label for="gt-bms">BMS / Building Systems</label></div>
+              <div class="type-pill"><input type="checkbox" name="grad_type" id="gt-any" value="Any / Open to all" /><label for="gt-any">Any / Open to all</label></div>
+            </div>
+          </div>
+
           <div class="fg">
             <label for="message">Tell us more *</label>
             <textarea id="message" name="message" required minlength="50" maxlength="2000" placeholder="How you'd like to be involved, what your company does, any questions — min 50 characters"></textarea>
@@ -366,6 +378,20 @@
     document.querySelectorAll('#hero .a-up, #hero .a-left, #hero .a-right').forEach(el => el.classList.add('vis'));
   }, 150);
 
+  /* ─── Hire a Graduate — show/hide grad type ─ */
+  document.querySelectorAll('[name="involvement"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const section = document.getElementById('grad-type-section');
+      if (radio.value === 'Hire' && radio.checked) {
+        section.style.display = 'block';
+        requestAnimationFrame(() => { section.style.opacity = '1'; });
+      } else if (radio.checked) {
+        section.style.opacity = '0';
+        setTimeout(() => { section.style.display = 'none'; }, 300);
+      }
+    });
+  });
+
   /* ─── Form submission ────────────────────── */
   const form = document.getElementById('partnerForm');
   const success = document.getElementById('success');
@@ -376,6 +402,10 @@
     form.style.pointerEvents = 'none';
 
     const els = form.elements;
+    const gradTypes = [...form.querySelectorAll('[name="grad_type"]:checked')].map(cb => cb.value);
+    let message = els['message'].value;
+    if (gradTypes.length) message = `Graduate type(s) wanted: ${gradTypes.join(', ')}\n\n${message}`;
+
     const { error } = await _supabase.from('partner_enquiries').insert({
       name:              els['name'].value,
       company:           els['company'].value,
@@ -384,7 +414,7 @@
       phone:             els['phone'].value,
       involvement:       form.querySelector('[name="involvement"]:checked')?.value || '',
       company_type:      els['company-type'].value,
-      message:           els['message'].value,
+      message:           message,
       consent_given:     true,
       consent_timestamp: new Date().toISOString(),
       updates_consent:   els['updates']?.checked || false,
