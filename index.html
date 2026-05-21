@@ -698,6 +698,13 @@
       .tl-lbl { white-space: normal; text-align: center; font-size: 0.62rem; }
       .timeline-row { overflow: hidden; }
       .img-strip-item { border-radius: 8px; }
+
+      /* mobile: all entrance animations become a clean fade — no movement */
+      .a-up, .a-down, .a-left, .a-right,
+      .a-fade-rise, .a-tilt, .a-rotate, .a-scale {
+        transform: none !important;
+        transition: opacity 0.6s ease !important;
+      }
     }
     @media (max-width: 480px) { .curr-grid, .gov-grid { grid-template-columns: 1fr; } }
   </style>
