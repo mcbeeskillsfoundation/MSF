@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="favicon.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MCBEE Skills Foundation — Training India's next generation</title>
   <meta name="description" content="A Section 8 not-for-profit training underprivileged youth for real careers in AV, IT, automation, security, and building systems." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -229,8 +229,6 @@
     /* Challenge grid — equal height cards */
     .challenge-grid .card { height: 100%; display: flex; flex-direction: column; }
     .challenge-grid .card-body { flex: 1; }
-    .slide-head { margin-bottom: 2rem; }
-    .slide-head h2 { margin-bottom: 0.5rem; }
     .carousel-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.75rem; }
     .cdot { width: 6px; height: 6px; border-radius: 50%; background: var(--line); cursor: pointer; transition: background 0.2s, width 0.3s cubic-bezier(0.16,1,0.3,1); }
     .cdot.active { background: var(--purple); width: 20px; border-radius: 3px; }
@@ -606,8 +604,8 @@
     #partner { position: relative; overflow: hidden; }
     #partner::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 50% 60% at 80% 50%, rgba(151,65,244,0.07) 0%, transparent 65%), radial-gradient(ellipse 35% 40% at 15% 30%, rgba(255,130,13,0.05) 0%, transparent 55%); }
     .partner-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; }
-    .partner-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 8px; overflow: hidden; border-top: 4px solid transparent; transition: border-top-color 0.2s, background 0.2s, transform 0.25s var(--ease-out); }
-    .partner-card:hover { border-top-color: var(--purple); background: rgba(255,255,255,0.06); transform: translateY(-3px); }
+    .partner-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 8px; overflow: hidden; transition: box-shadow 0.2s, background 0.2s, transform 0.25s var(--ease-out); }
+    .partner-card:hover { box-shadow: inset 0 4px 0 var(--purple); background: rgba(255,255,255,0.06); transform: translateY(-3px); }
     .partner-img { height: 180px; }
     .partner-img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.45; }
     .partner-body { padding: 1.5rem; }
@@ -736,7 +734,7 @@
     <li><a href="#credibility">Our Vision</a></li>
     <li><a href="#partner">Stand With Us</a></li>
     <li class="nav-contact">
-      <button class="nav-contact-btn">Contact Us</button>
+      <button class="nav-contact-btn" aria-haspopup="true" aria-expanded="false">Contact Us</button>
       <div class="nav-dropdown">
         <a href="#apply">Apply for the Programme</a>
         <a href="partner.html">Partner With Us</a>
@@ -1180,7 +1178,7 @@
     <div class="foot-col"><h5>About &amp; Legal</h5><ul class="foot-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="donor-policy.html">Donor Policy</a></li><li><a href="grievance.html">Grievance</a></li></ul></div>
   </div>
   <div class="foot-bot">
-    <div><p class="foot-copy">© 2026 MCBEE Skills Foundation. All rights reserved.</p><p class="foot-copy">CIN: [to be added] · Registered Office: Delhi NCR</p></div>
+    <div><p class="foot-copy">© 2026 MCBEE Skills Foundation. All rights reserved.</p><p class="foot-copy">Registered Office: Delhi NCR</p></div>
     <div class="socials">
       <a href="https://www.linkedin.com/in/mcbee-skills-foundation-36681640b/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
       <a href="https://www.instagram.com/mcbeeskillsfoundation/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>

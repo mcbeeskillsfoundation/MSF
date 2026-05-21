@@ -169,7 +169,7 @@
       .foot-grid { grid-template-columns: 1fr; }
     }
   </style>
-  <link rel="canonical" href="https://mcbeefoundation.in/partner" />
+  <link rel="canonical" href="https://mcbeefoundation.in/partner.html" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Partner With Us — MCBEE Skills Foundation" />
   <meta property="og:description" content="Hire a graduate, volunteer your expertise, or support us through CSR. Join the industry effort to train India's next generation." />
@@ -192,7 +192,7 @@
     <li><a href="index.html#credibility">Our Vision</a></li>
     <li><a href="index.html#partner">Stand With Us</a></li>
     <li class="nav-contact">
-      <button class="nav-contact-btn">Contact Us</button>
+      <button class="nav-contact-btn" aria-haspopup="true" aria-expanded="false">Contact Us</button>
       <div class="nav-dropdown">
         <a href="index.html#apply">Apply for the Programme</a>
         <a href="partner.html">Partner With Us</a>
@@ -206,6 +206,7 @@
   <a href="index.html#credibility">Our Vision</a>
   <a href="index.html#partner">Stand With Us</a>
   <a href="index.html#apply">Apply for the Programme</a>
+  <div class="drawer-foot"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
 </div>
 
 <!-- ══ HERO ═══════════════════════════════════ -->
@@ -340,7 +341,7 @@
     <div class="foot-col"><h5>About &amp; Legal</h5><ul class="foot-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="donor-policy.html">Donor Policy</a></li><li><a href="grievance.html">Grievance</a></li></ul></div>
   </div>
   <div class="foot-bot">
-    <div><p class="foot-copy">© 2026 MCBEE Skills Foundation. All rights reserved.</p><p class="foot-copy">CIN: [to be added] · Registered Office: Delhi NCR</p></div>
+    <div><p class="foot-copy">© 2026 MCBEE Skills Foundation. All rights reserved.</p><p class="foot-copy">Registered Office: Delhi NCR</p></div>
     <div class="socials">
       <a href="https://www.linkedin.com/in/mcbee-skills-foundation-36681640b/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
       <a href="https://www.instagram.com/mcbeeskillsfoundation/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
@@ -383,6 +384,7 @@
     radio.addEventListener('change', () => {
       const section = document.getElementById('grad-type-section');
       if (radio.value === 'Hire' && radio.checked) {
+        section.style.opacity = '0';
         section.style.display = 'block';
         requestAnimationFrame(() => { section.style.opacity = '1'; });
       } else if (radio.checked) {
@@ -400,30 +402,33 @@
     e.preventDefault();
     form.style.opacity = '0.5';
     form.style.pointerEvents = 'none';
+    try {
+      const els = form.elements;
+      const gradTypes = [...form.querySelectorAll('[name="grad_type"]:checked')].map(cb => cb.value);
+      let message = els['message'].value;
+      if (gradTypes.length) message = `Graduate type(s) wanted: ${gradTypes.join(', ')}\n\n${message}`;
 
-    const els = form.elements;
-    const gradTypes = [...form.querySelectorAll('[name="grad_type"]:checked')].map(cb => cb.value);
-    let message = els['message'].value;
-    if (gradTypes.length) message = `Graduate type(s) wanted: ${gradTypes.join(', ')}\n\n${message}`;
+      const { error } = await _supabase.from('partner_enquiries').insert({
+        name:              els['name'].value,
+        company:           els['company'].value,
+        designation:       els['designation'].value,
+        email:             els['email'].value,
+        phone:             els['phone'].value,
+        involvement:       form.querySelector('[name="involvement"]:checked')?.value || '',
+        company_type:      els['company-type'].value,
+        message:           message,
+        consent_given:     true,
+        consent_timestamp: new Date().toISOString(),
+        updates_consent:   els['updates']?.checked || false,
+      });
 
-    const { error } = await _supabase.from('partner_enquiries').insert({
-      name:              els['name'].value,
-      company:           els['company'].value,
-      designation:       els['designation'].value,
-      email:             els['email'].value,
-      phone:             els['phone'].value,
-      involvement:       form.querySelector('[name="involvement"]:checked')?.value || '',
-      company_type:      els['company-type'].value,
-      message:           message,
-      consent_given:     true,
-      consent_timestamp: new Date().toISOString(),
-      updates_consent:   els['updates']?.checked || false,
-    });
-
-    if (!error) {
-      form.style.display = 'none';
-      success.classList.add('show');
-    } else {
+      if (!error) {
+        form.style.display = 'none';
+        success.classList.add('show');
+      } else {
+        throw new Error(error.message);
+      }
+    } catch (err) {
       form.style.opacity = '1';
       form.style.pointerEvents = 'auto';
       alert('Something went wrong. Please email us directly at mcbeeskillsfoundation@gmail.com');
