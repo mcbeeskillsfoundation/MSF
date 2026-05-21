@@ -277,18 +277,18 @@
     /* cards */
     .card {
       background: var(--white); border: 1px solid var(--line); border-radius: 8px;
-      border-top: 4px solid transparent; overflow: hidden;
+      overflow: hidden;
       box-shadow: 0 1px 3px rgba(5,5,5,0.04), 0 4px 12px rgba(5,5,5,0.03);
-      transition: border-top-color 0.2s ease, box-shadow 0.2s ease, transform 0.25s var(--ease-out);
+      transition: box-shadow 0.2s ease, transform 0.25s var(--ease-out);
     }
-    .card:hover { border-top-color: var(--purple); box-shadow: 0 4px 16px rgba(151,65,244,0.1), 0 1px 3px rgba(5,5,5,0.06); transform: translateY(-3px); }
+    .card:hover { box-shadow: inset 0 4px 0 var(--purple), 0 4px 16px rgba(151,65,244,0.1), 0 1px 3px rgba(5,5,5,0.06); transform: translateY(-3px); }
     .card-body { padding: 1.75rem; }
     .card-dark {
       background: #0d0d0d; border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 8px; border-top: 4px solid transparent;
-      transition: border-top-color 0.2s ease, transform 0.25s var(--ease-out);
+      border-radius: 8px;
+      transition: box-shadow 0.2s ease, transform 0.25s var(--ease-out);
     }
-    .card-dark:hover { border-top-color: var(--orange); transform: translateY(-3px); }
+    .card-dark:hover { box-shadow: inset 0 4px 0 var(--orange); transform: translateY(-3px); }
     .card-dark-body { padding: 1.75rem; }
 
     /* ═══════════════════════════════════════════
@@ -549,8 +549,8 @@
 
     /* CURRICULUM */
     .curr-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-top: 2.5rem; }
-    .mod { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 1.35rem; border-top: 3px solid var(--line); transition: border-top-color 0.2s, box-shadow 0.2s, transform 0.2s var(--ease-out); }
-    .mod:hover { border-top-color: var(--purple); box-shadow: 0 4px 16px rgba(151,65,244,0.1); transform: translateY(-2px); }
+    .mod { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 1.35rem; transition: box-shadow 0.2s, transform 0.2s var(--ease-out); }
+    .mod:hover { box-shadow: inset 0 3px 0 var(--purple), 0 4px 16px rgba(151,65,244,0.1); transform: translateY(-2px); }
     .mod-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: var(--purple); margin-bottom: 0.35rem; }
     .mod-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
     .mod-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
