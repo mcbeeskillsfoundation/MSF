@@ -497,7 +497,7 @@
     .hero-name-unit .hero-sub { color: var(--paper); margin-bottom: 0; }
     .hero-body { color: rgba(252,252,252,0.7); font-size: 1.05rem; max-width: 580px; margin: 0 auto 2.25rem; line-height: 1.7; }
     .hero-btns { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; }
-    .scroll-indicator { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-top: 2.5rem; }
+    .scroll-indicator { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-top: 2.5rem; transition: opacity 0.4s ease; }
     .scroll-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(252,252,252,0.35); }
     .scroll-mouse { width: 24px; height: 38px; border: 2px solid rgba(252,252,252,0.35); border-radius: 12px; display: flex; justify-content: center; padding-top: 6px; }
     .scroll-wheel { width: 3px; height: 7px; background: rgba(252,252,252,0.7); border-radius: 2px; animation: scroll-bob 1.6s ease-in-out infinite; }
@@ -1190,7 +1190,11 @@
 <script>
   /* ─── NAV ─────────────────────────────── */
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 80), { passive: true });
+  const scrollInd = document.querySelector('.scroll-indicator');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', scrollY > 80);
+    if (scrollInd) scrollInd.style.opacity = scrollY > 80 ? '0' : '1';
+  }, { passive: true });
 
   const burger = document.getElementById('burger');
   const drawer = document.getElementById('drawer');
@@ -1403,27 +1407,29 @@
       const age = (Date.now() - dob) / (1000 * 60 * 60 * 24 * 365.25);
       if (age < 18) { fmsg.style.color = '#c00'; fmsg.textContent = 'You must be 18 or older to apply.'; return; }
       fmsg.style.color = 'var(--muted)'; fmsg.textContent = 'Sending…';
-
-      const els = form.elements;
-      const { error } = await _supabase.from('applications').insert({
-        name:              els['name'].value,
-        dob:               els['dob'].value,
-        gender:            form.querySelector('[name="gender"]:checked')?.value || '',
-        phone:             els['phone'].value,
-        email:             els['email'].value,
-        city:              els['city'].value,
-        education:         els['edu'].value,
-        why:               els['why'].value,
-        source:            els['src'].value,
-        consent_given:     true,
-        consent_timestamp: new Date().toISOString(),
-      });
-
-      if (!error) {
-        fmsg.style.color = 'var(--purple)';
-        fmsg.textContent = "Application received! We'll be in touch within 14 days.";
-        form.reset();
-      } else {
+      try {
+        const els = form.elements;
+        const { error } = await _supabase.from('applications').insert({
+          name:              els['name'].value,
+          dob:               els['dob'].value,
+          gender:            form.querySelector('[name="gender"]:checked')?.value || '',
+          phone:             els['phone'].value,
+          email:             els['email'].value,
+          city:              els['city'].value,
+          education:         els['edu'].value,
+          why:               els['why'].value,
+          source:            els['src'].value,
+          consent_given:     true,
+          consent_timestamp: new Date().toISOString(),
+        });
+        if (!error) {
+          fmsg.style.color = 'var(--purple)';
+          fmsg.textContent = "Application received! We'll be in touch within 14 days.";
+          form.reset();
+        } else {
+          throw new Error(error.message);
+        }
+      } catch (err) {
         fmsg.style.color = '#c00';
         fmsg.textContent = 'Something went wrong. Please email us directly.';
       }
