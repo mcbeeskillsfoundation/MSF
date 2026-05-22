@@ -407,6 +407,13 @@
     });
   });
 
+  /* ─── Pre-select involvement from URL param ─ */
+  const _preselect = new URLSearchParams(location.search).get('type');
+  if (_preselect) {
+    const _radio = document.querySelector(`[name="involvement"][value="${_preselect.charAt(0).toUpperCase() + _preselect.slice(1)}"]`);
+    if (_radio) { _radio.checked = true; _radio.dispatchEvent(new Event('change')); }
+  }
+
   /* ─── Form submission ────────────────────── */
   const form = document.getElementById('partnerForm');
   const success = document.getElementById('success');

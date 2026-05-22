@@ -706,13 +706,12 @@
 
 <script>
   /* ─── CMS hydration ─────────────────── */
-  (async () => {
+  window.addEventListener('DOMContentLoaded', async () => {
     try {
-      await ImageDB.applyToPage();
-      await CMS.init();
-      CMS.hydrate();
-    } catch(e) { /* non-fatal — page works without CMS */ }
-  })();
+      if (typeof ImageDB !== 'undefined') await ImageDB.applyToPage();
+      if (typeof CMS !== 'undefined') { await CMS.init(); CMS.hydrate(); }
+    } catch(e) { /* non-fatal */ }
+  });
 
   /* ─── Nav hamburger ─────────────────── */
   const burger = document.getElementById('burger');
