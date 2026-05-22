@@ -721,11 +721,15 @@
 
   const switcherIO = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      if (e.target === sectionOne) { tabOne.classList.add('active'); tabTwo.classList.remove('active'); }
-      if (e.target === sectionTwo) { tabTwo.classList.add('active'); tabOne.classList.remove('active'); }
+      if (e.target === sectionOne) {
+        if (e.isIntersecting) { tabOne.classList.add('active'); tabTwo.classList.remove('active'); }
+      }
+      if (e.target === sectionTwo) {
+        if (e.isIntersecting) { tabTwo.classList.add('active'); tabOne.classList.remove('active'); }
+        else if (!e.isIntersecting && e.boundingClientRect.top > 0) { tabOne.classList.add('active'); tabTwo.classList.remove('active'); }
+      }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0, rootMargin: '0px 0px -60% 0px' });
   switcherIO.observe(sectionOne);
   switcherIO.observe(sectionTwo);
 
