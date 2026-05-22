@@ -195,6 +195,10 @@
     .foot-links a:hover { color: var(--orange); }
     .foot-bot { max-width: var(--max-w); margin: 1.75rem auto 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
     .foot-copy { font-size: 0.77rem; color: rgba(177,182,193,0.45); }
+    .socials { display: flex; gap: 1.1rem; align-items: center; }
+    .socials a { color: rgba(177,182,193,0.45); transition: color 0.2s; display: flex; }
+    .socials a:hover { color: var(--paper); }
+    .socials svg { width: 18px; height: 18px; }
 
     /* ANIMATIONS */
     .a-up { opacity: 0; transform: translateY(24px); transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out); }
@@ -686,6 +690,11 @@
   </div>
   <div class="foot-bot">
     <p class="foot-copy">© <span data-cms="footer-year">2026</span> MCBEE Skills Foundation. All rights reserved. · Delhi NCR</p>
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/mcbee-skills-foundation-36681640b/" target="_blank" rel="me noopener" aria-label="MCBEE Skills Foundation on LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="https://www.instagram.com/mcbeeskillsfoundation/" target="_blank" rel="me noopener" aria-label="MCBEE Skills Foundation on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="https://x.com/mcbeeskills" target="_blank" rel="me noopener" aria-label="MCBEE Skills Foundation on X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg></a>
+    </div>
   </div>
 </footer>
 
