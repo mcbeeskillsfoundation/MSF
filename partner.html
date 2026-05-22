@@ -51,7 +51,7 @@
     .nav-dropdown a { display: block; padding: 0.75rem 1rem; font-size: 0.82rem; color: rgba(252,252,252,0.75); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.07); transition: background 0.15s, color 0.15s; }
     .nav-dropdown a:last-child { border-bottom: none; }
     .nav-dropdown a:hover { background: rgba(151,65,244,0.12); color: var(--paper); }
-    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0.4rem; }
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0.7rem; min-width: 44px; min-height: 44px; justify-content: center; align-items: center; }
     .nav-burger span { display: block; width: 22px; height: 2px; background: var(--paper); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
     .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-burger.open span:nth-child(2) { opacity: 0; }
@@ -99,7 +99,7 @@
     .fr { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; color: var(--ink); text-transform: uppercase; }
     input[type="text"], input[type="email"], input[type="tel"], select, textarea {
-      font-family: 'Manrope', sans-serif; font-size: 0.875rem; padding: 0.7rem 0.9rem;
+      font-family: 'Manrope', sans-serif; font-size: 0.875rem; padding: 0.75rem 0.9rem; min-height: 44px;
       border: 1px solid var(--line); border-radius: 4px; background: var(--paper);
       color: var(--ink); width: 100%; transition: border-color 0.2s, box-shadow 0.2s;
       -webkit-appearance: none;
