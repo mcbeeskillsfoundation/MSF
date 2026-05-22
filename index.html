@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MCBEE Skills Foundation — Training India's next generation</title>
-  <meta name="description" content="A Section 8 not-for-profit training underprivileged youth for real careers in AV, IT, automation, security, and building systems." />
+  <title>Free AV &amp; IT Skills Training for Youth in India | MCBEE Skills Foundation</title>
+  <meta name="description" content="MCBEE Skills Foundation offers free, industry-led training for underprivileged youth in AV, IT, automation, security, and building systems. Section 8 not-for-profit. Delhi NCR. First cohort 2026." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
@@ -710,24 +710,109 @@
       }
     }
     @media (max-width: 480px) { .curr-grid, .gov-grid { grid-template-columns: 1fr; } }
+
+    /* FAQ */
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-item summary { padding: 1.25rem 0; font-weight: 600; font-size: 0.95rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: '+'; font-size: 1.3rem; font-weight: 300; color: var(--purple); flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item p { padding-bottom: 1.25rem; color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
   </style>
-  <link rel="canonical" href="https://mcbeefoundation.in/" />
+  <link rel="canonical" href="https://mcbeeskills.com/" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="MCBEE Skills Foundation — Training India's next generation" />
-  <meta property="og:description" content="A Section 8 not-for-profit training underprivileged youth for real careers in AV, IT, automation, security, and building systems." />
-  <meta property="og:url" content="https://mcbeefoundation.in/" />
-  <meta property="og:image" content="https://mcbeefoundation.in/og-image.png" />
+  <meta property="og:title" content="Free AV &amp; IT Skills Training for Youth in India | MCBEE Skills Foundation" />
+  <meta property="og:description" content="Free, industry-led training for underprivileged youth in AV, IT, automation, security, and building systems. Section 8 not-for-profit. Delhi NCR. First cohort 2026." />
+  <meta property="og:url" content="https://mcbeeskills.com/" />
+  <meta property="og:image" content="https://mcbeeskills.com/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="MCBEE Skills Foundation — Training India's next generation" />
-  <meta name="twitter:description" content="A Section 8 not-for-profit training underprivileged youth for real careers in AV, IT, automation, security, and building systems." />
-  <meta name="twitter:image" content="https://mcbeefoundation.in/og-image.png" />
+  <meta name="twitter:title" content="Free AV &amp; IT Skills Training for Youth in India | MCBEE Skills Foundation" />
+  <meta name="twitter:description" content="Free, industry-led training for underprivileged youth in AV, IT, automation, security, and building systems. Section 8 not-for-profit. Delhi NCR. First cohort 2026." />
+  <meta name="twitter:image" content="https://mcbeeskills.com/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["Organization", "NGO"],
+    "@id": "https://mcbeeskills.com/#organization",
+    "name": "MCBEE Skills Foundation",
+    "alternateName": ["MSF", "MCBEE Skills"],
+    "url": "https://mcbeeskills.com/",
+    "logo": { "@type": "ImageObject", "url": "https://mcbeeskills.com/msf-logomark.png", "width": 512, "height": 512 },
+    "image": "https://mcbeeskills.com/og-image.png",
+    "description": "MCBEE Skills Foundation is a Section 8 not-for-profit company that trains underprivileged youth for real careers in AV, IT, automation, security, and building systems. Free for youth who need it. Funded by the industry that needs them.",
+    "foundingDate": "2025",
+    "founders": [
+      { "@type": "Person", "name": "Sawan Nichani", "jobTitle": "Co-Founder and CEO" },
+      { "@type": "Person", "name": "Sameer Nichani", "jobTitle": "Co-Founder and COO" }
+    ],
+    "address": { "@type": "PostalAddress", "addressLocality": "Delhi NCR", "addressRegion": "Delhi", "addressCountry": "IN" },
+    "areaServed": "IN",
+    "contactPoint": [
+      { "@type": "ContactPoint", "contactType": "Programme Applications", "url": "https://mcbeeskills.com/#apply" },
+      { "@type": "ContactPoint", "contactType": "Partnership", "url": "https://mcbeeskills.com/partner.html" }
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/mcbee-skills-foundation-36681640b/",
+      "https://www.instagram.com/mcbeeskillsfoundation/",
+      "https://x.com/mcbeeskills"
+    ],
+    "knowsAbout": ["Audio-Visual Technology Training", "IT and Networking Skills", "Building Automation Systems", "Security Systems", "NSQF Certification India", "Vocational Training India", "CSR Skill Development"],
+    "parentOrganization": { "@type": "Organization", "name": "MCBEE", "url": "https://mcbee.in" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://mcbeeskills.com/",
+    "name": "MCBEE Skills Foundation",
+    "description": "Free AV, IT, automation, security, and building-systems training for underprivileged youth in India.",
+    "publisher": { "@id": "https://mcbeeskills.com/#organization" },
+    "inLanguage": "en-IN"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is the Track One training programme really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — completely free for selected students. No tuition fee, no registration fee, no deposit of any kind. The programme is fully funded through CSR contributions, industry donations, and the surplus generated by the Track Two paid certification programme." } },
+      { "@type": "Question", "name": "Who is eligible to apply for Track One?", "acceptedAnswer": { "@type": "Answer", "text": "You must be 18 years or older, have completed Class XII or equivalent, have basic English comprehension, and be willing to commit to a 6-month full-time programme. The programme is for young people from families that could not have afforded private technical education." } },
+      { "@type": "Question", "name": "When does the first cohort start?", "acceptedAnswer": { "@type": "Answer", "text": "The first pilot cohort opens in 2026. It will train 15–20 students fully funded by MCBEE. Applications are being accepted now." } },
+      { "@type": "Question", "name": "What will I learn in the 6-month programme?", "acceptedAnswer": { "@type": "Answer", "text": "The curriculum covers 12 modules: System Design, Installation, Rack Building, Audio-Visual, IT and Networking, Security Systems, Automation, Building Management Systems, Control Programming, AI Integration, Project and Site Management, and Professional Conduct." } },
+      { "@type": "Question", "name": "What jobs can I get after completing the programme?", "acceptedAnswer": { "@type": "Answer", "text": "Graduates are placed as AV Technicians, Network Engineers, Security Systems Engineers, Automation Programmers, and BMS Engineers. Year-one monthly salaries typically range from ₹18,000 to ₹30,000. With 3–5 years of specialisation, earnings reach ₹45,000–₹80,000+ per month." } },
+      { "@type": "Question", "name": "Is MCBEE Skills Foundation a government-recognised institution?", "acceptedAnswer": { "@type": "Answer", "text": "MCBEE Skills Foundation is a Section 8 not-for-profit company. Courses are designed against the NSQF from day one. Formal NSQF alignment is the 2028 target. Certification is currently industry-recognised." } },
+      { "@type": "Question", "name": "How do I apply for the Track One free training?", "acceptedAnswer": { "@type": "Answer", "text": "Fill in the Student Application form on the homepage. We will be in touch within 14 days for an interview. There is no fee at any stage." } },
+      { "@type": "Question", "name": "How can our company get involved as an employer or CSR partner?", "acceptedAnswer": { "@type": "Answer", "text": "Integrators can commit to interviewing one graduate per year. Senior practitioners can volunteer one session per quarter. OEMs and corporates can support through CSR — equipment, sponsorship, or cohort funding." } },
+      { "@type": "Question", "name": "Is my donation to MCBEE Skills Foundation tax-deductible under Section 80G?", "acceptedAnswer": { "@type": "Answer", "text": "Donations will be eligible for Section 80G tax deduction once our registration is granted. We will issue an 80G certificate within 30 days. PAN is required. Course fees are not 80G-eligible." } }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to apply for free AV and IT training at MCBEE Skills Foundation",
+    "description": "A three-step process to apply for the free Track One youth training programme.",
+    "totalTime": "PT14D",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Submit your application", "text": "Fill in the Student Application form on the MCBEE Skills Foundation website. No fee is required.", "url": "https://mcbeeskills.com/#apply" },
+      { "@type": "HowToStep", "position": 2, "name": "Interview", "text": "Shortlisted candidates are contacted within 14 days for an interview assessing motivation and commitment.", "url": "https://mcbeeskills.com/#apply" },
+      { "@type": "HowToStep", "position": 3, "name": "Selection and cohort start", "text": "Selected candidates are notified before the cohort start date. No fee at any stage.", "url": "https://mcbeeskills.com/#apply" }
+    ]
+  }
+  </script>
 </head>
 <body>
 
 <!-- NAV -->
 <nav id="nav">
   <a href="index.html" class="nav-logo">
-    <img src="MSF logomark.png" alt="MCBEE Skills Foundation" class="nav-logomark-img" />
+    <img src="msf-logomark.png" alt="MCBEE Skills Foundation" class="nav-logomark-img" />
   </a>
   <ul class="nav-links" style="margin-left:auto;">
     <li><a href="#programme">About the Programme</a></li>
@@ -762,17 +847,17 @@
   <div class="hero-inner" style="position:relative;z-index:3;">
     <div class="hero-content">
       <div class="hero-logomark h1-inner d1">
-        <img src="MSF logomark.png" alt="MCBEE Skills Foundation" />
+        <img src="msf-logomark.png" alt="MCBEE Skills Foundation" />
       </div>
       <div class="hero-name-unit a-up" style="transition-delay:0.35s">
         <p class="hero-logomark-name">MCBEE Skills Foundation,</p>
         <p class="hero-sub" data-cms="hero-subhead">Giving back to the industry that built us.</p>
       </div>
       <span class="divider a-wipe" style="transition-delay:0.45s;margin:1.25rem auto;"></span>
-      <p class="hero-body a-up" style="transition-delay:0.5s" data-cms="hero-body">Training India's next generation of AV, IT, automation, security, and building-systems professionals. Free for young people who need it. Funded by the industry that needs them.</p>
+      <h1 class="hero-body a-up" style="transition-delay:0.5s;font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit;" data-cms="hero-body">Free vocational training for India's next generation — AV technicians, IT engineers, automation programmers, security specialists, and building-systems professionals. Fully funded for underprivileged youth. Backed by the industry that needs them.</h1>
       <span class="a-wipe" id="hero-eyebrow" style="transition-delay:0.62s;margin-top:1.5rem;display:flex;flex-direction:column;align-items:center;gap:0.35rem;font-weight:300;font-size:clamp(0.8rem, 1.6vw, 1rem);color:var(--paper);">
         <span>An initiative by</span>
-        <img src="MCBEE wordmark.png" alt="MCBEE" style="height:0.85em;width:auto;opacity:0.8;" />
+        <img src="mcbee-wordmark.png" alt="MCBEE" style="height:0.85em;width:auto;opacity:0.8;" />
       </span>
       <div class="scroll-indicator a-up" style="transition-delay:0.8s;">
         <span class="scroll-mouse"><span class="scroll-wheel"></span></span>
@@ -787,7 +872,7 @@
   <div class="container">
     <div class="founders-grid">
       <div class="a-left">
-        <span class="eyebrow">FROM THE FOUNDERS</span>
+        <p class="eyebrow">FROM THE FOUNDERS</p>
         <h2 data-cms="founders-heading">A note before we begin</h2>
         <span class="divider divider--left"></span>
         <p style="color:var(--muted);margin-bottom:1rem;" data-cms="founders-p1">For over a decade, our industry — AV, IT, security, automation, building systems — has rewarded us. It has also shown us the same gap every year: bright young people who want to enter this trade, with nowhere to learn it.</p>
@@ -823,7 +908,7 @@
 <section id="mission" class="white">
   <div class="container">
     <div style="max-width:780px;margin:0 auto;text-align:center;" class="a-up">
-      <span class="eyebrow">WHAT WE STAND FOR</span>
+      <p class="eyebrow">WHAT WE STAND FOR</p>
       <p style="font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:300;line-height:1.65;color:var(--ink);letter-spacing:-0.01em;" data-cms="mission-text">
         We are building India's most comprehensive industry-led training ecosystem for AV, IT, security, automation, and building systems — making world-class skills accessible to underprivileged youth, and giving today's installers the recognition their craft deserves. Within the next decade, every Indian integrator should be able to hire from a recognised national pool of trained, certified professionals.
       </p>
@@ -847,17 +932,17 @@
 <section id="moment" class="white" style="border-top:4px solid var(--purple);">
   <div class="container">
     <div class="sec-head a-up">
-      <span class="eyebrow">THE MOMENT WE'RE IN</span>
+      <p class="eyebrow">THE MOMENT WE'RE IN</p>
       <h2>Two forces are meeting. We can either let them collide — or build a bridge</h2>
     </div>
     <div class="forces-grid">
       <div class="card a-left"><div class="card-body">
-        <span class="eyebrow" style="color:var(--purple);">FORCE ONE</span>
+        <p class="eyebrow" style="color:var(--purple);">FORCE ONE</p>
         <h3 style="margin-bottom:0.6rem;">AI is reshaping work</h3>
         <p style="color:var(--muted);font-size:0.9rem;">Cognitive work is automating fast. What holds value? The physical, hands-on, real-world skills — installing systems, terminating cables, commissioning at 11pm. That's our trade.</p>
       </div></div>
       <div class="card-dark a-right"><div class="card-dark-body">
-        <span class="eyebrow">FORCE TWO</span>
+        <p class="eyebrow">FORCE TWO</p>
         <h3 style="color:var(--paper);margin-bottom:0.6rem;">India's youth are arriving</h3>
         <p style="color:rgba(252,252,252,0.6);font-size:0.9rem;">62% of India is working-age. Median age: 29. Millions entering the workforce each year without serious technical pathways. Without intervention, our talent shortage gets worse, not better.</p>
       </div></div>
@@ -908,7 +993,7 @@
           </div>
           <div class="tracks-grid">
             <div class="card" style="border-top-color:var(--purple);"><div class="card-body">
-              <span class="eyebrow" style="color:var(--purple);">TRACK ONE</span>
+              <p class="eyebrow" style="color:var(--purple);">TRACK ONE</p>
               <h3 style="margin-bottom:0.75rem;">Free for the youth who need it most</h3>
               <p style="color:var(--muted);font-size:0.9rem;">Underprivileged young people, 18+, given a fully sponsored pathway into the trade. Structured training, hands-on lab work, and industry placement — at no cost to them.</p>
               <p class="track-foot" style="color:var(--purple);">Funded through CSR, donations, and Track Two surplus.</p>
@@ -918,7 +1003,7 @@
               </div>
             </div></div>
             <div class="card-dark" style="border-top:4px solid var(--orange);"><div class="card-dark-body">
-              <span class="eyebrow">TRACK TWO</span>
+              <p class="eyebrow">TRACK TWO</p>
               <h3 style="color:var(--paper);margin-bottom:0.75rem;">Certification for existing installers</h3>
               <p style="color:rgba(252,252,252,0.6);font-size:0.9rem;">Working installers across AV, IT, security, and automation get formal, recognised certification. Modular, paid programmes designed around real-world schedules.</p>
               <p class="track-foot" style="color:var(--orange);">Surplus from Track Two underwrites Track One.</p>
@@ -952,7 +1037,7 @@
 <section id="curriculum" class="white">
   <div class="container">
     <div class="sec-head a-up">
-      <span class="eyebrow">THE CURRICULUM</span>
+      <p class="eyebrow">THE CURRICULUM</p>
       <h2>What we will teach</h2>
       <p class="sec-sub">End-to-end — from first principles to specialist depth, across every discipline our industry needs.</p>
     </div>
@@ -978,7 +1063,7 @@
 <section id="outcomes">
   <div class="container">
     <div class="sec-head a-up">
-      <span class="eyebrow">WHAT WE BUILD TOWARD</span>
+      <p class="eyebrow">WHAT WE BUILD TOWARD</p>
       <h2>One year after graduation</h2>
     </div>
     <div class="outcomes-wrap">
@@ -1054,7 +1139,7 @@
 <section id="partner" class="white">
   <div class="container" style="position:relative;z-index:1;">
     <div class="sec-head a-up">
-      <span class="eyebrow">HOW YOU CAN STAND WITH US</span>
+      <p class="eyebrow">HOW YOU CAN STAND WITH US</p>
       <h2>This cannot be done by one company alone</h2>
       <p class="sec-sub">Hire a graduate, share your expertise, or support us through CSR. Three ways in — pick whichever fits.</p>
     </div>
@@ -1107,7 +1192,7 @@
   <div class="container">
     <div class="apply-grid">
       <div class="a-left">
-        <span class="eyebrow">THE FIRST COHORT</span>
+        <p class="eyebrow">THE FIRST COHORT</p>
         <h2 style="color:var(--paper);">Apply for free training, Build a real career</h2>
         <span class="divider divider--left"></span>
         <p style="color:rgba(252,252,252,0.6);font-size:0.9rem;margin-bottom:1rem;">The first cohort opens in 2026. If you're 18+, ready to work hard, and want a real career in technology — this is for you.</p>
@@ -1163,15 +1248,76 @@
   </div>
 </section>
 
+<!-- ══ FAQ ══════════════════════════════════════ -->
+<section id="faq" class="white">
+  <div class="container">
+    <p class="eyebrow">COMMON QUESTIONS</p>
+    <h2>Frequently asked questions</h2>
+    <div class="faq-list" style="margin-top:2.5rem;display:flex;flex-direction:column;gap:0;">
+
+      <details class="faq-item">
+        <summary>Is the Track One training programme really free?</summary>
+        <p>Yes — completely free for selected students. No tuition fee, no registration fee, no deposit of any kind. The programme is fully funded through CSR contributions, industry donations, and the surplus generated by the Track Two paid certification programme. Selected students also receive tools and a uniform at no cost.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Who is eligible to apply for Track One?</summary>
+        <p>You must be 18 years or older, have completed Class XII or equivalent, have basic English comprehension, and be willing to commit to a 6-month full-time programme. The programme is specifically for young people from families that could not have afforded private technical education.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>When does the first cohort start?</summary>
+        <p>The first pilot cohort opens in 2026. It will train 15–20 students fully funded by MCBEE. Applications are being accepted now — places are limited and selection is competitive. Apply early to be considered for the first intake.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What will I learn in the 6-month programme?</summary>
+        <p>The curriculum covers 12 modules: System Design, Installation, Rack Building, Audio-Visual, IT and Networking, Security Systems, Automation, Building Management Systems (BMS), Control Programming, AI Integration, Project and Site Management, and Professional Conduct.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What jobs can I get after completing the programme?</summary>
+        <p>Graduates are placed as AV Technicians, Network Engineers, Security Systems Engineers, Automation Programmers, and BMS Engineers. Year-one monthly salaries typically range from ₹18,000 to ₹30,000. With 3–5 years of specialisation, senior technicians and programmers earn ₹45,000–₹80,000+ per month.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is MCBEE Skills Foundation a government-recognised institution?</summary>
+        <p>MCBEE Skills Foundation is a Section 8 not-for-profit company registered under the Companies Act, 2013. All courses are designed against the National Skills Qualifications Framework (NSQF) from day one. Formal NSQF alignment and government recognition is our 2028 target.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I apply for the Track One free training?</summary>
+        <p>Fill in the Student Application form on this page. We will be in touch within 14 days for an interview. There is no fee at any stage of the application or selection process.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>I am a working AV or IT installer. How do I get certified?</summary>
+        <p>Track Two is designed for working professionals. Choose a module (AV, IT, Security, Automation, BMS, or Programming), attend weekend and evening sessions, complete a practical assessment on a real system, and receive your certificate. Modules are independent — start with one and stack more over time.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How can our company get involved as an employer or CSR partner?</summary>
+        <p>There are three ways. Integrators and employers can commit to interviewing one graduate per year. Senior practitioners can volunteer one teaching session per quarter. OEMs, distributors, and corporates can support through equipment donation, cohort sponsorship, or a formal CSR partnership (80G-eligible once registration is confirmed).</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is my donation to MCBEE Skills Foundation tax-deductible under Section 80G?</summary>
+        <p>Donations to MCBEE Skills Foundation will be eligible for tax deduction under Section 80G of the Income Tax Act, 1961, once our 80G registration is granted. We will issue an 80G certificate within 30 days of receiving your donation. PAN is required.</p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="foot-grid">
     <div>
       <div style="margin-bottom:0.9rem;">
-        <img src="MSF wordmark.png" alt="MCBEE Skills Foundation" style="height:80px;width:auto;object-fit:contain;display:block;" />
+        <img src="msf-wordmark.png" alt="MCBEE Skills Foundation" style="height:80px;width:auto;object-fit:contain;display:block;" />
       </div>
       <p class="foot-tl" data-cms="footer-tagline">A Section 8 (Not-for-profit) Company · Delhi NCR</p>
-      <p class="foot-pw" style="display:flex;align-items:center;gap:0.4rem;">Powered by <img src="MCBEE wordmark.png" alt="MCBEE" style="height:0.9em;width:auto;opacity:0.5;vertical-align:middle;" /></p>
+      <p class="foot-pw" style="display:flex;align-items:center;gap:0.4rem;">Powered by <img src="mcbee-wordmark.png" alt="MCBEE" style="height:0.9em;width:auto;opacity:0.5;vertical-align:middle;" /></p>
     </div>
     <div class="foot-col"><h5>Programme</h5><ul class="foot-links"><li><a href="#curriculum">The Curriculum</a></li><li><a href="#apply">Apply</a></li><li><a href="tracks.html#track-two">Track Two</a></li><li><a href="#outcomes">One Year After</a></li></ul></div>
     <div class="foot-col"><h5>Get Involved</h5><ul class="foot-links"><li><a href="#partner">Hire a Graduate</a></li><li><a href="#partner">Volunteer</a></li><li><a href="#partner">Support / Donate</a></li><li><a href="mailto:mcbeeskillsfoundation@gmail.com">Press / Media</a></li></ul></div>
@@ -1180,9 +1326,9 @@
   <div class="foot-bot">
     <div><p class="foot-copy">© 2026 MCBEE Skills Foundation. All rights reserved.</p><p class="foot-copy">Registered Office: Delhi NCR</p></div>
     <div class="socials">
-      <a href="https://www.linkedin.com/in/mcbee-skills-foundation-36681640b/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-      <a href="https://www.instagram.com/mcbeeskillsfoundation/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-      <a href="https://x.com/mcbeeskills" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg></a>
+      <a href="https://www.linkedin.com/in/mcbee-skills-foundation-36681640b/" target="_blank" rel="me noopener" aria-label="MCBEE Skills Foundation on LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="https://www.instagram.com/mcbeeskillsfoundation/" target="_blank" rel="me noopener" aria-label="MCBEE Skills Foundation on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="https://x.com/mcbeeskills" target="_blank" rel="me noopener" aria-label="MCBEE Skills Foundation on X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg></a>
     </div>
   </div>
 </footer>

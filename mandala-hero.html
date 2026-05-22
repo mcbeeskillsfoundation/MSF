@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mandala Tunnel</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#fff; overflow:hidden; }
+  canvas { display:block; width:100vw; height:100vh; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const VS = `attribute vec2 a_pos; void main(){ gl_Position=vec4(a_pos,0.,1.); }`;
+
+const FS = `
+precision highp float;
+uniform vec2  u_res;
+uniform float u_time;
+uniform vec2  u_mouse;
+uniform float u_distort;
+#define PI  3.14159265359
+#define TAU 6.28318530718
+
+vec2 rot(vec2 p,float a){ float c=cos(a),s=sin(a); return vec2(c*p.x-s*p.y,s*p.x+c*p.y); }
+float S(float d,float w){ return 1.-smoothstep(0.,w,abs(d)); }
+float F(float d,float w){ return 1.-smoothstep(0.,w,d); }
+
+float sdStar(vec2 p,float r,float n,float m){
+  float an=PI/n,en=PI/m;
+  vec2 acs=vec2(cos(an),sin(an)),ecs=vec2(cos(en),sin(en));
+  float bn=mod(atan(p.y,p.x),2.*an)-an;
+  p=length(p)*vec2(cos(bn),abs(sin(bn)));
+  p-=r*acs; p+=ecs*clamp(-dot(p,ecs),0.,r*acs.y/ecs.y);
+  return length(p)*sign(p.x);
+}
+
+float ring(vec2 p,float r,float w){ return S(length(p)-r,w); }
+
+float dots(vec2 p,float r,float n,float dr,float t){
+  float a=atan(p.y,p.x)-t, seg=TAU/n;
+  float la=mod(a+seg*.5,seg)-seg*.5;
+  return F(length(vec2(la*r,length(p)-r))-dr,.003);
+}
+
+float spokes(vec2 p,float n,float r0,float r1,float w,float t){
+  float a=atan(p.y,p.x)-t, rr=length(p);
+  float seg=TAU/n, la=mod(a+seg*.5,seg)-seg*.5;
+  return S(abs(la)*rr-w,.003)*step(r0,rr)*step(rr,r1);
+}
+
+float ticks(vec2 p,float r,float n,float len,float t){
+  float a=atan(p.y,p.x)-t, seg=TAU/n;
+  float la=mod(a+seg*.5,seg)-seg*.5;
+  return S(abs(la)*length(p)-.0012,.003)*S(abs(length(p)-r)-len,.003);
+}
+
+/* outward triangle SIDES only (no fill) */
+float triOut(vec2 p,float r0,float h,float n,float t){
+  float a=atan(p.y,p.x)-t, rr=length(p);
+  float seg=TAU/n, la=mod(a+seg*.5,seg)-seg*.5;
+  float x=abs(la)*rr, y=rr-r0, W=seg*.5*r0;
+  vec2 A=vec2(W,0.),B=vec2(0.,h),pa=vec2(x,y)-A,ba=B-A;
+  float tt=clamp(dot(pa,ba)/dot(ba,ba),0.,1.);
+  return S(length(pa-ba*tt),.005)*step(-.01,y)*step(y,h+.01);
+}
+
+/* inward triangle SIDES only */
+float triIn(vec2 p,float r0,float h,float n,float t){
+  float a=atan(p.y,p.x)-t, rr=length(p);
+  float seg=TAU/n, la=mod(a+seg*.5,seg)-seg*.5;
+  float x=abs(la)*rr, y=r0-rr, W=seg*.5*r0;
+  vec2 A=vec2(W,0.),B=vec2(0.,h),pa=vec2(x,y)-A,ba=B-A;
+  float tt=clamp(dot(pa,ba)/dot(ba,ba),0.,1.);
+  return S(length(pa-ba*tt),.005)*step(-.01,y)*step(y,h+.01);
+}
+
+/* windowed base arc (leaves gaps = teeth effect) */
+float triBase(vec2 p,float r,float n,float t){
+  float a=atan(p.y,p.x)-t, seg=TAU/n;
+  float la=mod(a+seg*.5,seg)-seg*.5;
+  return ring(p,r,.003)*smoothstep(.97,.87,abs(la)/(seg*.5));
+}
+
+float lotus(vec2 p,float r,float n,float h,float pw,float t){
+  float a=atan(p.y,p.x)-t, seg=TAU/n;
+  float la=mod(a+seg*.5,seg)-seg*.5;
+  float rd=length(p)-r, normA=la/(seg*.5);
+  float arc1=length(vec2(normA*pw,rd-h*.35))-h*.75;
+  float arc2=length(vec2(normA*pw,rd+h*.25))-h*.70;
+  return S(max(arc1,-arc2),.004);
+}
+
+float vein(vec2 p,float r,float n,float h,float t){
+  return spokes(p,n,r*.96,r+h*.9,.001,t);
+}
+
+float diamonds(vec2 p,float r,float n,float aw,float rw,float t){
+  float a=atan(p.y,p.x)-t, seg=TAU/n;
+  float la=mod(a+seg*.5,seg)-seg*.5;
+  vec2 lp=vec2(la*r,length(p)-r);
+  return S((abs(lp.x)/aw+abs(lp.y)/rw-1.)*min(aw,rw),.004);
+}
+
+float scallop(vec2 p,float r,float n,float dr,float t){
+  float a=atan(p.y,p.x)-t, seg=TAU/n;
+  float la=mod(a+seg*.5,seg)-seg*.5;
+  vec2 lp=vec2(la*r,(length(p)-r)+dr*.45);
+  return S(length(lp)-dr,.004)*step(0.,length(p)-r);
+}
+
+float dashed(vec2 p,float r,float n,float fill,float w,float t){
+  float a=atan(p.y,p.x)-t, seg=TAU/n;
+  float la=mod(a,seg)/seg;
+  float on=smoothstep(0.,.07,la)*smoothstep(fill+.07,fill,la);
+  return S(length(p)-r,w)*on;
+}
+
+float chevron(vec2 p,float r,float n,float h,float t){
+  float a=atan(p.y,p.x)-t, seg=TAU/n;
+  float la=mod(a,seg)/seg;
+  return S(length(p)-(r+h*(abs(fract(la*2.)-.5)*2.-.5)),.004);
+}
+
+float starRing(vec2 p,float r,float n,float sr,float pts,float sm,float t){
+  float a=atan(p.y,p.x)-t, seg=TAU/n;
+  float la=mod(a+seg*.5,seg)-seg*.5;
+  return S(sdStar(vec2(la*r,length(p)-r),sr,pts,sm),.004);
+}
+
+float crosses(vec2 p,float r,float n,float s,float t){
+  float a=atan(p.y,p.x)-t, seg=TAU/n;
+  float la=mod(a+seg*.5,seg)-seg*.5;
+  vec2 lp=vec2(la*r,length(p)-r);
+  return clamp(S(abs(lp.x)-s,.003)*S(abs(lp.y)-s*.22,.003)
+              +S(abs(lp.y)-s,.003)*S(abs(lp.x)-s*.22,.003),0.,1.);
+}
+
+float interlaced(vec2 p,float r,float n,float dr,float t){
+  return clamp(dashed(p,r+dr,n,.55,.003,t)+dashed(p,r-dr,n,.55,.003,t+PI/n),0.,1.);
+}
+
+/* ════════════════════════════════════════════════════════════
+   SINGLE MANDALA LAYER — pass (scaled uv, per-layer time)
+   ════════════════════════════════════════════════════════════ */
+float mandala(vec2 p, float t){
+  /* rotation tracks — inner fast, outer slow, alternating CW/CCW */
+  float ra= t* 0.391;
+  float rb= t*-0.271;
+  float rc= t* 0.198;
+  float rd= t*-0.143;
+  float re= t* 0.101;
+  float rf= t*-0.068;
+  float rg= t* 0.044;
+  float rh= t*-0.027;
+  float ri= t* 0.016;
+  /* slow morph phases */
+  float e1=.5+.5*sin(t*0.0231);
+  float e2=.5+.5*sin(t*0.0157);
+  float e3=.5+.5*sin(t*0.0089);
+  float e4=.5+.5*sin(t*0.0314);
+
+  float m=0.;
+
+  /* Bindu */
+  m += F(length(p)-.014,.005);
+  m += ring(p,.025,.002);
+
+  /* 8-pt star */
+  m += S(sdStar(rot(p,ra),      .050,8.,3.),.0045);
+  m += S(sdStar(rot(p,ra+PI/8.),.050,8.,3.),.0025)*.55;
+  m += ring(p,.070,.003);
+  m += ring(p,.076,.0015);
+
+  /* 8 sun-ray triangles */
+  m += triOut(p,.076,.030,8.,rb);
+  m += triBase(p,.076,8.,rb);
+  m += ring(p,.108,.003);
+
+  /* 16 lotus + veins + dots */
+  m += ring(p,.110,.0015);
+  m += lotus(p,.136,16.,.042,.040,rc);
+  m += vein( p,.136,16.,.042,rc);
+  m += dots( p,.180,16.,.007,rc+PI/16.);
+  m += ring(p,.184,.003);
+  m += ring(p,.190,.0015);
+
+  /* 16 spokes + 32 diamonds */
+  m += spokes(p,16.,.190,.256,.0025,rd);
+  m += diamonds(p,.224,32.,.009,.011,rd);
+  m += ring(p,.258,.003);
+
+  /* 24 inward teeth */
+  m += triIn(p,.286,.030,24.,re);
+  m += triBase(p,.286,24.,re);
+  m += ring(p,.260,.002);
+
+  /* MORPH: scallop ↔ chevron */
+  m += mix(scallop(p,.314,32.,.022,rf),chevron(p,.314,32.,.022,rf),e1);
+  m += ring(p,.330,.003);
+
+  /* 12 large lotus + veins */
+  m += ring(p,.332,.0015);
+  m += lotus(p,.378,12.,.066,.066,rg);
+  m += vein( p,.378,12.,.066,rg);
+  m += ring(p,.450,.003);
+  m += ring(p,.456,.0015);
+
+  /* 32 crown triangles + dots */
+  m += triOut(p,.456,.040,32.,rh);
+  m += triBase(p,.456,32.,rh);
+  m += dots(p,.472,32.,.006,rh+PI/32.);
+  m += ring(p,.500,.003);
+
+  /* MORPH: interlaced ↔ spokes+ticks */
+  m += mix(interlaced(p,.526,24.,.014,re),
+           spokes(p,24.,.500,.552,.002,re)+ticks(p,.526,48.,.028,re), e2);
+  m += ring(p,.554,.003);
+  m += ring(p,.560,.0015);
+
+  /* 20 lotus + crosses between */
+  m += lotus(p,.606,20.,.058,.060,rf);
+  m += vein( p,.606,20.,.058,rf);
+  m += crosses(p,.606,20.,.012,rf+PI/20.);
+  m += ring(p,.670,.003);
+
+  /* 48 ticks + 48 dots */
+  m += ticks(p,.686,48.,.028,rg);
+  m += dots( p,.686,48.,.005,rg+PI/48.);
+  m += ring(p,.698,.0018);
+
+  /* MORPH: 16-pt star ↔ small star ring */
+  m += mix(S(sdStar(rot(p,rh),.708,16.,5.),.003)
+          +S(sdStar(rot(p,rh+PI/16.),.708,16.,5.),.0018)*.45,
+           starRing(p,.720,16.,.024,6.,3.,rh), e3);
+  m += ring(p,.744,.003);
+  m += ring(p,.750,.0012);
+
+  /* 40 outward triangles + diamond row */
+  m += triOut(p,.750,.042,40.,ri);
+  m += triBase(p,.750,40.,ri);
+  m += diamonds(p,.774,40.,.010,.012,ri);
+  m += ring(p,.794,.003);
+
+  /* 56 ticks + dashed */
+  m += ticks(p,.808,56.,.020,rh);
+  m += dashed(p,.818,28.,.62,.003,rh);
+  m += ring(p,.824,.0015);
+
+  /* MORPH: scallop ↔ diamonds */
+  m += mix(scallop(p,.834,32.,.020,ri),diamonds(p,.834,32.,.014,.016,ri),e4);
+  m += dots(p,.850,64.,.0040,ri+PI/64.);
+  m += ring(p,.858,.003);
+  m += ring(p,.864,.0010);
+
+  return clamp(m,0.,1.);
+}
+
+/* ════════════════════════════════════════════════════════════
+   MAIN — seamless infinite Z-tunnel
+
+   KEY INSIGHT: each layer uses opacity = sin(PI * phase).
+   sin is exactly 0 at phase=0 and phase=1 — the two reset
+   points. So when fract() snaps, that layer is invisible.
+   No cut. No seam. Ever.
+
+   4 layers with phases offset by 0.25 ensures one layer is
+   always near peak opacity while the resetting layer is dark.
+   ════════════════════════════════════════════════════════════ */
+void main(){
+  vec2 uv=(gl_FragCoord.xy-u_res*.5)/(min(u_res.x,u_res.y)*1.25);
+  float t=u_time;
+
+  float norm = min(u_res.x,u_res.y)*1.25;
+  vec2 mouseUV = (u_mouse - 0.5) * vec2(u_res.x/norm, u_res.y/norm);
+  vec2 toMouse = uv - mouseUV;
+  float d = length(toMouse);
+
+  /* layered hash drift — coarse + fine cells, time-wobble for chaos */
+  vec2 cell1 = floor((uv + 4.0) * 11.0);
+  vec2 cell2 = floor((uv + 4.0) * 19.0);
+  vec2 h1 = fract(sin(vec2(dot(cell1,vec2(127.1,311.7)),dot(cell1,vec2(269.5,183.3))))*43758.5453);
+  vec2 h2 = fract(sin(vec2(dot(cell2,vec2(419.2,371.9)),dot(cell2,vec2(172.3,491.1))))*23421.6312);
+  vec2 drift = (h1 * 2.0 - 1.0) * 0.10 + (h2 * 2.0 - 1.0) * 0.045;
+  /* slow independent wobble per chunk so chunks drift rather than freeze */
+  drift += vec2(sin(h1.x*63.+t*0.4), cos(h1.y*57.+t*0.3)) * 0.03 * u_distort;
+  float proximity = exp(-d * 7.0) * u_distort;
+  uv += drift * proximity;
+
+  /* Speed: one full 2× zoom every 9 s */
+  float zSpeed = 0.111;
+
+  /* 4 layers, phases staggered by 0.25 so one is always dominant */
+  float p0 = fract(t*zSpeed + 0.00);
+  float p1 = fract(t*zSpeed + 0.25);
+  float p2 = fract(t*zSpeed + 0.50);
+  float p3 = fract(t*zSpeed + 0.75);
+
+  /* sin(PI*p) → 0 at p=0 and p=1 (the reset moments).
+     The layer is invisible exactly when it snaps. Seamless.  */
+  float w0 = sin(PI*p0);
+  float w1 = sin(PI*p1);
+  float w2 = sin(PI*p2);
+  float w3 = sin(PI*p3);
+
+  /* Scale: grows 1→2 over the lifetime of each layer.
+     Small twist (1.2 s per layer) adds 3-D rotation depth
+     without breaking continuity (invisible at reset anyway). */
+  float twist = 1.2;
+  float m  = mandala(uv*pow(2.,p0), t+p0*twist) * w0;
+         m += mandala(uv*pow(2.,p1), t+p1*twist) * w1;
+         m += mandala(uv*pow(2.,p2), t+p2*twist) * w2;
+         m += mandala(uv*pow(2.,p3), t+p3*twist) * w3;
+
+  /* Divide by the actual weight sum (≈2.4–2.6, never zero)
+     to keep brightness stable across the full cycle.         */
+  m /= (w0+w1+w2+w3);
+  m  = clamp(m,0.,1.);
+
+
+  /* Tunnel vignette */
+  m *= 1.-smoothstep(.70,.86,length(uv));
+
+  /* Breath */
+  m = clamp(m,0.,1.) * (.90+.10*sin(t*.44));
+
+  vec3 bg          = vec3(0.855,0.851,0.467);
+  vec3 mandala_col = vec3(0.513,0.511,0.280);
+  gl_FragColor=vec4(mix(bg, mandala_col, m),1.);
+}
+`;
+
+/* ── WebGL ── */
+const canvas = document.getElementById('c');
+const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+if (!gl) {
+  const p = document.createElement('p');
+  p.textContent = 'WebGL not supported.';
+  p.style.cssText = 'padding:2rem;font-family:sans-serif';
+  document.body.appendChild(p);
+} else {
+  function mkShader(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS))
+      console.error('Shader error:\n', gl.getShaderInfoLog(s));
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, mkShader(gl.VERTEX_SHADER,   VS));
+  gl.attachShader(prog, mkShader(gl.FRAGMENT_SHADER, FS));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS))
+    console.error('Link error:', gl.getProgramInfoLog(prog));
+  gl.useProgram(prog);
+
+  const vbo = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+  const aPos = gl.getAttribLocation(prog, 'a_pos');
+  gl.enableVertexAttribArray(aPos);
+  gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+  const uRes     = gl.getUniformLocation(prog, 'u_res');
+  const uTime    = gl.getUniformLocation(prog, 'u_time');
+  const uMouse   = gl.getUniformLocation(prog, 'u_mouse');
+  const uDistort = gl.getUniformLocation(prog, 'u_distort');
+
+  let mouseX = 0.5, mouseY = 0.5;
+  let distort = 0.0;
+  let decaying = false;
+  let hoverTimer = null;
+
+  function startDecayTimer() {
+    clearTimeout(hoverTimer);
+    hoverTimer = setTimeout(() => { decaying = true; }, 3000);
+  }
+
+  canvas.addEventListener('mousemove', e => {
+    mouseX = e.clientX / window.innerWidth;
+    mouseY = 1.0 - e.clientY / window.innerHeight;
+    distort = 1.0;
+    decaying = false;
+    startDecayTimer();
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    startDecayTimer();
+  });
+
+  window.addEventListener('scroll', () => {
+    const progress = Math.min(window.scrollY / window.innerHeight, 1);
+    canvas.style.opacity = 1 - progress;
+  });
+
+  function resize(){
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    canvas.width  = window.innerWidth  * dpr;
+    canvas.height = window.innerHeight * dpr;
+    canvas.style.width  = window.innerWidth  + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  let t0 = null;
+  function frame(ts){
+    if(!t0) t0 = ts;
+    if (decaying) distort *= 0.955;
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.uniform1f(uTime, (ts - t0) / 1000);
+    gl.uniform2f(uMouse, mouseX, mouseY);
+    gl.uniform1f(uDistort, distort);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+</script>
+</body>
+</html>

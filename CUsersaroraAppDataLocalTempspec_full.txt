@@ -1,0 +1,1369 @@
+Total pages: 37
+=== PAGE 1 ===
+MCBEE Skills Foundation — Website Specification
+Domain: mcbeefoundation.in  (placeholder, confirm registration) Audience: Students & parents (apply),
+Industry (partner/hire/volunteer), Donors & CSR functions (support), Press & policymakers (information)
+Document version: 1.0 — built from MCBEE Skills Foundation v4 deck + Brand Narrative v1.0 Purpose of
+this file: A complete spec a developer (or AI dev tool — Cursor, v0, Lovable, Bolt) can build the site from
+end-to-end. Content is final; legal pages are drafted to be reviewed by counsel before launch.
+Table of Contents
+1. Project Overview
+2. Technical Stack Recommendation
+3. Site Map & Information Architecture
+4. Design System
+5. Page-by-Page Content Spec
+6. Forms — Schemas & Behaviour
+7. Founder Profiles
+8. SEO & Meta
+9. Legal & Compliance Pages — REQUIRED for Section 8 + DPDP
+10. Accessibility & Performance Standards
+11. Analytics, Tracking, & Lead Capture
+12. Asset Requirements
+13. Launch Checklist
+14. Post-Launch Backlog
+1. Project Overview
+Brief: A single-page (long-scroll) website with five auxiliary legal/compliance pages. Lead-capture
+optimised. Built fast, designed to last 18 months before a v2 rebuild after the first cohort generates real
+outcomes data.
+Primary goals (in priority order):
+1. Capture student applications for the first cohort (Track One)
+
+=== PAGE 2 ===
+2. Capture industry partnership interest (hire, volunteer, support)
+3. Capture donor / CSR enquiries
+4. Establish credibility through transparent governance disclosure
+5. Provide press / media a starting point
+Out of scope for v1: Online donation processing, login/portal, content management for students, blog or
+news section, multi-language. These come in v2 once the first cohort is live and there’s actual content to
+publish.
+2. Technical Stack Recommendation
+The site is small, content-heavy, lead-capture focused. Optimise for speed of build and ease of edits.
+Recommended stack:
+Framework: Next.js 14+ with App Router (or Astro if developer prefers — both work for a static-leaning
+site)
+Styling: Tailwind CSS
+Forms: Server actions writing to a database (Supabase or Convex) + email notifications via Resend or
+Postmark
+Hosting: Vercel (free tier sufficient for v1 traffic levels)
+Domain & DNS: Cloudflare for DNS + edge caching
+Email: Forms write to database AND send a notification email to a Foundation inbox (e.g.
+hello@mcbeefoundation.in )
+Forms backup: Every submission also goes to a Google Sheet via Zapier or n8n as a redundancy
+Alternative simpler stack (if developer is non-technical):
+Webflow with Forms + Memberstack — drag-and-drop, slightly more expensive (~₹2,500/month) but no
+developer needed for content updates
+Avoid: WordPress (overkill, security overhead), Wix (limits on form customisation), pure HTML/CSS (forms
+become a hassle).
+No browser storage for form data; use server-side persistence only.
+3. Site Map & Information Architecture
+mcbeefoundation.in
+│
+├── /                       Homepage (single long-scroll page)
+│                           — Hero / Mission / Programme / Apply / Partner / Trust / About / Con
+│
+
+=== PAGE 3 ===
+Single-page approach for the homepage: The user can scroll the whole story top-to-bottom, OR jump to
+a specific section via sticky nav. CTAs throughout point to the relevant section anchor or to /apply  etc.
+4. Design System
+The website inherits the deck’s design language so all touchpoints feel consistent.
+Colour Tokens
+:root {
+  /* Primary surface colours */
+  --color-ink:        #1A1D24;   /* Deep charcoal — primary dark */
+  --color-ink-2:      #2C313D;   /* Softer charcoal — secondary dark */
+  --color-paper:      #FAFAF7;   /* Warm off-white — page background */
+  --color-paper-2:    #F1EFE9;   /* Warm cream — card background */
+  /* Accent — honey amber */
+  --color-amber:      #C8932E;   /* Primary accent */
+  --color-amber-2:    #E5B547;   /* Bright accent / hover */
+  --color-rust:       #8B4513;   /* Depth accent */
+  /* Utility */
+  --color-muted:      #6B7280;   /* Captions, secondary text */
+  --color-line:       #D6D3CC;   /* Dividers */
+  --color-white:      #FFFFFF;
+}
+Typography
+├── /apply                  Student application form (or anchor on home)
+├── /partner                Industry partnership enquiry form (or anchor on home)
+│
+├── /about                  Expanded About page — founders, board, governance details
+│
+├── /privacy                Privacy Policy (DPDP Act + IT Rules compliant)
+├── /terms                  Terms of Use
+├── /donor-policy           Donor Privacy Policy + Refund/Cancellation Policy
+├── /grievance              Grievance Redressal Policy + Officer contact (mandatory under DPDP)
+├── /transparency           Annual reports, audited financials, governance documents
+│
+└── /404                    Custom not-found page
+/* Headings — Georgia (web-safe serif) or replace with similar served font */
+font-family-heading: Georgia, 'Times New Roman', serif;
+/* Body — system stack */
+font-family-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Aria
+/* Type scale (mobile-first) */
+
+=== PAGE 4 ===
+Spacing & Layout
+Max content width: 1200px (1280px container with 40px gutters)
+Section vertical padding: 80px desktop / 56px mobile
+Card padding: 32px desktop / 24px mobile
+Border radius: 8px on cards; 4px on buttons
+Grid breakpoints: sm 640px / md 768px / lg 1024px / xl 1280px
+Component Patterns
+Buttons:
+Primary: amber background, ink text, on hover lifts to amber-2
+Secondary: ink outline on paper, fills ink on hover
+Tertiary: text link with amber underline-on-hover
+Cards:
+Subtle border 1px solid var(--color-line)
+Background var(--color-paper-2)  on light sections, var(--color-ink-2)  on dark sections
+4px amber top border on hover/active state
+Section dividers:
+Amber 1.5px line, 48px wide, used between sections in long-scroll
+All-caps eyebrow text above main headlines
+5. Page-by-Page Content Spec
+Note for the developer: All copy below is final. Treat it as production text, not placeholder. Italics
+indicate developer instructions or inline notes, not content.
+5.1 Navigation Bar (sticky, all pages)
+Behaviour: Sticky on scroll. Becomes solid --color-ink  background after 80px scroll on home. Other
+.text-display-xl  { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; font-weight: 700; 
+.text-display-lg  { font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.1; font-weight: 700; }
+.text-display-md  { font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.2; font-weight: 700; }
+.text-eyebrow     { font-size: 0.75rem; letter-spacing: 0.15em; font-weight: 700; text-transform
+.text-body-lg     { font-size: 1.125rem; line-height: 1.6; }
+.text-body        { font-size: 1rem; line-height: 1.6; }
+.text-caption     { font-size: 0.875rem; line-height: 1.5; }
+
+=== PAGE 5 ===
+pages always solid.
+Left:
+Logo wordmark: “MCBEE Skills Foundation” (when logo SVG is available, replace with mark + wordmark
+lockup)
+Right (desktop):
+Programme  → #programme
+Get Involved  → #partner
+About  → /about
+Apply  → /apply (primary button style)
+Right (mobile):
+Hamburger → drawer with same items
+Apply CTA stays visible at all viewport sizes
+Footer of nav drawer (mobile): small links to Privacy, Terms.
+5.2 Homepage — Section by Section
+Section A: Hero
+Background: --color-ink  (full-bleed dark) Layout: Centered content, max-width 900px, vertical padding
+120px desktop / 80px mobile Optional image: Founder photo collage or workshop photo, treated dark with
+amber tint overlay (if not available, just typography on dark)
+EYEBROW (amber-2):
+AN INITIATIVE BY MCBEE
+H1 (paper, Georgia, display-xl):
+MCBEE Skills
+Foundation
+SUBHEAD (amber-2, Georgia italic, display-md):
+Giving back to the industry that built us.
+DIVIDER LINE (amber, 80px wide)
+BODY (paper, body-lg, max-width 700px):
+We are training India's next generation of AV, IT, automation, security, and building-systems p
+CTA ROW (two buttons):
+[Apply for the Programme] → /apply  (primary amber)
+[Partner With Us]         → #partner  (secondary outline)
+
+=== PAGE 6 ===
+Section B: From the Founders (anchor: #why )
+Background: --color-paper  Layout: Two-column at desktop (text left, founder photo collage right),
+stacked on mobile
+Section C: The Moment We’re In
+Background: --color-paper  with amber accent strip at top Layout: Two-column cards, equal height
+EYEBROW (amber):
+FROM THE FOUNDERS
+H2 (ink, Georgia):
+A note before we begin.
+BODY PARAGRAPHS (3 paragraphs, body-lg):
+For over a decade, our industry — AV, IT, security, automation, building systems — has rewarded 
+It has also shown us, year after year, the same gap: bright young people who want to enter this 
+And in the world we now live in, this matters more than ever. As AI takes on more of the cognit
+BOLD PULLOUT (ink, bold):
+We have decided to do something about it.
+SIGNATURE (muted, italic, with thin amber underline):
+— Sawan & Sameer
+Co-Founders, MCBEE Skills Foundation
+RIGHT COLUMN (desktop only):
+Founder collage — both founders, environmental shot, ideally at an actual MCBEE site
+EYEBROW (amber):
+THE MOMENT WE'RE IN
+H2 (ink, Georgia):
+Two forces are meeting. We can either let them collide — or build a bridge.
+CARD 1 (light card, paper-2 background, amber top border):
+  EYEBROW: FORCE ONE
+  ICON: robot/AI symbol
+  H3 (ink): AI is reshaping work.
+  BODY: Software is writing software. Models are drafting documents, analysing data, answering 
+CARD 2 (dark card, ink background, amber top border):
+  EYEBROW: FORCE TWO (amber-2)
+  ICON: group of people
+  H3 (paper, amber-2 accent): India's youth are arriving.
+  BODY: 62% of India is in the working-age group. The median age is 29 — among the youngest in t
+
+=== PAGE 7 ===
+Section D: Where We Stand Today (anchor: #challenge )
+Background: --color-paper  Layout: Three-card row, equal height
+Section E: Our Announcement
+Background: --color-ink  (dark, full-bleed) Layout: Centered content, max-width 900px, with an amber
+check icon strip at bottom
+EYEBROW (amber):
+WHERE WE STAND TODAY
+H2 (ink, Georgia):
+A shared industry challenge — and a real opening.
+CARD 1:
+  ICON: users / group
+  H3: No training pathway
+  BODY: Across AV, IT, security, automation, BMS — no recognised institute, no industry curricu
+CARD 2:
+  ICON: handshake
+  H3: We compete for the same small pool
+  BODY: When a project lands, we look for trained hands. Finding none, we offer a little more sa
+CARD 3:
+  ICON: trending up chart
+  H3: Demand is multiplying
+  BODY: Smart buildings, hospitality, corporate AV, retail, security infrastructure — the work 
+EYEBROW (amber-2):
+OUR ANNOUNCEMENT
+H2 (paper, Georgia, display-lg):
+We've registered MCBEE Skills Foundation.
+DIVIDER LINE (amber, 80px wide)
+INTRO BODY (paper):
+A Section 8 (not-for-profit) company, established under the Companies Act 2013, with one purpose
+PULLOUT QUOTE (amber-2, Georgia italic, display-md):
+"To build the technical talent our industry needs — and to open the doors of this trade to young
+CLOSING BODY (paper, slightly smaller):
+AV. IT. Networking. Security. Automation. Building Management Systems. Programming. AI integrat
+STATUS STRIP (ink-2 background with amber check icon):
+✓  Incorporated 2026 · Section 8 (Not-for-profit) · Registrations in process: 12A, 80G, CSR-1
+
+=== PAGE 8 ===
+Section F: How It Works (anchor: #programme )
+Background: --color-paper  Layout: Two-track side-by-side, equal height
+Section G: The Curriculum
+Background: --color-paper-2  Layout: 4-column grid on desktop (3-row), 2-column on tablet, 1-column
+on mobile
+EYEBROW (amber):
+HOW IT WORKS
+H2 (ink, Georgia):
+Two tracks. One mission.
+SUBHEAD (muted, italic):
+A model designed to become self-sustaining — where the industry helps fund the training of its o
+TRACK ONE CARD (light, paper-2):
+  EYEBROW (amber): TRACK ONE
+  H3 (ink, Georgia, display-md): Free for the youth who deserve a way in.
+  BODY:
+  Underprivileged young people, 18 and over, given a fully sponsored pathway into the trade.
+  Months of structured training. Hands-on lab work. Industry placement support. A real career — 
+  FOOTNOTE (amber, italic, bold):
+  Funded through CSR, donations, and the surplus from Track Two.
+  CTA (text link with amber underline):
+  → Apply for the next cohort
+TRACK TWO CARD (dark, ink background):
+  EYEBROW (amber-2): TRACK TWO
+  H3 (paper, Georgia, display-md): Certification for the industry's existing installers.
+  BODY:
+  Working installers — across AV, IT, security, automation — get formal, recognised certificatio
+  Paid programmes. Modular. Designed for people already in the trade who want their skills valid
+  FOOTNOTE (amber-2, italic, bold):
+  Surplus from Track Two will progressively underwrite Track One.
+  CTA (text link with amber underline on paper):
+  → Register your interest
+
+=== PAGE 9 ===
+Section H: One Year After Graduation (anchor: #outcomes )
+Background: --color-paper  Layout: Two-column (left dark card with student profile, right four outcome
+blocks) This is the most important section for converting CSR funders and student applicants. Treat it as
+the hero of the lower fold.
+EYEBROW (amber):
+THE CURRICULUM
+H2 (ink, Georgia):
+What we will teach.
+SUBHEAD (muted, italic):
+A practical, end-to-end curriculum built from doing the work — covering the entire low-voltage t
+12 MODULES (each as small card with icon, title, one-line description):
+1.  Design                | System design, drawings, BoQ, documentation.
+2.  Installation          | Cabling, mounting, terminations — done cleanly.
+3.  Rack Building         | Layout, dressing, labelling, thermal design.
+4.  AV                    | Audio, video, signal flow, processors, displays.
+5.  IT & Networking       | Switching, VLANs, Wi-Fi, the IT backbone.
+6.  Security              | CCTV, access control, intrusion, monitoring.
+7.  Automation            | Lighting, shading, scenes, residential control.
+8.  BMS                   | Building management — HVAC, energy, integration.
+9.  Programming           | Control logic, scene programming, GUIs.
+10. AI Integration        | How AI layers into modern systems and workflows.
+11. Project & Site        | Documentation, snag lists, handover, client comms.
+12. Conduct & Care        | How we behave on site. Our trade's reputation lives here.
+FOOTER LINE (amber, italic, centered):
+From first principles to specialist depth — across every discipline our industry needs.
+EYEBROW (amber):
+WHAT WE BUILD TOWARD
+H2 (ink, Georgia):
+One year after graduation.
+SUBHEAD (muted, italic):
+This is the future we are building toward — not abstract, not aspirational; specific and measura
+LEFT COLUMN — Dark card (ink background, amber accent rail):
+  ICON: graduation cap
+  H3 (amber-2): Who we train
+  BODY (paper):
+  Ambitious young people, 18 and over, who want a real career in technology.
+  From families that couldn't have afforded private technical education. They have not been fai
+
+=== PAGE 10 ===
+Section I: Credibility
+Background: --color-paper  Layout: Three step-cards in a row
+  FOOTNOTE (amber-2, italic, bold):
+  Selected on aptitude and need. No fees of any kind.
+RIGHT COLUMN — Four outcome blocks (each with icon + headline + description):
+OUTCOME 1:
+  ICON: briefcase
+  H3: Real jobs
+  BODY: AV technicians, network engineers, automation programmers, security-systems engineers, 
+OUTCOME 2:
+  ICON: building
+  H3: Real employers
+  BODY: Integrators, OEMs, hotel groups, real-estate developers, hospitals, corporate AV teams a
+OUTCOME 3:
+  ICON: rupee
+  H3: Real income
+  BODY: Year-one compensation typically ₹18,000–₹30,000/month. Within 3–5 years, with specialisa
+OUTCOME 4:
+  ICON: heart
+  H3: Real dignity
+  BODY: A uniform that is theirs. A tool kit that is theirs. For the first time, professional re
+BOTTOM PULLOUT (amber, Georgia italic, centered, max-width 800px):
+"We are not opening a door for the sake of opening one. We are opening it onto a real career, w
+EYEBROW (amber):
+CREDIBILITY
+H2 (ink, Georgia):
+Built to be recognised — by industry, then by government.
+SUBHEAD (ink-2, italic):
+A certificate is only worth what it stands for. We're building this so the standards hold up be
+STEP CARD 1 (dark, ink background):
+  BIG NUMBER (amber, Georgia): 01
+  H3 (paper): Industry-led standards
+  BODY: An advisory council of senior practitioners from across our trade reviews and signs off 
+STEP CARD 2 (dark, ink background):
+  BIG NUMBER (amber, Georgia): 02
+  H3 (paper): Real-world assessment
+  BODY: Students are assessed on actual systems they have to design, build, and commission — not
+
+=== PAGE 11 ===
+Section J: The Road Ahead
+Background: --color-paper-2  Layout: Horizontal timeline with three phase cards
+Section K: How You Can Stand With Us (anchor: #partner )
+Background: --color-ink  (dark, full-bleed) Layout: Three large cards in a row, each with a clear CTA This
+is the conversion section. Three clear asks — Hire / Volunteer / Support — each with its own CTA.
+STEP CARD 3 (dark, ink background):
+  BIG NUMBER (amber, Georgia): 03
+  H3 (paper): Government recognition
+  BODY: We are designing every course against the National Skills Qualifications Framework from 
+EYEBROW (amber):
+THE ROAD AHEAD
+H2 (ink, Georgia):
+Where we're going — and how fast.
+SUBHEAD (muted, italic):
+A staged plan, sequenced so each phase earns the right to the next.
+TIMELINE (with amber connecting line and three dots above):
+  • 2026 · PILOT     • 2027 · SCALE     • 2028+ · EXPAND
+  ↓                  ↓                   ↓
+CARD 1 (dark, ink):
+  TAG (amber): 2026 · PILOT
+  H3 (paper): First cohort, self-funded.
+  BODY: Track One pilot batch of 15–20 underprivileged youth. MCBEE-funded to prove the model, 
+CARD 2 (dark, ink):
+  TAG (amber): 2027 · SCALE
+  H3 (paper): Both tracks live; CSR activated.
+  BODY: Two Track One cohorts of 40+. Track Two installer certification launches with first paid
+CARD 3 (dark, ink):
+  TAG (amber): 2028+ · EXPAND
+  H3 (paper): NSQF aligned; multi-city.
+  BODY: Formal NSQF alignment in place. Centres in Mumbai, Bangalore, Hyderabad in planning. A n
+EYEBROW (amber-2):
+HOW YOU CAN STAND WITH US
+H2 (paper, Georgia):
+
+=== PAGE 12 ===
+Section L: Apply (anchor: #apply )
+Background: --color-paper  Layout: Two-column — left intro text, right embedded form Or — link out to
+/apply  page if developer prefers separate page. Either works.
+This cannot be done by one company alone.
+SUBHEAD (muted, italic):
+Three concrete ways to join us. Pick whichever one fits — or pick all three.
+CARD 1 (ink-2 background, amber top border):
+  ICON: handshake
+  TAG (amber-2, all-caps, tracked): FOR INTEGRATORS & EMPLOYERS
+  H3 (paper, Georgia, display-lg): Hire
+  SUBHEAD (amber-2, italic): Commit to interviewing one graduate per year.
+  BODY (paper): The simplest, highest-impact thing you can do. Our students need a first job; yo
+  CTA BUTTON (amber primary, on dark): I want to hire
+CARD 2 (ink-2 background, amber top border):
+  ICON: chalkboard teacher
+  TAG: FOR SENIOR PRACTITIONERS
+  H3: Volunteer
+  SUBHEAD: One teaching session, or curriculum review, per quarter.
+  BODY: A few hours a year of your time and expertise. Teach a module, review course material, m
+  CTA BUTTON: I want to volunteer
+CARD 3 (ink-2 background, amber top border):
+  ICON: rupee symbol
+  TAG: FOR OEMs, DISTRIBUTORS, FOUNDATIONS
+  H3: Support
+  SUBHEAD: Equipment, financial sponsorship, or CSR partnership.
+  BODY: Donate kit or tools, sponsor a cohort, or partner through your CSR programme. Tax-deduct
+  CTA BUTTON: I want to support
+NOTE: All three CTA buttons open the same Partner Enquiry form, but pre-fill the "type of involv
+EYEBROW (amber):
+THE FIRST COHORT
+H2 (ink, Georgia):
+Apply for free training. Build a real career.
+SUBHEAD (ink-2):
+The first cohort opens in 2026. If you're 18 or over, ready to work hard, and want a real caree
+ELIGIBILITY CHECKLIST (bullet list with amber check marks):
+✓  18 years of age or older
+✓  Class XII (or equivalent) completed
+✓  Basic English comprehension
+✓  Willing to commit to a 6-month full-time programme
+✓  No fees of any kind for selected students
+
+=== PAGE 13 ===
+Section M: Trust & Governance (anchor: #trust )
+Background: --color-paper-2  Layout: Six small governance cards in a 3×2 grid
+WHO WE PRIORITISE (smaller, muted text):
+We particularly encourage applications from young people whose families could not have afforded 
+WHAT HAPPENS NEXT (numbered steps):
+1.  Submit your application below
+2.  We will get in touch within 14 days to schedule an interview
+3.  Selected candidates start the next cohort in [DATE TBD]
+CONTACT (small, muted):
+Questions before you apply? Email apply@mcbeefoundation.in or WhatsApp +91-XXXXX-XXXXX
+RIGHT COLUMN — Application form. See form spec §6.1.
+EYEBROW (amber):
+HOW WE WILL RUN IT
+H2 (ink, Georgia):
+Governance and transparency.
+SUBHEAD (ink-2, italic):
+Section 8 status means surplus from any source — including paid programmes — cannot leave the Fo
+GOVERNANCE CARD 1:
+  ICON: check
+  H4: Section 8 company
+  BODY: Registered with the Ministry of Corporate Affairs. Profits cannot be distributed — only 
+GOVERNANCE CARD 2:
+  ICON: check
+  H4: Independent board
+  BODY: Founders plus independent directors from education, industry, and finance providing ove
+GOVERNANCE CARD 3:
+  ICON: check
+  H4: Audited annually
+  BODY: Statutory audit, public filings, transparent annual report on activities, finances, and 
+GOVERNANCE CARD 4:
+  ICON: check
+  H4: 12A, 80G, CSR-1
+  BODY: Tax exemptions for the Foundation, deductibility for donors, CSR-eligibility for corpora
+GOVERNANCE CARD 5:
+  ICON: check
+  H4: Independent impact studies
+  BODY: Third-party assessment of placement rates, learner outcomes, and programme quality every
+
+=== PAGE 14 ===
+Section N: Closing CTA
+Background: --color-paper  Layout: Centered, max-width 900px
+QUOTE ICON (amber-2, large, decorative)
+PULLOUT QUOTE (ink, Georgia italic, display-lg, centered):
+"If our industry built us, the least we can do is build the next generation of it."
+DIVIDER LINE (amber, 80px wide, centered)
+BIG CTA (amber, Georgia, display-md, centered):
+Stand with us.
+TWO BUTTON ROW (centered, equal width):
+[Apply for the Programme]  → /apply  (primary)
+[Partner With Us]          → #partner  (secondary)
+Section O: Footer (all pages)
+Background: --color-ink  (dark) Layout: Four-column on desktop, stacked on mobile. Amber top border
+(4px).
+GOVERNANCE CARD 6:
+  ICON: check
+  H4: Industry advisory council
+  BODY: A working group of integrators, OEMs, and educators shaping curriculum and standards.
+LINK BELOW (text link with amber underline):
+→ Read more about our governance and download our documents on the Transparency page
+COLUMN 1 — Brand:
+  WORDMARK: MCBEE Skills Foundation
+  TAGLINE: A Section 8 (Not-for-profit) Company · Delhi NCR
+  PATRONAGE LINE (small, muted): Powered by MCBEE
+  *(This is the deliberately-preserved patronage acknowledgement.)*
+COLUMN 2 — Programme:
+  • The Curriculum     → #programme
+  • Apply              → /apply
+  • Track Two          → /partner#track-two
+  • One Year After     → #outcomes
+COLUMN 3 — Get Involved:
+  • Hire a Graduate    → /partner
+  • Volunteer          → /partner
+  • Support / Donate   → /partner
+
+=== PAGE 15 ===
+5.3 /about Page
+A standalone page expanding on the Foundation, its founders, board, and operating philosophy. Linked from
+nav and footer.
+Sections:
+1. Hero strip — “About the Foundation” eyebrow + H1 + one-line summary
+2. The Foundation — three paragraphs on what the Foundation is, its scope, its operating model
+3. Founders — full bios for Sawan and Sameer (see §7), with portrait photos
+4. Board & Advisors — initially shows founders + placeholder for independent directors as they’re
+appointed
+5. Our relationship with MCBEE — the §7 paragraph from the Brand Narrative, explaining the patronage
+relationship cleanly
+6. Contact — direct email/phone, registered office address, map embed
+5.4 /transparency Page
+A trust-building page that hosts downloadable governance documents. Important for CSR funders and audit
+trails.
+Sections:
+1. Hero strip — “Transparency” eyebrow + H1 “Every rupee, every decision, on record.”
+2. Registration documents — downloadable PDFs:
+Certificate of Incorporation (when available)
+  • Press / Media      → press@mcbeefoundation.in
+COLUMN 4 — About & Legal:
+  • About Us           → /about
+  • Transparency       → /transparency
+  • Privacy Policy     → /privacy
+  • Terms of Use       → /terms
+  • Donor Policy       → /donor-policy
+  • Grievance Officer  → /grievance
+BOTTOM BAR (separator, then small muted text):
+  © 2026 MCBEE Skills Foundation. All rights reserved.
+  CIN: [to be added after incorporation cert]
+  PAN: [to be added]
+  Registered Office: [address to be added]
+  Social icons (right side): LinkedIn / Instagram / X / YouTube (link out once accounts are live
+
+=== PAGE 16 ===
+Section 8 License
+PAN, TAN cards
+12A registration (when granted)
+80G registration (when granted)
+CSR-1 registration (when granted)
+NGO Darpan ID (when granted)
+3. Annual reports — will be empty in year 1 (“First annual report will be published after our first audited
+financial year — March 2027”). Placeholder for FY 2026-27 onward.
+4. Audited financials — same as above, with placeholder
+5. Impact reports — third-party assessment reports (will start appearing after first cohort completes)
+6. Board minutes summary — quarterly summaries of board decisions (not full minutes, but key
+decisions)
+Note: This page will look sparse at launch. That’s intentional. Build the infrastructure now so the moment
+documents exist, they have a clear home. CSR funders specifically look for this kind of structure.
+6. Forms — Schemas & Behaviour
+6.1 Student Application Form ( /apply  or embedded on home)
+Fields:
+Field
+Type
+Required
+Notes
+Full name
+text
+Y
+Min 2 chars
+Date of birth
+date
+Y
+Must compute as 18+
+Gender
+radio
+(M/F/Other/Prefer
+not to say)
+Y
+Phone number
+tel
+Y
+India format, 10 digits
+WhatsApp
+number (if
+different)
+tel
+N
+Email address
+email
+N
+Current city /
+town
+text
+Y
+select (Class X /
+
+=== PAGE 17 ===
+Highest
+education
+completed
+Class XII /
+Diploma /
+Graduate /
+Other)
+Y
+Year of
+completion
+number
+Y
+Family monthly
+income (approx)
+select (<₹10k /
+₹10-25k / ₹25-
+50k / ₹50k+ /
+Prefer not to say)
+Y
+Used for need-based selection
+Why do you
+want to join?
+textarea
+Y
+Min 100 chars, max 1000
+How did you
+hear about us?
+select (Friend /
+Social media /
+News / Other —
+with conditional
+text field)
+Y
+Consent block
+checkbox
+Y
+“I have read and agree to the Privacy Policy. I consent
+to MCBEE Skills Foundation contacting me about my
+application and storing the information above for the
+purpose of evaluating and processing my application.”
+[Privacy Policy link inline]
+Communication
+consent
+checkbox
+N
+(separate
+from
+required
+consent)
+“I would like to receive updates about MCBEE Skills
+Foundation’s work via email/WhatsApp.”
+Submission behaviour:
+1. Validate client-side (real-time)
+2. Server-side validate again
+3. Store in database with timestamp + IP + user-agent (for spam triage)
+4. Send confirmation email to applicant (if email provided) — “We received your application. Expect to hear
+from us within 14 days.”
+5. Send notification email to applications@mcbeefoundation.in
+6. Send WhatsApp message to applicant via WhatsApp Business API (phase 2 — not v1)
+7. Show on-page success state with next steps
+Spam protection:
+Cloudflare Turnstile (free, privacy-friendly, no Google reCAPTCHA)
+
+=== PAGE 18 ===
+Honeypot field (hidden input — bots fill it, humans don’t)
+Rate limit: max 3 submissions per IP per hour
+6.2 Partner Enquiry Form ( /partner  or modal from #partner section)
+Fields:
+Field
+Type
+Required
+Notes
+Name
+text
+Y
+Company /
+Organisation
+text
+Y
+Designation
+text
+Y
+Email
+email
+Y
+Phone
+tel
+Y
+Type of
+involvement
+radio (Hire / Volunteer / Support / Not sure yet)
+Y
+Pre-filled if
+user came
+from a
+specific
+card
+Type of
+company
+select
+(Integrator/AV/IT/OEM/Distributor/Architect/Foundation/CSR/Other)
+Y
+Tell us more
+textarea
+Y
+Min 50
+chars
+Consent block
+checkbox
+Y
+Same
+Privacy
+Policy
+consent
+pattern as
+application
+form
+Communication
+consent
+checkbox
+N
+“I would like
+to receive
+periodic
+updates
+about
+MCBEE
+Skills
+Foundation’s
+work.”
+
+=== PAGE 19 ===
+Submission behaviour: Same as student form, with notifications routed to
+partnerships@mcbeefoundation.in .
+6.3 Newsletter / “Stay in touch” form (footer or modal)
+Fields:
+Field
+Type
+Required
+Email
+email
+Y
+Name
+text
+N
+Consent
+checkbox
+Y — “I consent to receiving emails from MCBEE Skills Foundation. I can unsubscribe
+at any time.”
+Submission: Add to mailing list (Mailchimp / Buttondown / ConvertKit). Send welcome email with link to
+Privacy Policy and unsubscribe instructions.
+7. Founder Profiles
+Two profiles for the About page and Brand Narrative use. Verbiage is suggestive — confirm with both
+founders before publishing.
+Sawan
+Role: Co-Founder, MCBEE Skills Foundation; Co-Founder, MCBEE Pvt Ltd
+Bio (long):
+Sawan co-founded MCBEE in [year] and has spent the last 15+ years building some of India’s most
+demanding residential and commercial integration projects. His work spans luxury smart homes,
+hospitality AV, and corporate technology integration across India. Beyond MCBEE, he co-founded
+BEENEXT and ISDPL, building a small group of companies serving India’s premium technology
+infrastructure market. At MCBEE Skills Foundation, he leads the curriculum architecture, industry
+partnerships, and the long-term vision for the Foundation’s role in the trade.
+Bio (short, 30 words):
+Co-Founder. 15+ years building luxury residential and commercial integration projects across India.
+Leads curriculum, industry partnerships, and the Foundation’s long-term vision.
+Quote for the website:
+“We’ve seen the same gap for fifteen years. Bright young people, no way in. Companies needing
+talent, no pipeline. It’s time we stopped complaining and started building.”
+Image: Environmental portrait, ideally at an actual MCBEE project site or showroom. Warm lighting.
+Working clothes acceptable — we’re a trade.
+
+=== PAGE 20 ===
+Sameer
+Role: Co-Founder, MCBEE Skills Foundation; Co-Founder, MCBEE Pvt Ltd
+Bio (long):
+Sameer co-founded MCBEE in [year] and brings 15+ years of operational leadership across AV, IT,
+and automation integration. His expertise spans technical design, project execution at scale, and
+building the systems and standards that allow integrators to deliver consistently. At MCBEE Skills
+Foundation, he leads operations, governance, and the Foundation’s relationship with industry
+partners.
+Bio (short, 30 words):
+Co-Founder. 15+ years of operational leadership in AV, IT, and automation integration. Leads
+operations, governance, and industry partnerships at the Foundation.
+Quote for the website:
+“If we get this right, every integrator in India hires from a stronger talent pool a decade from now.
+Including us. That’s the whole point.”
+Image: Environmental portrait, same treatment as Sawan. The two portraits should feel like a pair —
+consistent lighting, framing, mood.
+Photography brief: Both founders, ideally photographed by the same photographer in the same session.
+Background: at MCBEE’s office, a recent installation site, or in front of a rack/programming workstation.
+Wardrobe: smart but unpretentious — no suits, no over-staging. The visual goal is “respected senior
+tradesperson,” not “corporate CEO.”
+8. SEO & Meta
+Default site-wide meta
+<title>MCBEE Skills Foundation — Training India's next generation of AV, IT, automation, securit
+<meta name="description" content="A Section 8 not-for-profit training underprivileged youth for 
+<!-- Open Graph -->
+<meta property="og:title" content="MCBEE Skills Foundation">
+<meta property="og:description" content="Training India's next generation of AV, IT, automation
+<meta property="og:image" content="https://mcbeefoundation.in/og-image.jpg">
+<meta property="og:url" content="https://mcbeefoundation.in">
+<meta property="og:type" content="website">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MCBEE Skills Foundation">
+<meta name="twitter:description" content="Training India's next generation of AV, IT, automation
+<meta name="twitter:image" content="https://mcbeefoundation.in/twitter-card.jpg">
+
+=== PAGE 21 ===
+Structured data (JSON-LD)
+Add Organization schema:
+Other meta
+robots.txt  — allow all, point to sitemap
+sitemap.xml  — auto-generated, include all public pages
+Favicon set: 16, 32, 180 (apple-touch), 512 (PWA)
+OG image: 1200×630, with logo + tagline on dark background
+Target keywords (for the homepage)
+Don’t keyword-stuff. Aim to rank naturally for:
+“AV training India”
+“smart home installation training India”
+“Section 8 not-for-profit AV”
+“audio visual integration course India”
+“BMS technician training”
+“free technical training underprivileged youth Delhi”
+“MCBEE Skills Foundation”
+{
+  "@context": "https://schema.org",
+  "@type": "NGO",
+  "name": "MCBEE Skills Foundation",
+  "alternateName": "MCBEE Foundation",
+  "url": "https://mcbeefoundation.in",
+  "logo": "https://mcbeefoundation.in/logo.png",
+  "description": "A Section 8 not-for-profit training underprivileged youth for real careers in 
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Gurugram",
+    "addressRegion": "Haryana",
+    "addressCountry": "IN"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/mcbee-skills-foundation",
+    "https://www.instagram.com/mcbeefoundation",
+    "https://twitter.com/mcbeefoundation"
+  ]
+}
+
+=== PAGE 22 ===
+9. Legal & Compliance Pages — REQUIRED
+ Important note before launch: All four pages below must be reviewed by a lawyer familiar with
+Indian non-profit law and the DPDP Act 2023 before publishing. The text below is a sound starting point
+built from current best practices among comparable Indian non-profits and DPDP Rules 2025. It is NOT
+legal advice. Get CA Soman or an external counsel to validate.
+Regulatory context for the developer
+The website will be subject to:
+1. Companies Act, 2013 — Section 8 disclosure obligations
+2. Income Tax Act, 1961 — Section 12A and 80G (once granted) — donor receipt format, refund
+obligations
+3. Information Technology Act, 2000 + IT Rules 2011 — privacy, sensitive personal data
+4. Digital Personal Data Protection Act, 2023 + DPDP Rules 2025 — full compliance deadline 13 May
+2027. Build to be compliant from day one.
+5. NITI Aayog NGO Darpan — once registered, the Darpan ID must be displayed on the website
+(recommended for credibility)
+6. FCRA, 2010 — only triggered if accepting foreign donations; out of scope for v1
+9.1 Privacy Policy ( /privacy )
+Purpose: Explains what personal data the site collects, how it uses it, and the rights data principals have
+under the DPDP Act 2023.
+# Privacy Policy
+**Last updated: [DATE]**
+MCBEE Skills Foundation ("we", "us", "the Foundation") is a Section 8 not-for-profit company reg
+This Privacy Policy is published in compliance with the Digital Personal Data Protection Act, 2
+## 1. Who we are (Data Fiduciary details)
+**MCBEE Skills Foundation**
+[Registered office address — to be added after incorporation cert]
+CIN: [to be added]
+Email: privacy@mcbeefoundation.in
+Phone: [to be added]
+For the purposes of the DPDP Act, we are the **Data Fiduciary** for personal data collected thro
+## 2. What personal data we collect
+We may collect the following categories of personal data:
+**When you apply for our Track One youth programme:**
+
+=== PAGE 23 ===
+- Full name, date of birth, gender
+- Phone number, WhatsApp number, email address
+- City, postal address
+- Education details
+- Family income range (used solely for need-based selection)
+- Your written application content
+- The IP address and device information at the time of submission
+**When you submit a partner enquiry:**
+- Name, company, designation
+- Phone number, email address
+- Information you choose to share in the message
+**When you subscribe to our updates:**
+- Email address, name (optional)
+**When you visit our website (automatically collected):**
+- IP address, browser type, device type, operating system
+- Pages visited, time spent, referring URL
+- Cookies and similar tracking technologies (see §6 below)
+We do not knowingly collect sensitive personal data (such as financial account numbers, biometr
+## 3. Why we collect it (purposes of processing)
+We process your personal data only for the following specified purposes:
+- To evaluate, process, and respond to your programme application
+- To evaluate, process, and respond to your partnership enquiry
+- To communicate with you about your application, enquiry, or our work (only with your consent)
+- To send you updates about the Foundation if you have specifically subscribed
+- To comply with our legal, regulatory, and audit obligations
+- To improve our website and our communications
+- To prevent fraud, abuse, and security incidents
+We do not process your personal data for any purpose other than those explicitly listed above.
+## 4. The legal basis for processing
+We process personal data on the basis of:
+- **Your consent**, given through the consent checkbox on our forms, for all primary purposes
+- **Legitimate uses** as permitted under Section 7 of the DPDP Act, in limited cases (such as co
+You may withdraw your consent at any time (see §8 below).
+## 5. Who we share your data with
+We do not sell, rent, or trade your personal data with any third party.
+We share your personal data only with:
+- Our authorised staff, board members, and volunteers, on a need-to-know basis, for the purpose
+- Our service providers who help us operate (hosting providers, email service, database service
+- Our auditors, lawyers, and regulators where legally required
+- Government authorities where required by law (e.g., a court order, statutory notice, or law en
+
+=== PAGE 24 ===
+If we ever transfer personal data outside India, we will do so in compliance with Section 16 of 
+## 6. Cookies and similar technologies
+Our website uses minimal cookies and similar technologies for:
+- **Essential cookies** — required for the site to function (e.g., remembering your form progre
+- **Analytics cookies** — to understand how visitors use our site (we use [Plausible / Fathom / 
+You can disable non-essential cookies through your browser settings without affecting your abil
+## 7. How long we keep your data
+- **Programme applications:** retained for 3 years from submission, then deleted, unless you be
+- **Partner enquiries:** retained for 5 years from last interaction
+- **Newsletter subscribers:** retained until you unsubscribe; deleted within 30 days of unsubsc
+- **Website analytics:** anonymised after 13 months
+After these periods, your personal data is permanently deleted, unless we are required by law to
+## 8. Your rights as a Data Principal
+Under the DPDP Act, 2023, you have the following rights:
+- **Right to information** — to know what personal data of yours we hold and how it is being pro
+- **Right to correction and erasure** — to ask us to correct inaccurate data or delete data we n
+- **Right of grievance redressal** — to raise a complaint with us about how we process your data
+- **Right to nominate** — to nominate another person to exercise these rights on your behalf in 
+- **Right to withdraw consent** — to withdraw your consent for processing at any time. Withdrawa
+To exercise any of these rights, write to us at privacy@mcbeefoundation.in. We will respond with
+If you are not satisfied with our response, you may approach the **Data Protection Board of Ind
+## 9. Security
+We take reasonable security measures to protect your personal data, including:
+- Encrypted transmission (SSL/TLS) on the website
+- Access controls on our internal systems
+- Secure database hosting with reputable providers
+- Periodic security reviews
+However, no system is 100% secure. If a personal data breach occurs that is likely to result in 
+## 10. Children's data
+Our website is not directed at children under 18. Our Track One programme is open only to appli
+## 11. Changes to this policy
+We may update this Privacy Policy from time to time. The "Last updated" date at the top of this 
+## 12. Contact
+
+=== PAGE 25 ===
+9.2 Terms of Use ( /terms )
+For any questions about this Privacy Policy, or to exercise any of your rights:
+**Privacy Contact**
+Email: privacy@mcbeefoundation.in
+Postal: [Registered office address]
+**Grievance Officer**
+Name: [to be appointed — typically a director or compliance officer]
+Email: grievance@mcbeefoundation.in
+Phone: [to be added]
+We will acknowledge your communication within 7 days and substantively respond within 30 days.
+# Terms of Use
+**Last updated: [DATE]**
+These Terms of Use govern your use of the website mcbeefoundation.in and any services offered th
+## 1. About us
+This website is operated by **MCBEE Skills Foundation**, a Section 8 not-for-profit company reg
+CIN: [to be added]
+Registered office: [to be added]
+Contact: hello@mcbeefoundation.in
+## 2. Use of the website
+You may use this website for lawful, personal, or organisational purposes consistent with its st
+- Use the website in any way that is unlawful, fraudulent, or harmful
+- Attempt to gain unauthorised access to the website or its underlying systems
+- Use any automated means (bots, scrapers, etc.) to access the website without our written perm
+- Submit false or misleading information through our forms
+- Interfere with the operation or security of the website
+## 3. Programme applications
+The Foundation's Track One youth training programme is offered subject to:
+- Eligibility criteria published on the website
+- A selection process administered by the Foundation
+- Capacity limits (cohort sizes)
+Submission of an application does not guarantee selection. The Foundation reserves the right to 
+## 4. Partnership enquiries
+Submission of a partnership enquiry does not create any contractual obligation between you and t
+
+=== PAGE 26 ===
+9.3 Donor Privacy Policy & Refund Policy ( /donor-policy )
+This is in addition to the main Privacy Policy. It addresses donor-specific concerns and is something CSR
+auditors look for.
+## 5. Intellectual property
+All content on this website — text, images, logos, design — is owned by MCBEE Skills Foundation 
+- Fair use for non-commercial educational, journalistic, or personal purposes, with proper attr
+- Press use of materials clearly marked as being for press use
+## 6. Third-party links
+Our website may contain links to third-party websites (such as social media platforms, partner o
+## 7. Disclaimers
+The information on this website is provided "as is" for general informational purposes. While we
+- Programme outcomes (including job placement and income figures) reflect our targets and reason
+- Eligibility for tax deductions under Section 80G is subject to applicable law and to our cert
+- We do not provide legal, financial, or career advice through this website.
+## 8. Limitation of liability
+To the extent permitted by Indian law, MCBEE Skills Foundation, its directors, officers, employe
+## 9. Indemnity
+You agree to indemnify and hold harmless the Foundation against any claims, losses, or damages a
+## 10. Modifications
+We may modify these Terms from time to time. Material changes will be notified to registered use
+## 11. Governing law and jurisdiction
+These Terms are governed by the laws of India. Any disputes arising from these Terms or your use
+## 12. Contact
+For questions about these Terms:
+Email: hello@mcbeefoundation.in
+Postal: [Registered office address]
+# Donor Privacy Policy and Refund Policy
+**Last updated: [DATE]**
+MCBEE Skills Foundation deeply values every contribution that supports our mission. This policy 
+This policy supplements (and does not replace) our general [Privacy Policy](/privacy).
+
+=== PAGE 27 ===
+## 1. Information we collect from donors
+When you make a donation (or express an intention to donate), we may collect:
+- Your name, address, phone number, email address
+- Your PAN (required for issuing 80G receipts, where applicable)
+- The amount donated and your payment method details (handled by our payment processor — we do n
+- Any messages, dedications, or instructions you provide
+- Anonymisation preference (whether you wish to be publicly acknowledged or remain anonymous)
+## 2. How we use donor information
+We use this information solely to:
+- Process and acknowledge your donation
+- Issue a receipt (and an 80G certificate, where applicable)
+- Send you periodic updates about the impact of your contribution (only if you have consented)
+- Comply with our statutory obligations, including audit, taxation, and reporting requirements
+## 3. Confidentiality
+- We **do not** sell, trade, rent, or lease donor information to any third party
+- We **do not** publicly disclose donor names, amounts, or other identifying information unless 
+- We share donor information with our auditors, tax authorities, and regulators only where requ
+## 4. Public acknowledgement
+Some donors choose to be publicly acknowledged (in annual reports, on our website, at events). T
+## 5. Tax exemption (80G)
+Once our 80G registration is granted, eligible donations will receive a tax deduction certificat
+- Issue the 80G certificate within 30 days of the donation being credited
+- File the corresponding statement (Form 10BD) with the Income Tax Department as required
+- Maintain records of all donations for the period required by law
+PAN is mandatory for issuing an 80G certificate. Without PAN, we can still accept your donation 
+## 6. Refund and cancellation policy
+We understand that donations may sometimes need to be reversed. Our policy is as follows:
+### Duplicate or accidental donations
+If you believe you have donated by mistake or your card was charged twice, please contact us at 
+- Your name and the transaction reference number
+- Proof of the donation (a screenshot or bank statement is sufficient)
+- A brief reason for the refund request
+We will review and respond within 7 working days. If the refund is approved, we will process it 
+### Cancellation
+If you have indicated an intention to donate but have not yet made payment, no action is require
+### After 80G certificate is issued
+Once an 80G certificate has been issued for a donation, we generally cannot refund the donation
+
+=== PAGE 28 ===
+9.4 Grievance Redressal Policy ( /grievance )
+This is required under the DPDP Act 2023 — every Data Fiduciary must publish a grievance officer’s
+contact details.
+### Where we will not refund
+- Donations more than 30 days after the transaction (subject to the duplicate/accidental except
+- Donations where the donor has already received public acknowledgement and the acknowledgement 
+- Donations made with the intent to fraud or where the donor has acted in bad faith
+## 7. Donation receipts
+Every donor receives:
+- A confirmation email immediately on successful donation (system-generated)
+- A formal donation receipt within 7 working days
+- An 80G certificate within 30 days (where applicable and eligible)
+Receipts are sent to the email address provided at the time of donation. You may request a dupl
+## 8. Foreign donations
+We are not currently authorised to receive donations from foreign sources under the Foreign Cont
+*[Note: this clause will be updated once FCRA registration is obtained, if applicable.]*
+## 9. Donor rights
+As a donor, you have the right:
+- To be informed of the Foundation's mission, governance, and the use of your contribution
+- To know the identity of those serving on the Foundation's board
+- To have access to our most recent audited financial statements (via our [Transparency page](/t
+- To receive appropriate acknowledgement
+- To be assured that information about your donation is handled with respect and confidentiality
+- To feel free to ask questions and to receive prompt, truthful, and forthright answers
+- To opt out of future communications at any time
+## 10. Contact
+For any questions about donations:
+**Donor Care**
+Email: donations@mcbeefoundation.in
+Phone: [to be added]
+Postal: [Registered office address]
+# Grievance Redressal Policy
+**Last updated: [DATE]**
+MCBEE Skills Foundation is committed to addressing concerns from any stakeholder — programme app
+This policy is published in compliance with the Digital Personal Data Protection Act, 2023, the 
+
+=== PAGE 29 ===
+## 1. What is a grievance
+A grievance is any complaint, concern, or dissatisfaction relating to:
+- Our handling of personal data (under the DPDP Act, 2023)
+- Our programme operations or selection processes
+- The conduct of our staff, volunteers, or representatives
+- Our financial handling, including donations
+- Our communications or content
+- Any other matter relating to the Foundation's activities
+## 2. How to raise a grievance
+You may raise a grievance through any of the following channels:
+**Email:** grievance@mcbeefoundation.in
+**Postal:** Grievance Officer, MCBEE Skills Foundation, [Registered office address]
+**Phone:** [to be added]
+Please include in your grievance:
+- Your name and contact details
+- A clear description of the issue
+- Any relevant dates, references, or documents
+- The outcome you are seeking
+If you wish to remain anonymous, you may do so — but it will limit our ability to update you on 
+## 3. Our Grievance Officer
+| Field | Detail |
+|---|---|
+| Name | [To be appointed — typically a director or designated compliance officer] |
+| Designation | Grievance Officer |
+| Email | grievance@mcbeefoundation.in |
+| Phone | [to be added] |
+| Office hours | Monday to Friday, 10:00 to 18:00 IST |
+The Grievance Officer is empowered to investigate complaints and recommend remedies.
+## 4. Our process
+1. **Acknowledgement** — within 7 working days of receiving your grievance, we will acknowledge 
+2. **Investigation** — the Grievance Officer (with any additional reviewers required) will inve
+3. **Resolution** — we will substantively respond within 30 days of receipt. If the matter is co
+4. **Outcome** — we will communicate the outcome and any actions taken in writing.
+## 5. Escalation
+If you are not satisfied with our response, you may escalate as follows:
+**For data protection grievances** (under the DPDP Act, 2023):
+You may approach the **Data Protection Board of India** as established under the Act. The Board
+**For other grievances:**
+
+=== PAGE 30 ===
+9.5 Required disclosures on every page footer
+Per Section 12(3) of the Companies Act, 2013, certain particulars must appear on official communications.
+While this applies most strictly to letterhead, it’s prudent to include on the website footer too:
+CIN (Corporate Identification Number)
+Registered office address
+Contact email and phone
+PAN (recommended but not strictly required on website)
+NGO Darpan ID (once obtained)
+Reference to applicable registrations (12A, 80G, CSR-1 — once obtained)
+All of these go in the bottom strip of the footer (see §5.2 Section O).
+10. Accessibility & Performance Standards
+Accessibility (target: WCAG 2.1 AA)
+All images have meaningful alt text
+All form fields have labels (not just placeholders)
+Colour contrast ratios: minimum 4.5:1 for body text, 3:1 for large text
+Site fully navigable via keyboard
+Focus states clearly visible on all interactive elements
+No content relies solely on colour to convey meaning
+Skip-to-content link at the top of each page
+Headings used hierarchically (H1 → H2 → H3, no skipping)
+You may approach the Registrar of Companies (Haryana / Delhi, as applicable based on our registe
+## 6. Confidentiality
+We treat all grievances with confidentiality. Information about the grievance is shared only wit
+## 7. Records
+We maintain a register of all grievances received, including the date received, nature, action t
+## 8. Changes to this policy
+This policy may be updated from time to time. Material changes will be reflected on this page w
+
+=== PAGE 31 ===
+Tested with at least one screen reader (NVDA or VoiceOver) before launch
+Forms have clear error messages, accessible to screen readers
+Performance
+Largest Contentful Paint (LCP): under 2.5s on 4G
+Cumulative Layout Shift (CLS): under 0.1
+First Input Delay (FID) / Interaction to Next Paint (INP): under 200ms
+Total page weight: under 1.5MB on the homepage (compressed)
+Images: served via Next.js <Image>  with WebP/AVIF where supported, lazy-loaded below the fold
+Fonts: subsetted, preloaded for critical fonts, system fallbacks
+No render-blocking third-party scripts above the fold
+Caching headers configured for static assets
+Compression (Brotli/gzip) enabled at the CDN
+Browser support
+Chrome, Edge, Safari, Firefox: latest 2 versions
+iOS Safari: latest 2 versions
+Android Chrome: latest 2 versions
+Graceful degradation on older browsers (no functionality should break catastrophically)
+11. Analytics, Tracking, & Lead Capture
+Analytics
+Recommended: Plausible Analytics or Fathom — both are privacy-friendly, lightweight, and DPDP-friendly
+out of the box. No cookies, no personal data collection, no consent banner needed.
+If Google Analytics is required (e.g. for CSR funders or other stakeholders who want it), use GA4 with:
+IP anonymisation enabled
+Consent banner required (since GA does use cookies)
+Data retention set to 14 months minimum
+What to track
+Page views (which pages are most visited)
+Conversion events:
+
+=== PAGE 32 ===
+Student application submitted
+Partner enquiry submitted
+Newsletter signup
+PDF download (annual report, registrations)
+Outbound link click (to social, to email)
+Source/medium (where traffic comes from — for campaign attribution)
+Geography (which cities are we reaching)
+What to NOT track
+Individual user behaviour identification
+Personal data in URLs or events
+Anything that requires cookies without consent
+Lead capture backend
+All form submissions write to:
+1. Primary: PostgreSQL database (Supabase) with row-level security
+2. Backup: Google Sheet via Zapier (one row per submission)
+3. Notification: Email to relevant team inbox (applications@, partnerships@, donations@)
+4. CRM (Phase 2): Once volume justifies, integrate with a CRM (HubSpot free tier or similar)
+Conversion tracking (without compromising privacy)
+Use first-party event tracking only:
+Form submission triggers a custom event in Plausible/Fathom
+No third-party retargeting pixels in v1
+If Meta/Google Ads are run later, use server-side conversion APIs with consent
+12. Asset Requirements
+Logos & marks
+Wordmark: “MCBEE Skills Foundation” — primary form
+Lockup: Mark + wordmark, horizontal — for the nav bar
+Mark only: A small bee-inspired symbol, for favicons and avatar use
+All marks: SVG primary, PNG fallback, both light and dark variants
+
+=== PAGE 33 ===
+File names: logo-wordmark-dark.svg , logo-wordmark-light.svg , logo-lockup-dark.svg , logo-
+mark.svg , favicon-*.png  (16, 32, 180, 512)
+Photography
+Priority list — get these shot before launch:
+1. Founder portraits — both founders, environmental, same session, same photographer. See §7 brief.
+2. Hero / cover image — a wide environmental shot suitable for the homepage hero or About page. Could
+be: a workshop, a rack, a project install in progress. Aspect ratio: 16:9 or 21:9.
+3. Workspace shots — 3-5 detail shots of tools, racks, an MCBEE site. For texture and section dividers.
+No identifiable third-party logos.
+4. Stand-in imagery — until the first cohort exists, we do not have student photos. Use illustrated or
+symbolic imagery instead. Do NOT use stock photos of students — they read as inauthentic.
+Icons
+Use a consistent icon set. Recommended: Lucide (open source, clean, large coverage). Or Phosphor
+Icons. Avoid mixing icon styles.
+Icons needed for the site:
+robot / AI
+users / group
+handshake
+trending up chart
+briefcase
+building
+rupee
+heart
+graduation cap
+tools
+network
+server
+video / camera
+shield (security)
+home
+hard hat (installation)
+cogs
+
+=== PAGE 34 ===
+laptop / code
+check
+chalkboard teacher
+pen / nib
+Document downloads
+PDFs for the Transparency page:
+Certificate of Incorporation (image scan, OCR’d PDF)
+Section 8 License (same)
+12A, 80G, CSR-1 certificates (once granted)
+Annual reports (year 1+, as available)
+Brand guidelines / press kit (optional, can come later)
+All PDFs:
+Compressed to under 2MB where possible
+Filenames clean and descriptive: mcbee-foundation-incorporation-certificate-2026.pdf
+Accessible via direct link AND via the Transparency page index
+13. Launch Checklist
+Before going live, confirm:
+Content
+All copy reviewed by both founders
+All copy proofread (a fresh pair of eyes — typos kill credibility)
+All placeholder text removed ([DATE], [TBD], [to be added])
+All founder bios approved by each founder
+Contact information accurate (email, phone, address)
+All form fields tested with real submissions
+Legal
+All four legal pages reviewed by a lawyer or qualified CA
+Grievance Officer formally appointed (by board resolution)
+Privacy contact (privacy@mcbeefoundation.in) and grievance contact (grievance@mcbeefoundation.in)
+inboxes set up and monitored
+
+=== PAGE 35 ===
+Cookie consent banner (if Google Analytics used) live
+CIN, PAN, registered office address added to footer
+Refund policy reviewed by treasury/accounts
+Technical
+All forms tested (submission, validation, email notifications, database writes, spam blocking)
+All links tested (no 404s)
+Mobile responsiveness tested on iPhone, Android, tablet
+Cross-browser tested (Chrome, Safari, Firefox, Edge)
+Lighthouse score: 90+ on Performance, Accessibility, Best Practices, SEO
+HTTPS enabled, HTTP redirects to HTTPS
+Robots.txt and sitemap.xml live
+Open Graph and Twitter Card meta tags rendering correctly (test on opengraph.xyz)
+Custom 404 page in place
+Analytics installed and verified
+DNS configured, domain pointing correctly
+SSL certificate valid and auto-renewing
+Communications
+Email forwarding set up for all functional inboxes:
+hello@mcbeefoundation.in (general)
+apply@ + applications@ (student applications)
+partnerships@ (industry enquiries)
+donations@ (donor enquiries)
+press@ (media)
+privacy@ (data privacy)
+grievance@ (formal grievances)
+Auto-responders configured for application form submissions
+Internal team Slack/WhatsApp channel notifying on new lead submissions
+Backup forwarding to founders’ personal emails for first 3 months
+Brand
+Final logo files in place (SVG primary, PNG fallback)
+
+=== PAGE 36 ===
+OG/Twitter card images uploaded
+Favicon set deployed
+Founder portraits live (or interim placeholder if photoshoot delayed)
+Social media profile links live or placeholders removed
+Post-launch monitoring (first 30 days)
+Weekly review of form submissions and lead quality
+Daily review of error logs
+First newsletter / announcement sent within 7 days of launch
+First social media posts go up coordinating with launch
+Trade publication press release sent (Resi-tech, Systems Contractor India, etc. — list to confirm)
+14. Post-Launch Backlog
+Features and improvements deliberately deferred to v2 (after the first cohort completes and we have real
+outcomes data):
+1. Live cohort page — once the first cohort starts, a page tracking their progress (without violating their
+privacy)
+2. Alumni stories — graduate profiles with consent, showing real outcomes
+3. News / blog section — articles on industry, training, programme updates
+4. Multi-language — Hindi version of the site (apply form in Hindi from launch is recommended though)
+5. Online donation — once 80G is granted, integrate a payment gateway (Razorpay / Cashfree) with 80G
+receipt automation
+6. Online application portal — replace the form with a more substantial portal tracking applicant status
+7. Volunteer portal — log volunteer hours, share materials, coordinate sessions
+8. Industry partner directory — public-facing list of partners who have committed
+9. CSR microsite — a dedicated landing page for CSR teams with downloadable proposal templates and
+impact data
+10. YouTube channel + video content — graduate stories, founder talks, project case studies
+11. Press kit — downloadable founder bios, logos, b-roll, fact sheet for journalists
+12. Newsletter archive — past newsletters publicly browsable
+13. Search functionality — site search once content exceeds 20+ pages
+14. Job board — once we have more graduates than placement partners, a small jobs page where partners
+post
+
+=== PAGE 37 ===
+None of these is needed for launch. Focus v1 on lead capture and credibility.
+End of Specification
+Total pages this document specifies:
+1 homepage (long-scroll, 14 sections)
+1 about page
+1 transparency page
+4 legal pages (privacy, terms, donor policy, grievance)
+1 custom 404 = 8 pages total + reusable nav and footer
+Estimated build time (for a competent developer using the recommended stack):
+40-60 hours for v1, including form integration
+Plus 10-15 hours for legal page review cycles, copy approvals, asset integration
+File version: 1.0 — May 2026 Owners: Sawan & Sameer Next review: After first 10 form submissions or 30
+days post-launch, whichever comes first.
+

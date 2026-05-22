@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Two Tracks — MCBEE Skills Foundation</title>
-  <meta name="description" content="Track One: free training for underprivileged youth. Track Two: certification for working installers. Two tracks, one mission." />
+  <title>Track One: Free Youth Training · Track Two: Installer Certification | MCBEE Skills Foundation</title>
+  <meta name="description" content="Track One: fully sponsored 6-month programme for underprivileged youth, age 18+. Track Two: formal AV and IT certification for working installers. NSQF-aligned from day one." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
@@ -228,16 +228,74 @@
       .foot-grid { grid-template-columns: 1fr; }
     }
   </style>
-  <link rel="canonical" href="https://mcbeefoundation.in/tracks.html" />
+  <link rel="canonical" href="https://mcbeeskills.com/tracks.html" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="The Two Tracks — MCBEE Skills Foundation" />
   <meta property="og:description" content="Track One: free training for underprivileged youth. Track Two: certification for working installers. Two tracks, one mission." />
-  <meta property="og:url" content="https://mcbeefoundation.in/tracks.html" />
-  <meta property="og:image" content="https://mcbeefoundation.in/og-image.png" />
+  <meta property="og:url" content="https://mcbeeskills.com/tracks.html" />
+  <meta property="og:image" content="https://mcbeeskills.com/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="The Two Tracks — MCBEE Skills Foundation" />
   <meta name="twitter:description" content="Track One: free training for underprivileged youth. Track Two: certification for working installers. Two tracks, one mission." />
-  <meta name="twitter:image" content="https://mcbeefoundation.in/og-image.png" />
+  <meta name="twitter:image" content="https://mcbeeskills.com/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://mcbeeskills.com/" },
+      { "@type": "ListItem", "position": 2, "name": "The Two Tracks", "item": "https://mcbeeskills.com/tracks.html" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "MCBEE Skills Foundation Training Programmes",
+    "url": "https://mcbeeskills.com/tracks.html",
+    "numberOfItems": 2,
+    "itemListElement": [
+      {
+        "@type": "ListItem", "position": 1,
+        "item": {
+          "@type": "Course",
+          "@id": "https://mcbeeskills.com/tracks.html#track-one",
+          "name": "Track One — Free Youth Training Programme",
+          "description": "A fully sponsored 6-month full-time training programme for underprivileged youth aged 18 and above. Covers AV, IT, networking, security, automation, BMS, and programming. No fees of any kind.",
+          "url": "https://mcbeeskills.com/tracks.html#track-one",
+          "provider": { "@type": "Organization", "name": "MCBEE Skills Foundation", "url": "https://mcbeeskills.com/" },
+          "timeRequired": "P6M",
+          "educationalLevel": "Beginner",
+          "teaches": ["Audio-Visual System Design and Installation", "IT and Network Infrastructure", "Security Systems", "Building Automation and BMS", "Control System Programming", "AI Integration"],
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR", "availability": "https://schema.org/InStock" },
+          "hasCourseInstance": {
+            "@type": "CourseInstance", "courseMode": "onsite",
+            "location": { "@type": "Place", "name": "MCBEE Skills Foundation Training Centre", "address": { "@type": "PostalAddress", "addressLocality": "Delhi NCR", "addressCountry": "IN" } }
+          }
+        }
+      },
+      {
+        "@type": "ListItem", "position": 2,
+        "item": {
+          "@type": "Course",
+          "@id": "https://mcbeeskills.com/tracks.html#track-two",
+          "name": "Track Two — AV & IT Installer Certification",
+          "description": "Modular, paid certification programme for working installers in AV, IT, security, automation, and BMS. Practical assessment on real systems. Designed for working professionals — weekend and evening format.",
+          "url": "https://mcbeeskills.com/tracks.html#track-two",
+          "provider": { "@type": "Organization", "name": "MCBEE Skills Foundation", "url": "https://mcbeeskills.com/" },
+          "educationalLevel": "Intermediate",
+          "coursePrerequisites": "Currently working in AV, IT, security, automation, or BMS industry",
+          "teaches": ["Audio-Visual System Certification", "IT and Networking Certification", "Security Systems Certification", "Building Automation Certification", "Building Management Systems"],
+          "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "blended" }
+        }
+      }
+    ]
+  }
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="content.js"></script>
@@ -247,7 +305,7 @@
 <!-- NAV -->
 <nav id="nav">
   <a href="index.html" class="nav-logo">
-    <img src="MSF logomark.png" alt="MCBEE Skills Foundation" class="nav-logomark-img" />
+    <img src="msf-logomark.png" alt="MCBEE Skills Foundation" class="nav-logomark-img" />
   </a>
   <ul class="nav-links" style="margin-left:auto;">
     <li><a href="index.html#programme">About the Programme</a></li>
@@ -305,7 +363,7 @@
     <div class="t1-hero">
       <div class="a-left">
         <span class="t1-badge">Track One</span>
-        <h2>Free training for ambitious young people who deserve a way in.</h2>
+        <h2>Free AV, IT and building-systems training for ambitious young people who deserve a way in.</h2>
         <span class="divider divider--left"></span>
         <p style="color:var(--muted);font-size:0.95rem;">Underprivileged young people, 18 and over, given a fully sponsored pathway into the AV, IT, automation, security, and building-systems trade. No fees. No compromises. A real career at the end of it.</p>
         <div style="margin-top:1.75rem;display:flex;gap:1rem;flex-wrap:wrap;">
@@ -467,7 +525,7 @@
     <div class="t2-hero">
       <div class="a-left">
         <span class="t2-badge">Track Two</span>
-        <h2>Certification for the installers who keep our industry running.</h2>
+        <h2>Industry-recognised AV, IT and security installer certification for working professionals.</h2>
         <span class="divider divider--left"></span>
         <p style="color:var(--muted);font-size:0.95rem;">Working professionals across AV, IT, security, automation, and BMS have spent years mastering their craft — without anything to show for it on paper. Track Two changes that. Formal, recognised certification. Modular. Built for people already in the trade.</p>
         <div style="margin-top:1.75rem;">
@@ -617,7 +675,7 @@
   <div class="foot-grid">
     <div>
       <div style="margin-bottom:0.9rem;">
-        <img src="MSF wordmark.png" alt="MCBEE Skills Foundation" style="height:80px;width:auto;object-fit:contain;display:block;" />
+        <img src="msf-wordmark.png" alt="MCBEE Skills Foundation" style="height:80px;width:auto;object-fit:contain;display:block;" />
       </div>
       <p class="foot-tl">A Section 8 (Not-for-profit) Company · Delhi NCR</p>
       <p class="foot-tl" style="margin-top:0.2rem;font-size:0.72rem;color:rgba(177,182,193,0.5);">Powered by MCBEE</p>
