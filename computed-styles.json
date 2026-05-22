@@ -1,0 +1,223 @@
+{
+  "headings": [
+    {
+      "tag": "H1",
+      "fontSize": "16px",
+      "lineHeight": "26.4px",
+      "text": "Training India's next generation of AV, IT, automa"
+    },
+    {
+      "tag": "H2",
+      "fontSize": "30.4px",
+      "lineHeight": "33.44px",
+      "text": "A note before we begin."
+    },
+    {
+      "tag": "H2",
+      "fontSize": "30.4px",
+      "lineHeight": "33.44px",
+      "text": "Two forces are meeting. We can either let them col"
+    },
+    {
+      "tag": "H3",
+      "fontSize": "19.2px",
+      "lineHeight": "23.04px",
+      "text": "AI is reshaping work"
+    },
+    {
+      "tag": "H3",
+      "fontSize": "19.2px",
+      "lineHeight": "23.04px",
+      "text": "India's youth are arriving"
+    },
+    {
+      "tag": "H2",
+      "fontSize": "25.6px",
+      "lineHeight": "28.16px",
+      "text": "Two tracks, One mission"
+    },
+    {
+      "tag": "H3",
+      "fontSize": "19.2px",
+      "lineHeight": "23.04px",
+      "text": "Free for the youth who need it most"
+    },
+    {
+      "tag": "H3",
+      "fontSize": "19.2px",
+      "lineHeight": "23.04px",
+      "text": "Certification for existing installers"
+    },
+    {
+      "tag": "H2",
+      "fontSize": "25.6px",
+      "lineHeight": "28.16px",
+      "text": "Built to be recognised — by industry, then by gove"
+    },
+    {
+      "tag": "H2",
+      "fontSize": "30.4px",
+      "lineHeight": "33.44px",
+      "text": "What we will teach"
+    },
+    {
+      "tag": "H2",
+      "fontSize": "30.4px",
+      "lineHeight": "33.44px",
+      "text": "One year after graduation"
+    },
+    {
+      "tag": "H2",
+      "fontSize": "25.6px",
+      "lineHeight": "28.16px",
+      "text": "A shared industry challenge — and a real opening"
+    },
+    {
+      "tag": "H2",
+      "fontSize": "25.6px",
+      "lineHeight": "28.16px",
+      "text": "Where we're going — and how fast"
+    },
+    {
+      "tag": "H2",
+      "fontSize": "30.4px",
+      "lineHeight": "33.44px",
+      "text": "This cannot be done by one company alone"
+    },
+    {
+      "tag": "H3",
+      "fontSize": "19.2px",
+      "lineHeight": "23.04px",
+      "text": "Hire"
+    },
+    {
+      "tag": "H3",
+      "fontSize": "19.2px",
+      "lineHeight": "23.04px",
+      "text": "Volunteer"
+    },
+    {
+      "tag": "H3",
+      "fontSize": "19.2px",
+      "lineHeight": "23.04px",
+      "text": "Support"
+    },
+    {
+      "tag": "H2",
+      "fontSize": "30.4px",
+      "lineHeight": "33.44px",
+      "text": "Apply for free training, Build a real career"
+    },
+    {
+      "tag": "H2",
+      "fontSize": "30.4px",
+      "lineHeight": "33.44px",
+      "text": "Frequently asked questions"
+    }
+  ],
+  "mainScrollWidth": 360,
+  "mainClientWidth": 360,
+  "buttons": [
+    {
+      "text": "Contact Us",
+      "width": 0,
+      "height": 0,
+      "padding": "8px 17.6px",
+      "fontSize": "13.6px"
+    },
+    {
+      "text": "",
+      "width": 34.79999923706055,
+      "height": 28.80000114440918,
+      "padding": "6.4px",
+      "fontSize": "13.3333px"
+    },
+    {
+      "text": "How It Works",
+      "width": 121.8375015258789,
+      "height": 33.60000228881836,
+      "padding": "8px 20px",
+      "fontSize": "13.12px"
+    },
+    {
+      "text": "Credibility",
+      "width": 106.42500305175781,
+      "height": 33.60000228881836,
+      "padding": "8px 20px",
+      "fontSize": "13.12px"
+    },
+    {
+      "text": "",
+      "width": 36,
+      "height": 36,
+      "padding": "0px",
+      "fontSize": "13.3333px"
+    }
+  ],
+  "images": [
+    {
+      "alt": "MCBEE Skills Foundation",
+      "naturalWidth": 1095,
+      "naturalHeight": 737,
+      "displayWidth": 53,
+      "displayHeight": 36,
+      "src": "https://mcbeeskills.com/msf-logomark.png"
+    },
+    {
+      "alt": "MCBEE Skills Foundation",
+      "naturalWidth": 1095,
+      "naturalHeight": 737,
+      "displayWidth": 119,
+      "displayHeight": 80,
+      "src": "https://mcbeeskills.com/msf-logomark.png"
+    },
+    {
+      "alt": "MCBEE",
+      "naturalWidth": 2410,
+      "naturalHeight": 358,
+      "displayWidth": 73,
+      "displayHeight": 11,
+      "src": "https://mcbeeskills.com/mcbee-wordmark.png"
+    },
+    {
+      "alt": "Sawan Nichani",
+      "naturalWidth": 3407,
+      "naturalHeight": 5168,
+      "displayWidth": 320,
+      "displayHeight": 600,
+      "src": "https://onhhqmkwnpufqsrardbh.supabase.co/storage/v1/object/sign/site-images/foun"
+    },
+    {
+      "alt": "Sameer Nichani",
+      "naturalWidth": 3102,
+      "naturalHeight": 4736,
+      "displayWidth": 320,
+      "displayHeight": 600,
+      "src": "https://onhhqmkwnpufqsrardbh.supabase.co/storage/v1/object/sign/site-images/foun"
+    },
+    {
+      "alt": "",
+      "naturalWidth": 2730,
+      "naturalHeight": 1921,
+      "displayWidth": 320,
+      "displayHeight": 240,
+      "src": "https://onhhqmkwnpufqsrardbh.supabase.co/storage/v1/object/sign/site-images/stri"
+    },
+    {
+      "alt": "",
+      "naturalWidth": 2730,
+      "naturalHeight": 1921,
+      "displayWidth": 320,
+      "displayHeight": 240,
+      "src": "https://onhhqmkwnpufqsrardbh.supabase.co/storage/v1/object/sign/site-images/stri"
+    },
+    {
+      "alt": "",
+      "naturalWidth": 2730,
+      "naturalHeight": 1921,
+      "displayWidth": 320,
+      "displayHeight": 240,
+      "src": "https://onhhqmkwnpufqsrardbh.supabase.co/storage/v1/object/sign/site-images/stri"
+    }
+  ]
+}

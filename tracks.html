@@ -106,6 +106,7 @@
 
     /* TRACK ONE */
     #track-one { scroll-margin-top: 110px; }
+    @media (max-width: 600px) { #track-one, #track-two { scroll-margin-top: 155px; } }
 
     .t1-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
     .t1-badge { display: inline-block; background: rgba(151,65,244,0.1); border: 1px solid rgba(151,65,244,0.25); color: var(--purple); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.85rem; border-radius: 100px; margin-bottom: 1.25rem; }
@@ -305,9 +306,9 @@
   }
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js"></script>
-  <script src="content.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="config.js" defer></script>
+  <script src="content.js" defer></script>
 </head>
 <body>
 
@@ -684,10 +685,10 @@
   <div class="foot-grid">
     <div>
       <div style="margin-bottom:0.9rem;">
-        <img src="msf-wordmark.png" alt="MCBEE Skills Foundation" style="height:80px;width:auto;object-fit:contain;display:block;" />
+        <img src="msf-wordmark.png" alt="MCBEE Skills Foundation" style="height:80px;max-height:60px;width:auto;object-fit:contain;display:block;" />
       </div>
       <p class="foot-tl">A Section 8 (Not-for-profit) Company · Delhi NCR</p>
-      <p class="foot-tl" style="margin-top:0.2rem;font-size:0.72rem;color:rgba(177,182,193,0.5);">Powered by MCBEE</p>
+      <p class="foot-pw" style="display:flex;align-items:center;gap:0.4rem;margin-top:0.2rem;">Powered by <img src="mcbee-wordmark.png" alt="MCBEE" style="height:0.9em;width:auto;opacity:0.5;vertical-align:middle;" /></p>
     </div>
     <div class="foot-col"><h5>Programme</h5><ul class="foot-links"><li><a href="tracks.html#track-one">Track One</a></li><li><a href="tracks.html#track-two">Track Two</a></li><li><a href="index.html#curriculum">Curriculum</a></li><li><a href="index.html#outcomes">Outcomes</a></li></ul></div>
     <div class="foot-col"><h5>Get Involved</h5><ul class="foot-links"><li><a href="index.html#apply">Apply as Student</a></li><li><a href="partner.html">Partner With Us</a></li><li><a href="mailto:mcbeeskillsfoundation@gmail.com">Email Partnerships</a></li></ul></div>

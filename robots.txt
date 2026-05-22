@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /msf-admin-23.html
 Disallow: /admin
+Disallow: /mandala-hero.html
 
 Sitemap: https://mcbeeskills.com/sitemap.xml
