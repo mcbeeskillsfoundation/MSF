@@ -98,6 +98,11 @@
     .sw-tab { padding: 1rem 1.5rem; font-size: 0.875rem; font-weight: 700; color: var(--muted); text-decoration: none; border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s; white-space: nowrap; }
     .sw-tab:hover { color: var(--ink); }
     .sw-tab.active { color: var(--purple); border-bottom-color: var(--purple); }
+    @media (max-width: 600px) {
+      .switcher-inner { flex-direction: column; }
+      .sw-tab { border-bottom: none; border-left: 3px solid transparent; padding: 0.75rem 1rem; white-space: normal; }
+      .sw-tab.active { border-left-color: var(--purple); border-bottom-color: transparent; }
+    }
 
     /* TRACK ONE */
     #track-one { scroll-margin-top: 110px; }
