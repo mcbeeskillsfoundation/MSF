@@ -10,7 +10,7 @@ const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 /* ── ImageDB — Supabase Storage wrapper ── */
 const ImageDB = {
   _bucket(key) {
-    return key === 'hero-video' ? 'site-videos' : 'site-images';
+    return key.includes('video') ? 'site-videos' : 'site-images';
   },
 
   async set(key, file) {
@@ -129,6 +129,11 @@ const CMS = {
     'apply-sub':      'The first cohort opens in 2026. If you\'re 18+, ready to work hard, and want a real career in technology — this is for you.',
     'apply-email':    'mcbeeskillsfoundation@gmail.com',
     'apply-whatsapp': '+91-XXXXX-XXXXX',
+
+    'email-general':  'mcbeeskillsfoundation@gmail.com',
+    'email-apply':    'mcbeeskillsfoundation@gmail.com',
+    'email-partner':  'mcbeeskillsfoundation@gmail.com',
+    'email-press':    'mcbeeskillsfoundation@gmail.com',
 
     'footer-tagline':  'A Section 8 (Not-for-profit) Company · Delhi NCR',
     'footer-powered':  'Powered by MCBEE',
@@ -257,10 +262,22 @@ const CMS = {
       if (v && /^https:\/\//.test(v)) el.src = v;
     });
 
-    // Anchor hrefs — only allow https:// URLs to prevent javascript: injection
+    // Anchor hrefs — allow https:// and mailto: URLs to prevent javascript: injection
     document.querySelectorAll('[data-cms-href]').forEach(el => {
       const v = c[el.dataset.cmsHref];
-      if (v && /^https:\/\//.test(v)) el.href = v;
+      if (v && /^(https:\/\/|mailto:)/.test(v)) el.href = v;
+    });
+
+    // Email text + href pairs — sets both the visible text and mailto: href
+    document.querySelectorAll('[data-cms-email]').forEach(el => {
+      const v = c[el.dataset.cmsEmail];
+      if (v) { el.textContent = v; el.href = 'mailto:' + v; }
+    });
+
+    // mailto: href only — keeps existing link text, just updates the href
+    document.querySelectorAll('[data-cms-mailto]').forEach(el => {
+      const v = c[el.dataset.cmsMailto];
+      if (v) el.href = 'mailto:' + v;
     });
 
     // Brand colours — validate #RGB / #RRGGBB format before applying

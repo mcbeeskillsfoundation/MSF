@@ -130,6 +130,8 @@
     .img-or { text-align: center; font-size: 0.72rem; color: var(--muted); margin: 0.15rem 0; }
     .img-saved-badge { display: none; font-size: 0.7rem; color: var(--success); font-weight: 700; margin-top: 0.2rem; }
     .img-saved-badge.show { display: block; }
+    .img-remove-btn { margin-top: 0.35rem; padding: 0.35rem 0.75rem; background: transparent; color: var(--danger); border: 1px solid var(--danger); border-radius: 4px; font-family: 'Manrope', sans-serif; font-size: 0.78rem; cursor: pointer; transition: background 0.15s, color 0.15s; }
+    .img-remove-btn:hover { background: var(--danger); color: #fff; }
 
     /* colour swatches */
     .color-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; }
@@ -453,9 +455,9 @@
         <div class="fg img-url-group">
           <label>Photo 1 (shows first)</label>
           <div class="img-preview-box"><img id="pv-founders1" /><div class="img-preview-placeholder">📷 Upload or paste URL<br>Portrait (3:4) preferred</div></div>
-          <input type="file" accept="image/*" class="img-upload-input" data-img-key="founders-img-1" data-preview="pv-founders1" />
-          <label class="img-upload-btn" for="uf-founders1">⬆ Upload from computer</label>
           <input type="file" accept="image/*" id="uf-founders1" class="img-upload-input" data-img-key="founders-img-1" data-preview="pv-founders1" />
+          <label class="img-upload-btn" for="uf-founders1">⬆ Upload from computer</label>
+          <button class="img-remove-btn" data-img-key="founders-img-1" data-preview="pv-founders1">✕ Remove</button>
           <div class="img-or">— or —</div>
           <input type="url" data-cms-key="founders-img-1" placeholder="Paste image URL" />
           <div class="img-saved-badge" id="badge-founders1">✓ Image saved</div>
@@ -465,6 +467,7 @@
           <div class="img-preview-box"><img id="pv-founders2" /><div class="img-preview-placeholder">📷 Upload or paste URL<br>Same framing as Photo 1</div></div>
           <input type="file" accept="image/*" id="uf-founders2" class="img-upload-input" data-img-key="founders-img-2" data-preview="pv-founders2" />
           <label class="img-upload-btn" for="uf-founders2">⬆ Upload from computer</label>
+          <button class="img-remove-btn" data-img-key="founders-img-2" data-preview="pv-founders2">✕ Remove</button>
           <div class="img-or">— or —</div>
           <input type="url" data-cms-key="founders-img-2" placeholder="Paste image URL" />
           <div class="img-saved-badge" id="badge-founders2">✓ Image saved</div>
@@ -501,6 +504,7 @@
         <div class="img-preview-box"><img id="pv-strip1" /><div class="img-preview-placeholder">📷 4:3 ratio</div></div>
         <input type="file" accept="image/*" id="uf-strip1" class="img-upload-input" data-img-key="strip-img-1" data-preview="pv-strip1" />
         <label class="img-upload-btn" for="uf-strip1">⬆ Upload</label>
+        <button class="img-remove-btn" data-img-key="strip-img-1" data-preview="pv-strip1">✕ Remove</button>
         <div class="img-or">— or —</div>
         <input type="url" data-cms-key="strip-img-1" placeholder="Paste image URL" />
         <div class="img-saved-badge" id="badge-strip1">✓ Image saved</div>
@@ -511,6 +515,7 @@
         <div class="img-preview-box"><img id="pv-strip2" /><div class="img-preview-placeholder">📷 4:3 ratio</div></div>
         <input type="file" accept="image/*" id="uf-strip2" class="img-upload-input" data-img-key="strip-img-2" data-preview="pv-strip2" />
         <label class="img-upload-btn" for="uf-strip2">⬆ Upload</label>
+        <button class="img-remove-btn" data-img-key="strip-img-2" data-preview="pv-strip2">✕ Remove</button>
         <div class="img-or">— or —</div>
         <input type="url" data-cms-key="strip-img-2" placeholder="Paste image URL" />
         <div class="img-saved-badge" id="badge-strip2">✓ Image saved</div>
@@ -521,6 +526,7 @@
         <div class="img-preview-box"><img id="pv-strip3" /><div class="img-preview-placeholder">📷 4:3 ratio</div></div>
         <input type="file" accept="image/*" id="uf-strip3" class="img-upload-input" data-img-key="strip-img-3" data-preview="pv-strip3" />
         <label class="img-upload-btn" for="uf-strip3">⬆ Upload</label>
+        <button class="img-remove-btn" data-img-key="strip-img-3" data-preview="pv-strip3">✕ Remove</button>
         <div class="img-or">— or —</div>
         <input type="url" data-cms-key="strip-img-3" placeholder="Paste image URL" />
         <div class="img-saved-badge" id="badge-strip3">✓ Image saved</div>
@@ -565,6 +571,7 @@
         <div class="img-preview-box"><img id="pv-outcomes" /><div class="img-preview-placeholder">📷 Portrait / tall image works best</div></div>
         <input type="file" accept="image/*" id="uf-outcomes" class="img-upload-input" data-img-key="outcomes-img" data-preview="pv-outcomes" />
         <label class="img-upload-btn" for="uf-outcomes">⬆ Upload from computer</label>
+        <button class="img-remove-btn" data-img-key="outcomes-img" data-preview="pv-outcomes">✕ Remove</button>
         <div class="img-or">— or —</div>
         <input type="url" data-cms-key="outcomes-img" placeholder="Paste image URL" />
         <div class="img-saved-badge" id="badge-outcomes">✓ Image saved</div>
@@ -1012,6 +1019,27 @@
       showToast('✓  Image saved — reload main site to see it', 'success');
     } catch(err) {
       showToast('Upload failed: ' + err.message, 'error');
+    }
+  });
+
+  /* ─── Image remove buttons ─────────────── */
+  document.addEventListener('click', async e => {
+    const btn = e.target.closest('.img-remove-btn');
+    if (!btn) return;
+    const key    = btn.dataset.imgKey;
+    const prevId = btn.dataset.preview;
+    try {
+      await ImageDB.del(key);
+      const content = CMS.load();
+      delete content[key];
+      await CMS.save(content);
+      if (prevId) {
+        const img = document.getElementById(prevId);
+        if (img) { img.src = ''; img.classList.remove('loaded'); }
+      }
+      showToast('✓ Image removed', 'success');
+    } catch(err) {
+      showToast('Remove failed: ' + err.message, 'error');
     }
   });
 
