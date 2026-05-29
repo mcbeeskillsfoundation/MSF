@@ -20,24 +20,9 @@ const ImageDB = {
     if (error) throw error;
   },
 
-  async get(key) {
-    const cacheKey = 'msf_img_' + key;
-    try {
-      const cached = localStorage.getItem(cacheKey);
-      if (cached) {
-        const { url, exp } = JSON.parse(cached);
-        // Reuse if more than 5 minutes remain on the signed URL
-        if (url && Date.now() < exp - 300000) return url;
-      }
-    } catch(e) {}
-    const { data, error } = await _supabase.storage
-      .from(this._bucket(key))
-      .createSignedUrl(key, 3600);
-    if (error || !data) return null;
-    try {
-      localStorage.setItem(cacheKey, JSON.stringify({ url: data.signedUrl, exp: Date.now() + 3600000 }));
-    } catch(e) {}
-    return data.signedUrl;
+  get(key) {
+    const { data } = _supabase.storage.from(this._bucket(key)).getPublicUrl(key);
+    return Promise.resolve(data ? data.publicUrl : null);
   },
 
   async del(key) {
