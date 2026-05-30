@@ -525,19 +525,6 @@
     .force-img { height: 220px; }
     .force-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    /* CHALLENGE */
-    .challenge-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; align-items: stretch; }
-    .challenge-grid .card { height: 100%; }
-    .challenge-img { height: 180px; }
-    .challenge-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    /* ANNOUNCEMENT */
-    #announcement .ann-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-    .ann-quote { font-size: clamp(1.15rem, 2.2vw, 1.6rem); font-weight: 300; color: var(--orange); line-height: 1.45; margin: 1.75rem 0; }
-    .ann-img { height: 280px; margin-top: 2.5rem; border-radius: 8px; overflow: hidden; }
-    .ann-img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.4; }
-    .status-strip { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; background: rgba(151,65,244,0.1); border: 1px solid rgba(151,65,244,0.2); border-radius: 6px; padding: 0.85rem 1.25rem; font-size: 0.825rem; color: var(--muted); }
-    .status-strip .chk { color: var(--purple); font-weight: 700; }
 
     /* TRACKS */
     .tracks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; align-items: stretch; }
@@ -586,20 +573,6 @@
     /* CREDIBILITY */
     .cred-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; }
     .cred-num { font-size: 3rem; font-weight: 300; color: var(--orange); line-height: 1; margin-bottom: 0.85rem; letter-spacing: -0.03em; }
-
-    /* ROAD AHEAD */
-    .road-wrap { position: relative; }
-    .timeline-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; position: relative; padding-top: 16px; }
-    .tl-dot { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1; position: relative; z-index: 1; }
-    .tl-pip { width: 14px; height: 14px; border-radius: 50%; background: var(--purple); }
-    .tl-lbl { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; color: var(--orange); white-space: nowrap; }
-    .road-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
-    .road-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: var(--orange); margin-bottom: 0.75rem; display: block; }
-
-    /* TRACK TWO */
-    .t2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
-    .t2-img { height: 240px; border-radius: 8px; overflow: hidden; margin-bottom: 2rem; }
-    .t2-img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.55; }
 
     /* PARTNER */
     #partner { position: relative; overflow: hidden; }
@@ -651,15 +624,6 @@
     .gov-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
     .gov-chk { width: 30px; height: 30px; border-radius: 50%; background: rgba(151,65,244,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 0.85rem; }
     .gov-chk svg { color: var(--purple); width: 14px; height: 14px; }
-
-    /* CLOSING */
-    #closing { text-align: center; padding: 5rem var(--pad-x); }
-    .closing-img { height: 320px; border-radius: 8px; overflow: hidden; max-width: 800px; margin: 0 auto 3rem; position: relative; }
-    .closing-img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.3; }
-    .big-q { font-size: 5rem; line-height: 0.7; color: var(--orange); font-weight: 700; margin-bottom: 0.85rem; display: block; }
-    .closing-quote { font-size: clamp(1.2rem, 2.8vw, 1.9rem); font-weight: 300; color: var(--ink); max-width: 680px; margin: 0 auto 0.75rem; line-height: 1.4; letter-spacing: -0.01em; }
-    .closing-cta { font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 300; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 1.75rem; }
-    .closing-btns { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
 
     /* FOOTER */
     footer { background: var(--ink); border-top: 4px solid var(--purple); padding: 3.5rem var(--pad-x) 2rem; }
@@ -1388,10 +1352,9 @@
 
   // observe every animated element except hero (handled above)
   document.querySelectorAll(
-    ANIM_CLASSES.map(c => `#why .${c},#moment .${c},#challenge .${c},#announcement .${c},` +
-    `#programme .${c},#curriculum .${c},#outcomes .${c},#mission .${c},` +
-    `#credibility .${c},#roadahead .${c},#track2 .${c},#partner .${c},` +
-    `#apply .${c},#trust .${c},#closing .${c},#stats .${c},#img-strip .${c}`).join(',')
+    ANIM_CLASSES.map(c => `#why .${c},#moment .${c},#programme .${c},#curriculum .${c},` +
+    `#outcomes .${c},#mission .${c},#credibility .${c},#partner .${c},` +
+    `#apply .${c},#stats .${c},#img-strip .${c},#faq .${c}`).join(',')
   ).forEach(el => io.observe(el));
 
   // also observe tl-draw and chk-svg directly
