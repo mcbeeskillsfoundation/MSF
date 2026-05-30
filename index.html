@@ -498,7 +498,13 @@
     .hero-body { color: rgba(252,252,252,0.7); font-size: 1.05rem; max-width: 580px; margin: 0 auto 2.25rem; line-height: 1.7; }
     .hero-btns { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; }
     .scroll-indicator { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; transition: opacity 0.4s ease; pointer-events: none; z-index: 1; }
-    @media (max-width: 768px) { .scroll-indicator { position: absolute; bottom: calc(1.5rem + 75px); left: 0; right: 0; margin: 0 auto; z-index: 4; } }
+    @media (max-width: 768px) {
+      #hero { padding-bottom: 5rem; }
+      .scroll-indicator { position: absolute; bottom: 1.5rem; left: 0; right: 0; margin: 0 auto; z-index: 4; }
+    }
+    @supports (-webkit-touch-callout: none) {
+      #hero { min-height: -webkit-fill-available; padding-bottom: 6rem; }
+    }
     .scroll-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(252,252,252,0.35); }
     .scroll-mouse { width: 24px; height: 38px; border: 2px solid rgba(252,252,252,0.35); border-radius: 12px; display: flex; justify-content: center; padding-top: 6px; }
     .scroll-wheel { width: 3px; height: 7px; background: rgba(252,252,252,0.7); border-radius: 2px; animation: scroll-bob 1.6s ease-in-out infinite; }
