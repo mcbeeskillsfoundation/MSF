@@ -46,6 +46,12 @@ const ImageDB = {
         }
       } catch(e) {}
     }));
+    // Prevent casual image download — block right-click and drag on all CMS images
+    elements.forEach(el => {
+      el.draggable = false;
+      el.addEventListener('contextmenu', e => e.preventDefault());
+    });
+
     // ImageObject schema — inject after images have src set
     if (!document.getElementById('ld-images')) {
       const imgSchemas = [];
@@ -70,6 +76,14 @@ const ImageDB = {
     }
   }
 };
+
+/* ── Prevent casual image download ── */
+(function() {
+  const s = document.createElement('style');
+  s.textContent = '[data-cms-img]{-webkit-user-select:none;user-select:none;pointer-events:none;} [data-cms-img]{pointer-events:none;}';
+  document.head.appendChild(s);
+  document.addEventListener('contextmenu', e => { if (e.target.dataset && e.target.dataset.cmsImg) e.preventDefault(); });
+})();
 
 /* ── CMS — Supabase cms_content table ── */
 const CMS_CACHE_KEY = 'msf_cms_v1';
