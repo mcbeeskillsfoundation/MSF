@@ -163,7 +163,7 @@ const CMS = {
 
     'apply-heading':  'Apply for free training, Build a real career',
     'apply-sub':      'The first cohort opens in 2026. If you\'re 18+, ready to work hard, and want a real career in technology — this is for you.',
-    'contact-email':  'mcbeeskillsfoundation@gmail.com',
+    'contact-email':  'info@mcbeeskills.com',
     'apply-whatsapp': '+91-XXXXX-XXXXX',
 
 
