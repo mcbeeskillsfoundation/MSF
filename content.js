@@ -34,7 +34,7 @@ const ImageDB = {
 
   async applyToPage() {
     const elements = [...document.querySelectorAll('[data-cms-img]')];
-    // Fetch all signed URLs in parallel, fade each image in once loaded
+    // Fetch all URLs in parallel, fade each image in once loaded
     await Promise.all(elements.map(async el => {
       try {
         const url = await this.get(el.dataset.cmsImg);
@@ -46,6 +46,28 @@ const ImageDB = {
         }
       } catch(e) {}
     }));
+    // ImageObject schema — inject after images have src set
+    if (!document.getElementById('ld-images')) {
+      const imgSchemas = [];
+      elements.forEach(el => {
+        if (el.src && el.alt) {
+          imgSchemas.push({
+            '@type': 'ImageObject',
+            'contentUrl': el.src,
+            'name': el.alt,
+            'description': el.alt,
+            'inLanguage': 'en-IN'
+          });
+        }
+      });
+      if (imgSchemas.length) {
+        const s = document.createElement('script');
+        s.type = 'application/ld+json';
+        s.id = 'ld-images';
+        s.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': imgSchemas });
+        document.head.appendChild(s);
+      }
+    }
   }
 };
 
@@ -62,8 +84,8 @@ const CMS = {
     'hero-h1-2':      'Foundation',
     'hero-subhead':   'Giving back to the industry that built us.',
     'hero-body':      'Training India\'s next generation of AV, IT, automation, security, and building-systems professionals. Free for young people who need it. Funded by the industry that needs them.',
-    'hero-video-url': '',
-    'hero-mobile-video-url': '',
+    'hero-video-url': '', 'hero-video-title': '', 'hero-video-desc': '', 'hero-video-duration': '',
+    'hero-mobile-video-url': '', 'hero-mobile-video-title': '', 'hero-mobile-video-desc': '', 'hero-mobile-video-duration': '',
     'mission-text':   'We are building India\'s most comprehensive industry-led training ecosystem for AV, IT, security, automation, and building systems — making world-class skills accessible to underprivileged youth, and giving today\'s installers the recognition their craft deserves. Within the next decade, every Indian integrator should be able to hire from a recognised national pool of trained, certified professionals.',
 
     'stat-1-num':   '12',   'stat-1-suf': '',    'stat-1-label': 'Curriculum Modules',
@@ -267,26 +289,48 @@ const CMS = {
       if (v) el.alt = v;
     });
 
-    // Video schema — inject VideoObject JSON-LD if title is set
+    // VideoObject schema — desktop video
     const videoTitle = c['hero-video-title'];
     const videoDesc  = c['hero-video-desc'];
-    if (videoTitle) {
-      const existing = document.getElementById('ld-video');
-      if (!existing) {
-        const s = document.createElement('script');
-        s.type = 'application/ld+json';
-        s.id   = 'ld-video';
-        s.textContent = JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'VideoObject',
-          'name': videoTitle,
-          'description': videoDesc || videoTitle,
-          'thumbnailUrl': 'https://mcbeeskills.com/og-image.png',
-          'uploadDate': new Date().toISOString().split('T')[0],
-          'contentUrl': c['hero-video-url'] || ''
-        });
-        document.head.appendChild(s);
-      }
+    if (videoTitle && !document.getElementById('ld-video')) {
+      const s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.id   = 'ld-video';
+      const vo = {
+        '@context': 'https://schema.org',
+        '@type': 'VideoObject',
+        'name': videoTitle,
+        'description': videoDesc || videoTitle,
+        'thumbnailUrl': 'https://mcbeeskills.com/og-image.png',
+        'uploadDate': new Date().toISOString().split('T')[0],
+        'contentUrl': c['hero-video-url'] || '',
+        'author': { '@id': 'https://mcbeeskills.com/#organization' }
+      };
+      if (c['hero-video-duration']) vo['duration'] = c['hero-video-duration'];
+      s.textContent = JSON.stringify(vo);
+      document.head.appendChild(s);
+    }
+
+    // VideoObject schema — mobile video
+    const mobileTitle = c['hero-mobile-video-title'];
+    const mobileDesc  = c['hero-mobile-video-desc'];
+    if (mobileTitle && !document.getElementById('ld-video-mobile')) {
+      const s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.id   = 'ld-video-mobile';
+      const vo = {
+        '@context': 'https://schema.org',
+        '@type': 'VideoObject',
+        'name': mobileTitle,
+        'description': mobileDesc || mobileTitle,
+        'thumbnailUrl': 'https://mcbeeskills.com/og-image.png',
+        'uploadDate': new Date().toISOString().split('T')[0],
+        'contentUrl': c['hero-mobile-video-url'] || '',
+        'author': { '@id': 'https://mcbeeskills.com/#organization' }
+      };
+      if (c['hero-mobile-video-duration']) vo['duration'] = c['hero-mobile-video-duration'];
+      s.textContent = JSON.stringify(vo);
+      document.head.appendChild(s);
     }
 
     // Brand colours — validate #RGB / #RRGGBB format before applying
