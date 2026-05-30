@@ -112,13 +112,9 @@ const CMS = {
 
     'apply-heading':  'Apply for free training, Build a real career',
     'apply-sub':      'The first cohort opens in 2026. If you\'re 18+, ready to work hard, and want a real career in technology — this is for you.',
-    'apply-email':    'mcbeeskillsfoundation@gmail.com',
+    'contact-email':  'mcbeeskillsfoundation@gmail.com',
     'apply-whatsapp': '+91-XXXXX-XXXXX',
 
-    'email-general':  'mcbeeskillsfoundation@gmail.com',
-    'email-apply':    'mcbeeskillsfoundation@gmail.com',
-    'email-partner':  'mcbeeskillsfoundation@gmail.com',
-    'email-press':    'mcbeeskillsfoundation@gmail.com',
 
     'footer-tagline':  'A Section 8 (Not-for-profit) Company · Delhi NCR',
     'footer-powered':  'Powered by MCBEE',
@@ -264,6 +260,34 @@ const CMS = {
       const v = c[el.dataset.cmsMailto];
       if (v) el.href = 'mailto:' + v;
     });
+
+    // Alt text — sets alt attribute on images
+    document.querySelectorAll('[data-cms-alt]').forEach(el => {
+      const v = c[el.dataset.cmsAlt];
+      if (v) el.alt = v;
+    });
+
+    // Video schema — inject VideoObject JSON-LD if title is set
+    const videoTitle = c['hero-video-title'];
+    const videoDesc  = c['hero-video-desc'];
+    if (videoTitle) {
+      const existing = document.getElementById('ld-video');
+      if (!existing) {
+        const s = document.createElement('script');
+        s.type = 'application/ld+json';
+        s.id   = 'ld-video';
+        s.textContent = JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'VideoObject',
+          'name': videoTitle,
+          'description': videoDesc || videoTitle,
+          'thumbnailUrl': 'https://mcbeeskills.com/og-image.png',
+          'uploadDate': new Date().toISOString().split('T')[0],
+          'contentUrl': c['hero-video-url'] || ''
+        });
+        document.head.appendChild(s);
+      }
+    }
 
     // Brand colours — validate #RGB / #RRGGBB format before applying
     ['ink','paper','purple','orange','muted','line'].forEach(k => {
