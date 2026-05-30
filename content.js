@@ -392,10 +392,13 @@ const CMS = {
       }
     }
 
-    // SEO
-    if (c['seo-title']) document.title = c['seo-title'];
-    const md = document.querySelector('meta[name="description"]');
-    if (md && c['seo-desc']) md.content = c['seo-desc'];
+    // SEO — only override title/desc on homepage to avoid clobbering page-specific titles
+    const isHome = ['/', '/index.html', ''].includes(window.location.pathname);
+    if (isHome) {
+      if (c['seo-title']) document.title = c['seo-title'];
+      const md = document.querySelector('meta[name="description"]');
+      if (md && c['seo-desc']) md.content = c['seo-desc'];
+    }
 
     // Logo swap — only allow https:// URLs
     const logoSrc = c['logo-dark'];
